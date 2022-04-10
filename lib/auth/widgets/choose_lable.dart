@@ -20,14 +20,14 @@ class ChooseLabel extends StatelessWidget {
         children: [
           Text(
             black,
-            style: TextStyle(
-              color: mainColor,
+            style: const TextStyle(
+              color: grey,
             ),
           ),
           widthSpace(4),
           Text(
             green,
-            style: TextStyle(
+            style: const TextStyle(
               color: mainColor,
             ),
           )

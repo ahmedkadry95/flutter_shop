@@ -9,7 +9,7 @@ class Customer extends User {
   Address? shippingAddress;
   Address? billingAddress;
   List<BaseProduct>? watchList;
-  List<BaseOrder>? orders;
+  List<BaseOrder>? orders ;
 
   Customer(
     String? id,
