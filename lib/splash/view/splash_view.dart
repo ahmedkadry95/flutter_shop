@@ -1,21 +1,27 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-class SplashView extends StatefulWidget {
-  const SplashView({Key? key}) : super(key: key);
-
+import 'package:flutter_shop/auth/view/sign_in/log_in.dart';
+import 'package:flutter_shop/utils/colors.dart';
+class Splash extends StatefulWidget {
   @override
-  State<SplashView> createState() => _SplashViewState();
+  _SplashState createState() => _SplashState();
 }
 
-class _SplashViewState extends State<SplashView> {
+class _SplashState extends State<Splash> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+        const Duration(seconds: 3),
+        () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (BuildContext context) => LogIn())));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff53B175) ,
-      // body: Center(
-      //     child: SvgPicture.asset('assets/images/Group 1.svg')
-      // ),
+      backgroundColor: mainColor,
+      body: Center(child: Image.asset('assets/images/splash_logo.png')),
     );
   }
 }
