@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/firebase_options.dart';
 import 'package:flutter_shop/locator.dart';
-import 'package:flutter_shop/splash/view/splash_view.dart';
+import 'package:flutter_shop/routs/app_router.dart';
+import 'package:flutter_shop/routs/routs_names.dart';
+import 'package:flutter_shop/services/navigation_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +13,7 @@ void main() async {
   );
   setupLocator();
   runApp(
-    App(),
+    const App(),
   );
 }
 
@@ -20,8 +22,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Splash(),
+    return MaterialApp(
+      initialRoute: RouteName.splash,
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
