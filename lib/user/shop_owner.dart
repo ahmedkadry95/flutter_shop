@@ -1,6 +1,6 @@
 import 'package:flutter_shop/user/user.dart';
 
-class ShopOwner extends User {
+class ShopOwner extends OldUser {
   ShopOwner(String? id, String? firstName, String? lastName, String? email,
       String? phone, String? gender)
       : super(id, firstName, lastName, email, phone, gender);

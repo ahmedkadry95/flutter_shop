@@ -1,7 +1,7 @@
 import 'package:flutter_shop/user/user.dart';
 
 class Authenticatable {
-  Future<User>? register(String email, String password) {
+  Future<OldUser>? register(String email, String password) {
     return null;
   }
 
@@ -13,7 +13,7 @@ class Authenticatable {
     return null;
   }
 
-  Future<User>? updateProfile(User user) {
+  Future<OldUser>? updateProfile(OldUser user) {
     return null;
   }
 }

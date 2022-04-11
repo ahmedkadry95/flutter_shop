@@ -9,7 +9,7 @@ class FireBaseAuthenticationController implements Authenticatable {
   }
 
   @override
-  Future<User>? register(String email, String password) {
+  Future<OldUser>? register(String email, String password) {
     // TODO: implement register
     throw UnimplementedError();
   }
@@ -21,7 +21,7 @@ class FireBaseAuthenticationController implements Authenticatable {
   }
 
   @override
-  Future<User>? updateProfile(User user) {
+  Future<OldUser>? updateProfile(OldUser user) {
     // TODO: implement updateProfile
     throw UnimplementedError();
   }

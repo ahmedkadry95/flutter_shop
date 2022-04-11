@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/utils/colors.dart';
+import 'package:flutter_shop/utils/texts.dart';
 
 class InputField extends StatefulWidget {
   String label;
@@ -29,9 +30,8 @@ class _InputFieldState extends State<InputField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        smallGreyHint(
           widget.label,
-          style: const TextStyle(color: dividerColor),
         ),
         TextFormField(
           onChanged: widget.onChange,
@@ -53,11 +53,11 @@ class _InputFieldState extends State<InputField> {
                       child: isHidden == true
                           ? const Icon(
                               Icons.visibility_off,
-                              color: blackColor,
+                              color: grey,
                             )
                           : const Icon(
                               Icons.visibility,
-                              color: blackColor,
+                              color: grey,
                             ),
                     )
                   : const SizedBox(),

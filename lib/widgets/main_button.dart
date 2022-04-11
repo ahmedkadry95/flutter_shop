@@ -12,14 +12,21 @@ class MainButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 55,
+      height: 60,
       width: size.width,
       decoration: BoxDecoration(
         color: mainColor,
         borderRadius: BorderRadius.circular(20),
       ),
       alignment: Alignment.center,
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: whiteColor,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 }

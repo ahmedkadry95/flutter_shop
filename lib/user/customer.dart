@@ -5,11 +5,11 @@ import 'package:flutter_shop/product/product_controller.dart';
 import 'package:flutter_shop/user/address.dart';
 import 'package:flutter_shop/user/user.dart';
 
-class Customer extends User {
+class Customer extends OldUser {
   Address? shippingAddress;
   Address? billingAddress;
   List<BaseProduct>? watchList;
-  List<BaseOrder>? orders;
+  List<BaseOrder>? orders ;
 
   Customer(
     String? id,
