@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_shop/app/auth/model/user.dart';
 
-import '../auth/model/user.dart';
 
 class ApiServices {
   CustomUser user = CustomUser();
