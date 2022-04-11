@@ -73,12 +73,15 @@ class Register extends StatelessWidget {
                           onChange: (String) {},
                         ),
                         const SizedBox(height: 12),
-                        LabelTerms(),
+                        LabelTerms().onTap((){
+                          controller.signOut();
+                        }),
                         const SizedBox(height: 30),
                         MainButton(
                           text: "Sign Up",
                         ).onTap(
                           () async {
+                            print('sign up clicked');
                             await controller.register();
                           },
                         ),

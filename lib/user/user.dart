@@ -1,9 +1,9 @@
 import 'package:flutter_shop/user/address.dart';
 
-abstract class User {
+abstract class OldUser {
   String? id, firstName, lastName, email, phone, gender;
 
-  User(
+  OldUser(
     this.id,
     this.firstName,
     this.lastName,

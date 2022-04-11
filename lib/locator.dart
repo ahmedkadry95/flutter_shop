@@ -1,4 +1,5 @@
 import 'package:flutter_shop/auth/register/controller/register_controller.dart';
+import 'package:flutter_shop/home/controller/home_controller.dart';
 import 'package:flutter_shop/services/api_services.dart';
 import 'package:flutter_shop/splash/controller/splash_controller.dart';
 import 'package:get_it/get_it.dart';
@@ -13,6 +14,7 @@ void setupLocator() {
   locator.registerFactory(() => LogInController());
   locator.registerFactory(() => RegisterController());
   locator.registerFactory(() => SplashController());
+  locator.registerFactory(() => HomeController());
 }
 
 void initSingleton() {

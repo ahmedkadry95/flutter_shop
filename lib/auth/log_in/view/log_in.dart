@@ -70,7 +70,9 @@ class LogIn extends StatelessWidget {
                         MainButton(
                           text: "Log In",
                         ).onTap(
-                          () {},
+                          () {
+                            controller.login(context);
+                          },
                         ),
                         heightSpace(30),
                         ChooseLabel(
