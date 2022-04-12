@@ -45,7 +45,7 @@ class LogIn extends StatelessWidget {
                           hint: "Enter your email address",
                           inputType: TextInputType.emailAddress,
                           controller: controller.email,
-                          onChange: (String) {},
+
                         ),
                         heightSpace(20),
                         InputField(
@@ -53,7 +53,7 @@ class LogIn extends StatelessWidget {
                           hint: "Enter your password",
                           isPassword: true,
                           controller: controller.password,
-                          onChange: (value) {},
+
                           inputType: TextInputType.emailAddress,
                         ),
                         heightSpace(20),
@@ -71,7 +71,7 @@ class LogIn extends StatelessWidget {
                           text: "Log In",
                         ).onTap(
                           () {
-                            controller.login(context);
+                            controller.validator(context);
                           },
                         ),
                         heightSpace(30),

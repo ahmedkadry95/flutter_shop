@@ -1,11 +1,19 @@
+import 'dart:ffi';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_shop/app/auth/model/user.dart';
+import 'package:flutter_shop/locator.dart';
 
+import 'shared_pref_services.dart';
 
 class ApiServices {
+  var pref = locator<SharedPrefServices>();
   CustomUser user = CustomUser();
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+
   UserCredential? userCredential;
 
   registerUser({
@@ -13,6 +21,8 @@ class ApiServices {
     required String password,
     required String mobile,
     required String userName,
+    required BuildContext context,
+    required VoidCallback navigate,
   }) async {
     try {
       userCredential =
@@ -28,14 +38,36 @@ class ApiServices {
         id: userCredential?.user!.uid,
         email: email,
       );
-      print('=====================');
-      print(userCredential?.user!.uid);
-      print('+++++++++++++++++++++');
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.SUCCES,
+        animType: AnimType.TOPSLIDE,
+        title: 'success',
+        desc: 'your account created successfully ',
+        btnCancelOnPress: navigate,
+        btnOkOnPress: () {},
+      ).show();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.WARNING,
+          animType: AnimType.TOPSLIDE,
+          title: 'warning',
+          desc: 'your password  is too weak ',
+          btnCancelOnPress: () {},
+          btnOkOnPress: () {},
+        ).show();
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.ERROR,
+          animType: AnimType.TOPSLIDE,
+          title: 'error',
+          desc: 'this email is already exist ',
+          btnCancelOnPress: () {},
+          btnOkOnPress: () {},
+        ).show();
       }
     } catch (e) {
       print(e);
@@ -63,7 +95,7 @@ class ApiServices {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  login({
+  Future<bool> login({
     required String email,
     required String password,
   }) async {
@@ -72,9 +104,8 @@ class ApiServices {
         email: email,
         password: password,
       );
-
-      print('userCredential!.user!.uid.isEmpty');
-      print(userCredential!.user!.uid.isEmpty);
+      await setUserToken(token: userCredential!.user!.uid);
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -82,5 +113,14 @@ class ApiServices {
         print('Wrong password provided for that user.');
       }
     }
+    return false;
+  }
+
+  setUserToken({required String token}) async {
+    await pref.saveString(
+      'token',
+      token,
+    );
+    print('token saved success in pref : $token ');
   }
 }

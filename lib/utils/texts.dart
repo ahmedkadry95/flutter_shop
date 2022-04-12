@@ -12,6 +12,28 @@ Widget blackTitle1(String text) {
   );
 }
 
+Widget blackTitle2(String text) {
+  return Text(
+    text,
+    style: const TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.w600,
+      color: blackColor,
+    ),
+  );
+}
+
+Widget blackTitle3(String text) {
+  return Text(
+    text,
+    style: const TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      color: blackColor,
+    ),
+  );
+}
+
 Widget smallGreyHint(String text) {
   return Text(
     text,

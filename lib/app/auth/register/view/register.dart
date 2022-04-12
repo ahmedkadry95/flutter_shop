@@ -24,9 +24,10 @@ class Register extends StatelessWidget {
       builder: (context, controller, child) {
         return SafeArea(
           child: Scaffold(
-              backgroundColor: backgroundColor,
-              body: SingleChildScrollView(
-                child: Stack(children: [
+            backgroundColor: backgroundColor,
+            body: SingleChildScrollView(
+              child: Stack(
+                children: [
                   backgroundMask(),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -46,15 +47,6 @@ class Register extends StatelessWidget {
                           hint: "Enter your username",
                           inputType: TextInputType.text,
                           controller: controller.userName,
-                          onChange: (String) {},
-                        ),
-                        const SizedBox(height: 20),
-                        InputField(
-                          label: "mobile",
-                          hint: "Enter your mobile",
-                          inputType: TextInputType.text,
-                          controller: controller.mobile,
-                          onChange: (String) {},
                         ),
                         const SizedBox(height: 20),
                         InputField(
@@ -62,7 +54,13 @@ class Register extends StatelessWidget {
                           hint: "Enter your email",
                           inputType: TextInputType.emailAddress,
                           controller: controller.email,
-                          onChange: (String) {},
+                        ),
+                        const SizedBox(height: 20),
+                        InputField(
+                          label: "mobile",
+                          hint: "Enter your mobile",
+                          inputType: TextInputType.number,
+                          controller: controller.mobile,
                         ),
                         const SizedBox(height: 20),
                         InputField(
@@ -71,19 +69,16 @@ class Register extends StatelessWidget {
                           isPassword: true,
                           inputType: TextInputType.text,
                           controller: controller.password,
-                          onChange: (String) {},
                         ),
                         const SizedBox(height: 12),
-                        LabelTerms().onTap((){
-                          controller.signOut();
-                        }),
+                        LabelTerms().onTap(() {}),
                         const SizedBox(height: 30),
                         MainButton(
                           text: "Sign Up",
                         ).onTap(
                           () async {
                             print('sign up clicked');
-                            await controller.register();
+                            controller.validator(context);
                           },
                         ),
                         const SizedBox(height: 20),
@@ -102,8 +97,10 @@ class Register extends StatelessWidget {
                       ],
                     ),
                   )
-                ]),
-              )),
+                ],
+              ),
+            ),
+          ),
         );
       },
     );

@@ -12,13 +12,16 @@ class SplashController extends BaseController {
 
   checkIsLogIn() async {
     isLogIn = await pref.getBoolean('is_log_in');
-    print(isLogIn);
+    print('isLogIn : $isLogIn');
+    print('isLogIn  type : ${isLogIn.runtimeType}');
   }
 
   splashNavigation() {
     if (!isLogIn) {
+      print('isLogIn result : $isLogIn');
       navigation.navigateTo(RouteName.logIn);
     } else {
+      print('isLogIn result : $isLogIn');
       navigation.navigateTo(RouteName.home);
     }
   }

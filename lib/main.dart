@@ -26,6 +26,7 @@ class App extends StatelessWidget {
       initialRoute: RouteName.splash,
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: AppRouter.generateRoute,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
