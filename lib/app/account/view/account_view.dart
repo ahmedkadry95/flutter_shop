@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/app/account/conttroler/account_conttroller.dart';
 import 'package:flutter_shop/app/account/widgets/account_screen_item.dart';
 import 'package:flutter_shop/app/account/widgets/log_out_button.dart';
 import 'package:flutter_shop/app/account/widgets/report_problem_bottom_sheet.dart';
 import 'package:flutter_shop/app/account/widgets/user_avatar.dart';
-import 'package:flutter_shop/app/splash/controller/splash_controller.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
@@ -15,7 +15,7 @@ class AccountView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<SplashController>(
+    return BaseView<AccountController>(
       onModelReady: (controller) async {},
       builder: (context, controller, child) {
         return ListView(
@@ -56,11 +56,7 @@ class AccountView extends StatelessWidget {
             }),
             heightSpace(90),
             logOutButton().onTap(() async {
-              // SharedPreferences pref = await SharedPreferences.getInstance();
-              // await pref.setBool("LOGGED_IN", false).then((value) {
-              //   NavigationServices.goToAndClearCurrentScreen(
-              //       context: context, routeName: RouteName.SPLASH_SCREEN);
-              // });
+              await controller.signOut();
             }),
             heightSpace(30),
           ],

@@ -3,7 +3,6 @@ import 'package:flutter_shop/app/auth/log_in/view/log_in.dart';
 import 'package:flutter_shop/app/auth/register/controller/register_controller.dart';
 import 'package:flutter_shop/app/auth/widgets/choose_lable.dart';
 import 'package:flutter_shop/app/auth/widgets/lable_terms.dart';
-
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/extensions.dart';
@@ -91,7 +90,7 @@ class Register extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => LogIn(),
                             ),
-                          ); // N
+                          );
                           // NavigationServices.goBack(context: context);
                         }),
                       ],

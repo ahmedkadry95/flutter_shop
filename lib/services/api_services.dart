@@ -1,16 +1,18 @@
-import 'dart:ffi';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_shop/app/auth/model/user.dart';
 import 'package:flutter_shop/locator.dart';
+import 'package:flutter_shop/routs/routs_names.dart';
+import 'package:flutter_shop/services/navigation_service.dart';
 
 import 'shared_pref_services.dart';
 
 class ApiServices {
   var pref = locator<SharedPrefServices>();
+  var navigation = locator<NavigationService>();
+
   CustomUser user = CustomUser();
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
@@ -22,7 +24,6 @@ class ApiServices {
     required String mobile,
     required String userName,
     required BuildContext context,
-    required VoidCallback navigate,
   }) async {
     try {
       userCredential =
@@ -38,15 +39,7 @@ class ApiServices {
         id: userCredential?.user!.uid,
         email: email,
       );
-      AwesomeDialog(
-        context: context,
-        dialogType: DialogType.SUCCES,
-        animType: AnimType.TOPSLIDE,
-        title: 'success',
-        desc: 'your account created successfully ',
-        btnCancelOnPress: navigate,
-        btnOkOnPress: () {},
-      ).show();
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         AwesomeDialog(
@@ -74,15 +67,15 @@ class ApiServices {
     }
   }
 
-  addUser({
-    required String? userName,
-    required String? mobile,
-    required String? email,
-    required String? id,
-    required String? type,
-  }) {
+  addUser(
+      {required String? userName,
+      required String? mobile,
+      required String? email,
+      required String? id,
+      required String? type}) {
     return users
-        .add(
+        .doc(id)
+        .set(
           user.toJason(
             userName: userName!,
             id: id!,
@@ -95,10 +88,7 @@ class ApiServices {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<bool> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<bool> login({required String email, required String password}) async {
     try {
       userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -107,13 +97,8 @@ class ApiServices {
       await setUserToken(token: userCredential!.user!.uid);
       return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
+      return false;
     }
-    return false;
   }
 
   setUserToken({required String token}) async {
@@ -121,6 +106,9 @@ class ApiServices {
       'token',
       token,
     );
-    print('token saved success in pref : $token ');
+  }
+
+  setIsLogIn(bool value) async {
+    await pref.saveBoolean('is_log_in', value);
   }
 }

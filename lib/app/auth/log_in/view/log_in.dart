@@ -3,6 +3,7 @@ import 'package:flutter_shop/app/auth/log_in/controller/login_controller.dart';
 import 'package:flutter_shop/app/auth/register/view/register.dart';
 import 'package:flutter_shop/app/auth/widgets/choose_lable.dart';
 import 'package:flutter_shop/base_view.dart';
+import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
@@ -45,7 +46,6 @@ class LogIn extends StatelessWidget {
                           hint: "Enter your email address",
                           inputType: TextInputType.emailAddress,
                           controller: controller.email,
-
                         ),
                         heightSpace(20),
                         InputField(
@@ -53,7 +53,6 @@ class LogIn extends StatelessWidget {
                           hint: "Enter your password",
                           isPassword: true,
                           controller: controller.password,
-
                           inputType: TextInputType.emailAddress,
                         ),
                         heightSpace(20),
@@ -80,14 +79,8 @@ class LogIn extends StatelessWidget {
                           green: "Sign up",
                         ).onTap(
                           () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Register(),
-                              ),
-                            ); // NavigationServices.goTo(
-                            //     context: context,
-                            //     routeName: RouteName.SIGNUP_SCREEN);
+                            controller.navigation
+                                .navigateTo(RouteName.register);
                           },
                         ),
                       ],
