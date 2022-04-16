@@ -28,6 +28,7 @@ class AppRouter {
       case RouteName.home:
         return _getPageRoute(const HomeView(), settings);
 
+
       default:
         return _getPageRoute(const SplashView(), settings);
     }

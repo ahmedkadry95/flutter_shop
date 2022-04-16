@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/auth/widgets/auth_snak_bar.dart';
 import 'package:flutter_shop/base_controller.dart';
@@ -10,33 +11,28 @@ import 'package:flutter_shop/services/shared_pref_services.dart';
 class LogInController extends BaseController {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   var pref = locator<SharedPrefServices>();
   var apiServices = locator<ApiServices>();
   var navigation = locator<NavigationService>();
   bool? loginSuccess;
+  String? userToken;
 
   logIn(BuildContext context) async {
     loginSuccess = await apiServices.login(
       email: email.text,
       password: password.text,
     );
-
     if (loginSuccess!) {
       await setIsLogIn(loginSuccess!);
-      successLoginNavigation();
+      navigation.navigateToAndClearStack(RouteName.home);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(failsAuthSnackBar);
     }
-
-    print('loginSuccess is :  $loginSuccess');
   }
 
   setIsLogIn(bool value) async {
     await pref.saveBoolean('is_log_in', value);
-  }
-
-  successLoginNavigation() {
-    navigation.navigateToAndClearStack(RouteName.home);
   }
 
   validator(BuildContext context) {
@@ -49,4 +45,3 @@ class LogInController extends BaseController {
     }
   }
 }
-

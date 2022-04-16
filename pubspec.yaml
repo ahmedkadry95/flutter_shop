@@ -46,6 +46,10 @@ dependencies:
   url_launcher: ^6.0.20
   carousel_slider: ^4.0.0
   awesome_dialog: ^2.2.0
+  firebase_storage: ^10.2.12
+  image_picker: ^0.8.5
+  firebase_app_check: ^0.0.6+9
+
 
 dev_dependencies:
   flutter_test:

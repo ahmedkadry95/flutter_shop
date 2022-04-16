@@ -8,6 +8,8 @@ import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 
 class HomeController extends BaseController{
+
+
   List<Widget> pages =  [
     ShopView(),
     ExploreView(),
@@ -21,4 +23,8 @@ class HomeController extends BaseController{
     currentIndex = index;
     setState(ViewState.idel);
   }
+
+
+
+
 }
