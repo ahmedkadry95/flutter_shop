@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/spaces.dart';
+import 'package:flutter_shop/utils/texts.dart';
 
 Widget userScreenItem({
   required String image,
@@ -22,7 +23,7 @@ Widget userScreenItem({
           width: 20,
         ),
         widthSpace(8),
-        Text(text),
+        blackDescriptionTextSmall(text),
         const Spacer(),
         const Icon(Icons.arrow_forward_ios,size: 18,)
       ],

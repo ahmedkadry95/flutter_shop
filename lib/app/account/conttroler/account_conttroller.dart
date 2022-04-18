@@ -20,6 +20,14 @@ class AccountController extends BaseController {
     } catch (e) {
       print(e);
     }
+  }
+
+  getToken() async {
+    await pref.getString('token');
+  }
+
+  getUserData(){
 
   }
+
 }

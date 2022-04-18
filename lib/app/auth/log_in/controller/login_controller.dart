@@ -24,15 +24,11 @@ class LogInController extends BaseController {
       password: password.text,
     );
     if (loginSuccess!) {
-      await setIsLogIn(loginSuccess!);
+
       navigation.navigateToAndClearStack(RouteName.home);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(failsAuthSnackBar);
     }
-  }
-
-  setIsLogIn(bool value) async {
-    await pref.saveBoolean('is_log_in', value);
   }
 
   validator(BuildContext context) {

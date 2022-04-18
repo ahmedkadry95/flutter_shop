@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/account/conttroler/account_conttroller.dart';
 import 'package:flutter_shop/app/account/widgets/account_screen_item.dart';
@@ -22,9 +23,10 @@ class AccountView extends StatelessWidget {
           children: [
             heightSpace(40),
             userAvatar(
-                image: 'assets/images/user.png',
-                userName: 'ahmed youssef',
-                email: 'ahmed@gmail.com'),
+              image: 'assets/images/user.png',
+              userName: 'ahmed youssef',
+              email: FirebaseAuth.instance.currentUser!.email!,
+            ),
             heightSpace(30),
             userScreenItem(
               image: 'assets/icons/details.png',

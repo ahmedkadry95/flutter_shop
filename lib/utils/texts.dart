@@ -45,6 +45,17 @@ Widget blackTitle4(String text) {
   );
 }
 
+Widget blackDescriptionTextSmall(String text) {
+  return Text(
+    text,
+    style: const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: blackColor,
+    ),
+  );
+}
+
 Widget smallGreyHint1(String text) {
   return Text(
     text,
