@@ -38,7 +38,7 @@ class LogIn extends StatelessWidget {
                         heightSpace(30),
                         blackTitle1("Log In"),
                         heightSpace(15),
-                        smallGreyHint("Enter your email and password"),
+                        smallGreyHint1("Enter your email and password"),
                         heightSpace(40),
                         InputField(
                           label: "Email",

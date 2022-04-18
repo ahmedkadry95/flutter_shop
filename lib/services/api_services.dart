@@ -66,12 +66,13 @@ class ApiServices {
     }
   }
 
-  addUser(
-      {required String? userName,
-      required String? mobile,
-      required String? email,
-      required String? id,
-      required String? type}) {
+  addUser({
+    required String? userName,
+    required String? mobile,
+    required String? email,
+    required String? id,
+    required String? type,
+  }) {
     return users
         .doc(id)
         .set(

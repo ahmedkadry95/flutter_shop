@@ -45,8 +45,8 @@ class SharedPrefServices {
     _prefs!.setInt(key!, value);
   }
 
-  saveDouble(String? key, double value) async {
-    _prefs!.setDouble(key!, value);
+  saveDouble(String? key, double? value) async {
+    _prefs!.setDouble(key!, value!);
   }
 
   Future<double> getDouble(String? key) async {

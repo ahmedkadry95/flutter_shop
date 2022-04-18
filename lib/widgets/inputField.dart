@@ -29,7 +29,7 @@ class _InputFieldState extends State<InputField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smallGreyHint(
+        smallGreyHint1(
           widget.label,
         ),
         TextFormField(

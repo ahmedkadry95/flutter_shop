@@ -39,7 +39,7 @@ class Register extends StatelessWidget {
                         heightSpace(30),
                         blackTitle1("Sign Up"),
                         const SizedBox(height: 15),
-                        smallGreyHint("Enter your credentials to continue"),
+                        smallGreyHint1("Enter your credentials to continue"),
                         const SizedBox(height: 40),
                         InputField(
                           label: "Username",
