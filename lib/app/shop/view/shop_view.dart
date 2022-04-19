@@ -9,6 +9,7 @@ import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
 import 'package:flutter_shop/widgets/app_indicator.dart';
+import 'package:flutter_shop/widgets/logo.dart';
 
 class ShopView extends StatelessWidget {
   const ShopView({Key? key}) : super(key: key);
@@ -29,10 +30,7 @@ class ShopView extends StatelessWidget {
             child: ListView(
               children: [
                 heightSpace(20),
-                Image.asset(
-                  'assets/images/logo.png',
-                  height: 40,
-                ),
+                centerLogo(),
                 heightSpace(20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

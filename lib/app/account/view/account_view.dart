@@ -6,6 +6,7 @@ import 'package:flutter_shop/app/account/widgets/log_out_button.dart';
 import 'package:flutter_shop/app/account/widgets/report_problem_bottom_sheet.dart';
 import 'package:flutter_shop/app/account/widgets/user_avatar.dart';
 import 'package:flutter_shop/base_view.dart';
+import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:mailto/mailto.dart';
@@ -18,7 +19,7 @@ class AccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<AccountController>(
       onModelReady: (controller) async {
-        controller.getUserData();
+        controller.getUserData(context);
       },
       builder: (context, controller, child) {
         return ListView(
