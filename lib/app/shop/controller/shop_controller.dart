@@ -19,6 +19,7 @@ class ShopController extends BaseController {
 
   List<String> bannerList = [];
   List<ProductModel> exclusiveOfferList = [];
+  List<ProductModel> bestSelling = [];
 
   String city = '';
   String street = '';
@@ -36,15 +37,24 @@ class ShopController extends BaseController {
     QuerySnapshot querySnapshot = await exclusiveOfferRef.get();
     List<QueryDocumentSnapshot> data = querySnapshot.docs;
     for (var element in data) {
-      print('************************************');
       print(element.data().runtimeType);
       exclusiveOfferList.add(ProductModel.fromJason(element.data()));
-      print('************************************');
     }
-    print('======================');
+    setState(ViewState.idel);
+  }
 
-    print(exclusiveOfferList);
-    print(exclusiveOfferList.length);
+  getBestSelling() async {
+    QuerySnapshot querySnapshot = await productsRef
+        .orderBy('sold_times', descending: true)
+        .limit(12)
+        .get();
+    List<QueryDocumentSnapshot> data = querySnapshot.docs;
+    for (var element in data) {
+      print(element.data().runtimeType);
+      bestSelling.add(ProductModel.fromJason(element.data()));
+    }
+    print(bestSelling);
+    print(bestSelling.length);
     setState(ViewState.idel);
   }
 
