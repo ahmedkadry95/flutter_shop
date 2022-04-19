@@ -10,15 +10,14 @@ class AccountController extends BaseController {
   FirebaseAuth auth = FirebaseAuth.instance;
   var navigation = locator<NavigationService>();
   var pref = locator<SharedPrefServices>();
-  var fireStore = FirebaseFirestore.instance.collection('user');
+  CollectionReference userRef = FirebaseFirestore.instance.collection('user');
+  var currentUser = FirebaseAuth.instance.currentUser;
+
   String? token;
 
   signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
-      await pref.saveBoolean('is_log_in', false);
-      await pref.saveString('token', '');
-      print('sign out success');
       navigation.navigateToAndClearStack(RouteName.splash);
     } catch (e) {
       print(e);
@@ -31,9 +30,8 @@ class AccountController extends BaseController {
   }
 
   getUserData() async {
-    await getToken();
-    var user =  fireStore.doc(token);
-    print('**********************************');
-    print(user);
+    var userId = await currentUser?.uid;
+    print('userId');
+    print(userId);
   }
 }

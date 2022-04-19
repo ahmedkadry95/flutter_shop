@@ -31,10 +31,6 @@ class AccountView extends StatelessWidget {
             ),
             heightSpace(30),
             userScreenItem(
-              image: 'assets/icons/details.png',
-              text: 'My Details',
-            ),
-            userScreenItem(
               image: 'assets/icons/location.png',
               text: 'Delivery Address',
             ).onTap(() {}),

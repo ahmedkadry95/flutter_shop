@@ -88,27 +88,23 @@ class ApiServices {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<bool> login({required String email, required String password}) async {
+  Future<String> login({
+    required String email,
+    required String password,
+  }) async {
     try {
       userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      await setUserToken(token: userCredential!.user!.uid);
-      return true;
+      return 'true';
     } on FirebaseAuthException catch (e) {
-      return false;
+      if (e.code == 'user-not-found') {
+        return 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        return 'Wrong password provided for that user.';
+      }
     }
-  }
-
-  setUserToken({required String token}) async {
-    await pref.saveString(
-      'token',
-      token,
-    );
-  }
-
-  setIsLogIn(bool value) async {
-    await pref.saveBoolean('is_log_in', value);
+    return 'false ';
   }
 }
