@@ -1,7 +1,8 @@
 class ProductModel {
-  String? id, title, description, image, category, measurementUnit, quantity;
+  String? id, title, description, image, category, measurementUnit;
 
-  double? storage, price;
+  double? price, quantity;
+  int? storage;
 
   ProductModel({
     this.id,
@@ -23,7 +24,7 @@ class ProductModel {
     category = json['category'];
     measurementUnit = json['measurement_unit'];
     price = json['price'];
-    quantity = json['double'];
+    quantity = json['quantity'];
     storage = json['storage'];
   }
 
@@ -36,7 +37,7 @@ class ProductModel {
     required String measurementUnit,
     required double price,
     required double quantity,
-    required double storage,
+    required int storage,
   }) {
     final Map<String, dynamic> data = {};
     data['id'] = id;
@@ -47,7 +48,6 @@ class ProductModel {
     data['measurement_unit'] = measurementUnit;
     data['price'] = price;
     data['quantity'] = quantity;
-    data['storage'] = storage;
     data['storage'] = storage;
     data['sold_times'] = 0;
     return data;

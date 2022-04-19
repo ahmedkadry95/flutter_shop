@@ -53,8 +53,6 @@ class ShopController extends BaseController {
       print(element.data().runtimeType);
       bestSelling.add(ProductModel.fromJason(element.data()));
     }
-    print(bestSelling);
-    print(bestSelling.length);
     setState(ViewState.idel);
   }
 
