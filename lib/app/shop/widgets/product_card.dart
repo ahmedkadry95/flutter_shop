@@ -1,27 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/utils/colors.dart';
+import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
 
 class ProductCard extends StatelessWidget {
-  String capitalize(String string) {
-    if (string.isEmpty) {
-      return string;
-    }
+  ProductModel _model;
 
-    return string[0].toUpperCase() + string.substring(1);
-  }
-
-  String? productName, productImage, measurementUnit;
-  double? productPrice, productQuantity;
-
-  ProductCard({
-    required this.productName,
-    required this.productImage,
-    required this.productPrice,
-    required this.productQuantity,
-    required this.measurementUnit,
-  });
+  ProductCard(this._model, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,23 +30,23 @@ class ProductCard extends StatelessWidget {
         children: [
           Center(
             child: Image.network(
-              productImage!,
-              height: 90,
-              width: 90,
-              fit: BoxFit.fill,
+              _model.image!,
+              height: 110,
+              width: 80,
+              fit: BoxFit.contain,
             ),
           ),
           heightSpace(10),
           blackTitle4(
-            capitalize(productName!),
+            capitalize(_model.title!),
           ),
-          smallGreyHint2('$productQuantity $measurementUnit price'),
-          heightSpace(15),
+          smallGreyHint2('${_model.quantity} ${_model.measurementUnit} price'),
+          heightSpace(5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               blackTitle4(
-                capitalize('$productPrice \$'),
+                capitalize('${_model.price} \$'),
               ),
               Container(
                 height: 40,
@@ -72,11 +59,21 @@ class ProductCard extends StatelessWidget {
                   Icons.add,
                   color: Colors.white,
                 ),
-              ),
+              ).onTap(() {
+                print(_model.id);
+              }),
             ],
           ),
         ],
       ),
     );
   }
+}
+
+String capitalize(String string) {
+  if (string.isEmpty) {
+    return string;
+  }
+
+  return string[0].toUpperCase() + string.substring(1);
 }

@@ -1,4 +1,5 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,12 +14,13 @@ class ShopController extends BaseController {
 
   CollectionReference exclusiveOfferRef =
       FirebaseFirestore.instance.collection('exclusive_offer');
+  CollectionReference productsRef =
+      FirebaseFirestore.instance.collection('products');
 
   List<String> bannerList = [];
-  List exclusiveOfferList = [];
+  List<ProductModel> exclusiveOfferList = [];
 
   String city = '';
-
   String street = '';
 
   getBanner() async {
@@ -34,8 +36,15 @@ class ShopController extends BaseController {
     QuerySnapshot querySnapshot = await exclusiveOfferRef.get();
     List<QueryDocumentSnapshot> data = querySnapshot.docs;
     for (var element in data) {
-      exclusiveOfferList.add(element.data());
+      print('************************************');
+      print(element.data().runtimeType);
+      exclusiveOfferList.add(ProductModel.fromJason(element.data()));
+      print('************************************');
     }
+    print('======================');
+
+    print(exclusiveOfferList);
+    print(exclusiveOfferList.length);
     setState(ViewState.idel);
   }
 
@@ -45,7 +54,6 @@ class ShopController extends BaseController {
     List<Placemark> placeMarks = await placemarkFromCoordinates(lat, long);
     city = placeMarks[0].name!;
     street = placeMarks[0].street!;
-
     setState(ViewState.idel);
   }
 }

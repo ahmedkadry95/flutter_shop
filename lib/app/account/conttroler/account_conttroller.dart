@@ -4,11 +4,14 @@ import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/services/shared_pref_services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AccountController extends BaseController {
   FirebaseAuth auth = FirebaseAuth.instance;
   var navigation = locator<NavigationService>();
   var pref = locator<SharedPrefServices>();
+  var fireStore = FirebaseFirestore.instance.collection('user');
+  String? token;
 
   signOut() async {
     try {
@@ -23,11 +26,14 @@ class AccountController extends BaseController {
   }
 
   getToken() async {
-    await pref.getString('token');
+    token = await pref.getString('token');
+    print(token);
   }
 
-  getUserData(){
-
+  getUserData() async {
+    await getToken();
+    var user =  fireStore.doc(token);
+    print('**********************************');
+    print(user);
   }
-
 }

@@ -92,16 +92,8 @@ class ShopView extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            ...controller.exclusiveOfferList.map((e) {
-                              return ProductCard(
-                                productName: e['title'],
-                                productImage: e['image'],
-                                productPrice:
-                                    double.parse(e['price'].toString()),
-                                productQuantity:
-                                    double.parse(e['quantity'].toString()),
-                                measurementUnit: e['measurement_unit'],
-                              );
+                            ...controller.exclusiveOfferList.map((item) {
+                              return ProductCard(item);
                             })
                           ],
                         ),

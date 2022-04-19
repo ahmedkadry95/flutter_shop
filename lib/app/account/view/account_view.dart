@@ -17,7 +17,9 @@ class AccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<AccountController>(
-      onModelReady: (controller) async {},
+      onModelReady: (controller) async {
+        controller.getUserData();
+      },
       builder: (context, controller, child) {
         return ListView(
           children: [
