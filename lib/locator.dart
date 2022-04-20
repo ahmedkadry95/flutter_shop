@@ -1,4 +1,5 @@
 import 'package:flutter_shop/app/account/conttroler/account_conttroller.dart';
+import 'package:flutter_shop/app/add_delivery_address/controller/add_delivery_address_controller.dart';
 import 'package:flutter_shop/app/auth/log_in/controller/login_controller.dart';
 import 'package:flutter_shop/app/auth/register/controller/register_controller.dart';
 import 'package:flutter_shop/app/delivery_address/controller/delivery_address_controller.dart';
@@ -24,6 +25,7 @@ void setupLocator() {
   locator.registerFactory(() => HomeController());
   locator.registerFactory(() => AccountController());
   locator.registerFactory(() => ShopController());
+  locator.registerFactory(() => AddDeliveryAddressController());
   locator.registerFactory(() => DeliveryAddressController());
 }
 

@@ -6,11 +6,12 @@ import 'package:flutter_shop/app/account/widgets/log_out_button.dart';
 import 'package:flutter_shop/app/account/widgets/report_problem_bottom_sheet.dart';
 import 'package:flutter_shop/app/account/widgets/user_avatar.dart';
 import 'package:flutter_shop/base_view.dart';
-import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:mailto/mailto.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../routs/routs_names.dart';
 
 class AccountView extends StatelessWidget {
   const AccountView({Key? key}) : super(key: key);
@@ -19,22 +20,24 @@ class AccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<AccountController>(
       onModelReady: (controller) async {
-        controller.getUserData(context);
+        controller.getUserData();
       },
       builder: (context, controller, child) {
         return ListView(
           children: [
             heightSpace(40),
             userAvatar(
-              image: 'assets/images/user.png',
-              userName: 'ahmed youssef',
-              email: FirebaseAuth.instance.currentUser!.email!,
+              image: controller.userImage,
+              userName: controller.userName,
+              email: controller.userEmail,
             ),
             heightSpace(30),
             userScreenItem(
               image: 'assets/icons/location.png',
               text: 'Delivery Address',
-            ).onTap(() {}),
+            ).onTap(() {
+              controller.navigation.navigateTo(RouteName.deliveryAddress);
+            }),
             userScreenItem(
               image: 'assets/icons/payment.png',
               text: 'Payment Method',

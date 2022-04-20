@@ -1,8 +1,7 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_shop/app/auth/model/user.dart';
+import 'package:flutter_shop/app/models/user_model.dart';
 import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
 
@@ -12,16 +11,18 @@ class ApiServices {
   var pref = locator<SharedPrefServices>();
   var navigation = locator<NavigationService>();
 
-  CustomUser user = CustomUser();
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   UserCredential? userCredential;
 
-  registerUser({
+  Future<String> registerUser({
     required String email,
     required String password,
     required String mobile,
     required String userName,
+    required String city,
+    required String street,
+    required String buildingNum,
     required BuildContext context,
   }) async {
     try {
@@ -30,40 +31,28 @@ class ApiServices {
         email: email,
         password: password,
       );
-
       await addUser(
-        type: 'user',
         mobile: mobile,
         userName: userName,
         id: userCredential?.user!.uid,
         email: email,
+        address: {
+          'city': city,
+          'street': street,
+          'building_number': buildingNum,
+        },
       );
-      return true;
+      return 'user add successfully';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.WARNING,
-          animType: AnimType.TOPSLIDE,
-          title: 'warning',
-          desc: 'your password  is too weak ',
-          btnCancelOnPress: () {},
-          btnOkOnPress: () {},
-        ).show();
+        return 'this password is too weak';
       } else if (e.code == 'email-already-in-use') {
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.ERROR,
-          animType: AnimType.TOPSLIDE,
-          title: 'error',
-          desc: 'this email is already exist ',
-          btnCancelOnPress: () {},
-          btnOkOnPress: () {},
-        ).show();
+        return 'this email is already exist';
       }
     } catch (e) {
       print(e);
     }
+    return 'failed';
   }
 
   addUser({
@@ -71,18 +60,20 @@ class ApiServices {
     required String? mobile,
     required String? email,
     required String? id,
-    required String? type,
+    required Map? address,
   }) {
+    UserModel user = UserModel(
+      email: email,
+      id: id,
+      mobile: mobile,
+      userName: userName,
+      imageUrl: '',
+      address: address,
+    );
     return users
         .doc(id)
         .set(
-          user.toJason(
-            userName: userName!,
-            id: id!,
-            email: email!,
-            mobile: mobile!,
-            type: type!,
-          ),
+          user.userModelToJson(),
         )
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));

@@ -54,3 +54,34 @@ final passwordSnackBar = SnackBar(
   backgroundColor: errorColor,
   behavior: SnackBarBehavior.floating,
 );
+final citySnackBar = SnackBar(
+  content: const Text('Pleas enter your city'),
+  action: SnackBarAction(
+    label: '',
+    textColor: whiteColor,
+    onPressed: () {},
+  ),
+  backgroundColor: errorColor,
+  behavior: SnackBarBehavior.floating,
+);
+final streetSnackBar = SnackBar(
+  content: const Text('Pleas enter your street'),
+  action: SnackBarAction(
+    label: '',
+    textColor: whiteColor,
+    onPressed: () {},
+  ),
+  backgroundColor: errorColor,
+  behavior: SnackBarBehavior.floating,
+);
+
+final buildingNumberSnackBar = SnackBar(
+  content: const Text('Pleas enter your building number'),
+  action: SnackBarAction(
+    label: '',
+    textColor: whiteColor,
+    onPressed: () {},
+  ),
+  backgroundColor: errorColor,
+  behavior: SnackBarBehavior.floating,
+);

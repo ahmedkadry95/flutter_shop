@@ -4,5 +4,6 @@ class RouteName {
   static const String register = 'register_view';
   static const String home = 'home_view';
   static const String admin = 'admin_view';
+  static const String addDeliveryAddress = 'add_delivery_address';
   static const String deliveryAddress = 'delivery_address';
 }

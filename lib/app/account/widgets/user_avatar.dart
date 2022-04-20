@@ -3,7 +3,7 @@ import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 
 Widget userAvatar(
-    {required String image, required String email, required String userName}) {
+    {required String? image, required String? email, required String? userName}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 25),
     child: Row(
@@ -16,7 +16,7 @@ Widget userAvatar(
             borderRadius: BorderRadius.circular(25),
           ),
           child: Image.asset(
-            image,
+            image!,
             fit: BoxFit.cover,
           ),
         ),
@@ -27,7 +27,7 @@ Widget userAvatar(
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(userName),
+                Text(userName!),
                 widthSpace(4),
                 const Icon(
                   Icons.edit,
@@ -37,7 +37,7 @@ Widget userAvatar(
               ],
             ),
             heightSpace(4),
-            Text(email),
+            Text(email!),
           ],
         ),
       ],

@@ -27,7 +27,7 @@ class Register extends StatelessWidget {
             body: SingleChildScrollView(
               child: Stack(
                 children: [
-                  backgroundMask(),
+                  // backgroundMask(),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
@@ -42,7 +42,7 @@ class Register extends StatelessWidget {
                         smallGreyHint1("Enter your credentials to continue"),
                         const SizedBox(height: 40),
                         InputField(
-                          label: "Username",
+                          label: "User Name",
                           hint: "Enter your username",
                           inputType: TextInputType.text,
                           controller: controller.userName,
@@ -56,18 +56,39 @@ class Register extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         InputField(
-                          label: "mobile",
+                          label: "Password",
+                          hint: "Enter your password",
+                          isPassword: true,
+                          inputType: TextInputType.text,
+                          controller: controller.password,
+                        ),
+                        const SizedBox(height: 20),
+                        InputField(
+                          label: "Mobile",
                           hint: "Enter your mobile",
                           inputType: TextInputType.number,
                           controller: controller.mobile,
                         ),
                         const SizedBox(height: 20),
                         InputField(
-                          label: "Password",
-                          hint: "Enter your password",
-                          isPassword: true,
+                          label: "City",
+                          hint: "Enter your city",
                           inputType: TextInputType.text,
-                          controller: controller.password,
+                          controller: controller.city,
+                        ),
+                        const SizedBox(height: 20),
+                        InputField(
+                          label: "Street",
+                          hint: "Enter your street",
+                          inputType: TextInputType.text,
+                          controller: controller.street,
+                        ),
+                        const SizedBox(height: 20),
+                        InputField(
+                          label: "Building Number ",
+                          hint: "Enter your building bumber",
+                          inputType: TextInputType.text,
+                          controller: controller.buildingNum,
                         ),
                         const SizedBox(height: 12),
                         LabelTerms().onTap(() {}),
@@ -76,7 +97,6 @@ class Register extends StatelessWidget {
                           text: "Sign Up",
                         ).onTap(
                           () async {
-                            print('sign up clicked');
                             controller.validator(context);
                           },
                         ),

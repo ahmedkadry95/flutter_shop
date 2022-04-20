@@ -41,7 +41,7 @@ class ShopView extends StatelessWidget {
                       size: 22,
                     ),
                     AutoSizeText(
-                      '${controller.city} ${controller.street} ',
+                      controller.street,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w500),
                       minFontSize: 12,
