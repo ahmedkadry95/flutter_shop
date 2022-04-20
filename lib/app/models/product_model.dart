@@ -27,7 +27,7 @@ class ProductModel {
     storage = json['storage'];
   }
 
-  Map<String, dynamic> toJson({
+  Map<String, dynamic> productToJson({
     required String? id,
     required String title,
     required String description,

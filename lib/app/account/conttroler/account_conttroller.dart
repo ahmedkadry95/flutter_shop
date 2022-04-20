@@ -16,9 +16,7 @@ class AccountController extends BaseController {
   UserModel? userData;
   String? userId;
   String? userName = '';
-
   String? userEmail = '';
-
   String? userImage = '';
 
   signOut() async {
@@ -35,8 +33,6 @@ class AccountController extends BaseController {
     DocumentSnapshot documentSnapshot = await userRef.doc(userId).get();
     print(documentSnapshot.data());
     userData = UserModel.fromJson(documentSnapshot.data());
-    print('xxx');
-    // print(userData);
     userName = userData?.userName;
     userEmail = userData?.email;
     print(userData?.address);

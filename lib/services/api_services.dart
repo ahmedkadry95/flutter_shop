@@ -10,9 +10,8 @@ import 'shared_pref_services.dart';
 class ApiServices {
   var pref = locator<SharedPrefServices>();
   var navigation = locator<NavigationService>();
-
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-
+  CollectionReference cartRef = FirebaseFirestore.instance.collection('cart');
   UserCredential? userCredential;
 
   Future<String> registerUser({
@@ -42,6 +41,7 @@ class ApiServices {
           'building_number': buildingNum,
         },
       );
+
       return 'user add successfully';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -70,6 +70,7 @@ class ApiServices {
       imageUrl: '',
       address: address,
     );
+
     return users
         .doc(id)
         .set(

@@ -2,6 +2,7 @@ import 'package:flutter_shop/app/account/conttroler/account_conttroller.dart';
 import 'package:flutter_shop/app/add_delivery_address/controller/add_delivery_address_controller.dart';
 import 'package:flutter_shop/app/auth/log_in/controller/login_controller.dart';
 import 'package:flutter_shop/app/auth/register/controller/register_controller.dart';
+import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
 import 'package:flutter_shop/app/delivery_address/controller/delivery_address_controller.dart';
 import 'package:flutter_shop/app/home/controller/home_controller.dart';
 import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_shop/services/api_services.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/services/shared_pref_services.dart';
 import 'package:get_it/get_it.dart';
+
+import 'widgets/product_card/product_card_controller.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -27,6 +30,8 @@ void setupLocator() {
   locator.registerFactory(() => ShopController());
   locator.registerFactory(() => AddDeliveryAddressController());
   locator.registerFactory(() => DeliveryAddressController());
+  locator.registerFactory(() => CartController());
+  locator.registerFactory(() => ProductCardController());
 }
 
 void initSingleton() {
