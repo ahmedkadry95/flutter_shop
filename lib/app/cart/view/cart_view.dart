@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
 import 'package:flutter_shop/app/cart/widgets/cart_button.dart';
+import 'package:flutter_shop/app/cart/widgets/cart_item.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/extensions.dart';
@@ -13,13 +14,13 @@ class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<CartController>(
-      onModelReady: (controller) {
-        controller.getUserId();
+      onModelReady: (controller) async {
+        await controller.getCart();
       },
       builder: (context, controller, child) {
         return SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               heightSpace(25),
               blackTitle2('My Cart'),
@@ -28,18 +29,15 @@ class CartView extends StatelessWidget {
                 color: dividerColor,
                 thickness: 1.5,
               ),
-              // Expanded(
-              //   child: ListView(
-              //     children: [
-              //       cartItem(
-              //         productPriceForQuantity: '1kg/price',
-              //         productPrice: '\$1.95',
-              //         productName: 'Red Pepper',
-              //         productImage: 'assets/images/prudct_test.png',
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              Expanded(
+                child: ListView(
+                  children: <Widget>[
+                    ...controller.cartList.map((e) {
+                      return CartItem(e);
+                    }).toList()
+                  ],
+                ),
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 20.0, horizontal: 25),

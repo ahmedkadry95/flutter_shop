@@ -26,11 +26,11 @@ class AccountView extends StatelessWidget {
         return ListView(
           children: [
             heightSpace(40),
-            userAvatar(
-              image: controller.userImage,
-              userName: controller.userName,
-              email: controller.userEmail,
-            ),
+            // userAvatar(
+            //   image: controller.userImage,
+            //   userName: controller.userName,
+            //   email: controller.userEmail,
+            // ),
             heightSpace(30),
             userScreenItem(
               image: 'assets/icons/location.png',
