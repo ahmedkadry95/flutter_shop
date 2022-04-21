@@ -57,6 +57,7 @@ class CartItem extends StatelessWidget {
                     size: 20,
                   ).onTap(() async {
                     await controller.removeProduct(_model.id!);
+                    controller.updateState();
                   }),
                   heightSpace(40),
                   Text(_model.price!.toString()),

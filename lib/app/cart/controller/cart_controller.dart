@@ -26,7 +26,12 @@ class CartController extends BaseController {
         .delete()
         .then((value) {
       print('product removed ');
-      setState(ViewState.idel);
     });
+    cartList.removeWhere((element) => element.id == productId);
+    setState(ViewState.idel);
+  }
+
+  updateState() {
+    setState(ViewState.idel);
   }
 }

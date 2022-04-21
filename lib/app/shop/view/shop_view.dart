@@ -3,13 +3,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
 import 'package:flutter_shop/app/shop/widgets/banner_item.dart';
-import 'package:flutter_shop/widgets/product_card/product_card.dart';
 import 'package:flutter_shop/app/shop/widgets/search_textfield.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
 import 'package:flutter_shop/widgets/app_indicator.dart';
 import 'package:flutter_shop/widgets/logo.dart';
+import 'package:flutter_shop/widgets/product_card/product_card.dart';
 
 class ShopView extends StatelessWidget {
   const ShopView({Key? key}) : super(key: key);
