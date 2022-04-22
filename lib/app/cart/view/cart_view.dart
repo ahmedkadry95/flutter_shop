@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
 import 'package:flutter_shop/app/cart/widgets/cart_button.dart';
-import 'package:flutter_shop/app/cart/widgets/custom_stepper.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/extensions.dart';
@@ -29,21 +28,14 @@ class CartView extends StatelessWidget {
                 color: dividerColor,
                 thickness: 1.5,
               ),
-              // Expanded(
-              //   child: ListView.builder(
-              //       itemCount: controller.cartList.length,
-              //       itemBuilder: (context, index) {
-              //         return CartItem(controller.cartList[index]);
-              //       }),
-              // ),
               Expanded(
                 child: ListView(
                   children: <Widget>[
                     ...controller.cartList.map((e) {
                       return Container(
                         width: double.infinity,
-                        margin: const EdgeInsets.symmetric(horizontal: 25),
-                        padding: const EdgeInsets.symmetric(vertical: 25),
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(color: dividerColor),
@@ -61,11 +53,31 @@ class CartView extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(e.title!),
+                                blackTitle4(e.title!),
                                 heightSpace(4),
-                                Text(e.quantity!.toString()),
+                                smallGreyHint2(
+                                    '${e.quantity} ${e.measurementUnit} price'),
                                 heightSpace(15),
-                                CustomStepper()
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    calcButton(icon: Icons.remove, color: grey)
+                                        .onTap(() {
+                                      controller
+                                          .decCounter(e.quantity?.toInt());
+                                    }),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child:
+                                          blackTitle4('${e.quantity?.toInt()}'),
+                                    ),
+                                    calcButton(
+                                      icon: Icons.add,
+                                      color: mainColor,
+                                    ).onTap(() {}),
+                                  ],
+                                )
                               ],
                             ),
                             const Spacer(),
@@ -105,4 +117,20 @@ class CartView extends StatelessWidget {
       },
     );
   }
+}
+
+Widget calcButton({required IconData icon, required Color color}) {
+  return Container(
+    padding: const EdgeInsets.all(6),
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(13),
+      border: Border.all(color: dividerColor),
+    ),
+    child: Icon(
+      icon,
+      color: color,
+      size: 20,
+    ),
+  );
 }

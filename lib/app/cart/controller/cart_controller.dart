@@ -34,4 +34,18 @@ class CartController extends BaseController {
   updateState() {
     setState(ViewState.idel);
   }
+
+  incCounter(ProductModel model) {
+    cartRef
+        .doc(currentUser?.uid)
+        .collection('cart')
+        .doc(model.id)
+        .update({'quantity': (model.quantity! + 1)});
+    setState(ViewState.idel);
+  }
+
+  decCounter(x) {
+    x--;
+    setState(ViewState.idel);
+  }
 }

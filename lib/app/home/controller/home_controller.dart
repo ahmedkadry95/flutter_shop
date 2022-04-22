@@ -14,7 +14,7 @@ class HomeController extends BaseController{
     ShopView(),
     ExploreView(),
     CartView(),
-    FavouriteView(),
+    // FavouriteView(),
     AccountView(),
   ];
   int currentIndex = 0;

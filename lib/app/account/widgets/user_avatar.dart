@@ -15,7 +15,7 @@ Widget userAvatar(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
           ),
-          child: Image.asset(
+          child: Image.network(
             image!,
             fit: BoxFit.cover,
           ),
