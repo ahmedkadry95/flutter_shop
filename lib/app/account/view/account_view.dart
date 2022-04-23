@@ -3,7 +3,6 @@ import 'package:flutter_shop/app/account/conttroler/account_conttroller.dart';
 import 'package:flutter_shop/app/account/widgets/account_screen_item.dart';
 import 'package:flutter_shop/app/account/widgets/log_out_button.dart';
 import 'package:flutter_shop/app/account/widgets/report_problem_bottom_sheet.dart';
-import 'package:flutter_shop/app/account/widgets/user_avatar.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
@@ -11,6 +10,7 @@ import 'package:mailto/mailto.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../routs/routs_names.dart';
+import '../widgets/user_avatar.dart';
 
 class AccountView extends StatelessWidget {
   const AccountView({Key? key}) : super(key: key);
@@ -25,13 +25,7 @@ class AccountView extends StatelessWidget {
         return ListView(
           children: [
             heightSpace(40),
-            userAvatar(
-              image: controller.userImage,
-              userName: controller.userName,
-              email: controller.userEmail,
-            ).onTap(() async{
-              await controller.updateUserImage();
-            }),
+            const UserAvatar(),
             heightSpace(30),
             userScreenItem(
               image: 'assets/icons/location.png',
