@@ -31,13 +31,43 @@ class ExploreView extends StatelessWidget {
                       crossAxisCount: 2,
                       mainAxisSpacing: 25,
                       crossAxisSpacing: 20,
+                      childAspectRatio: .95,
                     ),
                     children: [
                       categoriesItem(
-                        background: const Color(0xffF6A493),
+                        border: const Color(0xffF6A493),
                         image: 'assets/images/categories/meat.png',
-                        border: const Color(0xffF8E4E0),
-                        title: '',
+                        background: const Color(0xffF8E4E0),
+                        title: 'Meat & Fish',
+                      ),
+                      categoriesItem(
+                        border: const Color(0xffB7DFF5),
+                        image: 'assets/images/categories/drinks.png',
+                        background: const Color(0xffECF7FE),
+                        title: 'Beverages',
+                      ),
+                      categoriesItem(
+                        border: const Color(0xffF9BE7C),
+                        image: 'assets/images/categories/oil.png',
+                        background: const Color(0xffFFF6ED),
+                        title: 'Cooking Oil & Ghee',
+                      ),
+                      categoriesItem(
+                        background: const Color(0xffEFF6F2),
+                        image: 'assets/images/categories/fruit.png',
+                        border: const Color(0xff79B991),
+                        title: 'Frash Fruits & Vegetable',
+                      ),
+                      categoriesItem(
+                        background: const Color(0xffFFF9E5),
+                        image: 'assets/images/categories/milk.png',
+                        border: const Color(0xffFDE499),
+                        title: 'Frash Fruits & Vegetable',
+                      ),  categoriesItem(
+                        background: const Color(0xffF4EBF7),
+                        image: 'assets/images/categories/milk.png',
+                        border: const Color(0xffD3B0E0),
+                        title: 'Frash Fruits & Vegetable',
                       ),
                     ],
                   ),
@@ -60,30 +90,33 @@ class ExploreView extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: background,
-          // color: const Color(0xffF6A493),
+          color: border,
+          width: 1.2,
         ),
-        color: border,
-        // color: const Color(0xffF8E4E0),
+        color: background,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            image,
-            height: 110,
-            width: 75,
-            // fit: BoxFit.,
-          ),
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              image,
+              height: 80,
+              width: 100,
+              fit: BoxFit.fill,
             ),
-          ),
-        ],
+            heightSpace(12),
+            Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
