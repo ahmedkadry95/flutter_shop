@@ -5,6 +5,7 @@ import 'package:flutter_shop/app/add_delivery_address/view/add_delivery_address_
 import 'package:flutter_shop/app/auth/log_in/view/log_in.dart';
 import 'package:flutter_shop/app/auth/register/view/register.dart';
 import 'package:flutter_shop/app/delivery_address/view/delivery_address_view.dart';
+import 'package:flutter_shop/app/explore/view/category_view.dart';
 import 'package:flutter_shop/app/home/view/home.dart';
 import 'package:flutter_shop/app/splash/view/splash_view.dart';
 import 'package:flutter_shop/routs/routing_data.dart';
@@ -36,6 +37,8 @@ class AppRouter {
         return _getPageRoute(const AddDeliveryAddressView(), settings);
       case RouteName.deliveryAddress:
         return _getPageRoute(const DeliveryAddressView(), settings);
+      case RouteName.categoriesView:
+        return _getPageRoute(CategoryView(), settings);
       default:
         return _getPageRoute(const SplashView(), settings);
     }

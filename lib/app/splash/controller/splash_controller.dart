@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/locator.dart';

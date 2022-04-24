@@ -12,6 +12,7 @@ import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/services/shared_pref_services.dart';
 import 'package:get_it/get_it.dart';
 
+import 'app/explore/controller/explore_controller.dart';
 import 'widgets/product_card/product_card_controller.dart';
 
 GetIt locator = GetIt.instance;
@@ -32,6 +33,7 @@ void setupLocator() {
   locator.registerFactory(() => DeliveryAddressController());
   locator.registerFactory(() => CartController());
   locator.registerFactory(() => ProductCardController());
+  locator.registerFactory(() => ExploreController());
 }
 
 void initSingleton() {

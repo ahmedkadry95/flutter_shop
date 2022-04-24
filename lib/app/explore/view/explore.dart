@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/app/explore/controller/explore_controller.dart';
 import 'package:flutter_shop/app/home/controller/home_controller.dart';
 import 'package:flutter_shop/app/shop/widgets/search_textfield.dart';
 import 'package:flutter_shop/base_view.dart';
+import 'package:flutter_shop/routs/routs_names.dart';
+import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
 
@@ -10,7 +13,7 @@ class ExploreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<HomeController>(
+    return BaseView<ExploreController>(
       onModelReady: (controller) {},
       builder: (context, controller, child) {
         return Scaffold(
@@ -39,7 +42,12 @@ class ExploreView extends StatelessWidget {
                         image: 'assets/images/categories/meat.png',
                         background: const Color(0xffF8E4E0),
                         title: 'Meat & Fish',
-                      ),
+                      ).onTap(() {
+                        controller.navigation.navigateTo(
+                          RouteName.categoriesView,
+                          arguments: 'meat',
+                        );
+                      }),
                       categoriesItem(
                         border: const Color(0xffB7DFF5),
                         image: 'assets/images/categories/drinks.png',
@@ -63,7 +71,8 @@ class ExploreView extends StatelessWidget {
                         image: 'assets/images/categories/milk.png',
                         border: const Color(0xffFDE499),
                         title: 'Frash Fruits & Vegetable',
-                      ),  categoriesItem(
+                      ),
+                      categoriesItem(
                         background: const Color(0xffF4EBF7),
                         image: 'assets/images/categories/milk.png',
                         border: const Color(0xffD3B0E0),
