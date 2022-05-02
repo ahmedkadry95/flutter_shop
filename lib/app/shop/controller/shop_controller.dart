@@ -30,7 +30,6 @@ class ShopController extends BaseController {
       var url = await element.getDownloadURL();
       bannerList.add(url);
     }
-    setState(ViewState.idel);
   }
 
   getExclusiveOffer() async {
@@ -40,7 +39,6 @@ class ShopController extends BaseController {
       print(element.data().runtimeType);
       exclusiveOfferList.add(ProductModel.fromJason(element.data()));
     }
-    setState(ViewState.idel);
   }
 
   getBestSelling() async {
@@ -62,6 +60,9 @@ class ShopController extends BaseController {
     List<Placemark> placeMarks = await placemarkFromCoordinates(lat, long);
     city = placeMarks[0].name!;
     street = placeMarks[0].street!;
+  }
+
+  updateState() {
     setState(ViewState.idel);
   }
 }

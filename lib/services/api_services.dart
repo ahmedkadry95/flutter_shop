@@ -67,7 +67,8 @@ class ApiServices {
       id: id,
       mobile: mobile,
       userName: userName,
-      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/flutter-shop95.appspot.com/o/users_images%2Fuser.png?alt=media&token=d638ebde-3ab3-43d5-86c5-8378d7507975',
+      imageUrl:
+          'https://firebasestorage.googleapis.com/v0/b/flutter-shop95.appspot.com/o/users_images%2Fuser.png?alt=media&token=d638ebde-3ab3-43d5-86c5-8378d7507975',
       address: address,
     );
 

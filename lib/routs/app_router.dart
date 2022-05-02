@@ -38,7 +38,7 @@ class AppRouter {
       case RouteName.deliveryAddress:
         return _getPageRoute(const DeliveryAddressView(), settings);
       case RouteName.categoriesView:
-        return _getPageRoute(CategoryView(), settings);
+        return _getPageRoute(const CategoryView(), settings);
       default:
         return _getPageRoute(const SplashView(), settings);
     }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/explore/controller/explore_controller.dart';
-import 'package:flutter_shop/app/home/controller/home_controller.dart';
 import 'package:flutter_shop/app/shop/widgets/search_textfield.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
@@ -42,18 +41,21 @@ class ExploreView extends StatelessWidget {
                         image: 'assets/images/categories/meat.png',
                         background: const Color(0xffF8E4E0),
                         title: 'Meat & Fish',
-                      ).onTap(() {
-                        controller.navigation.navigateTo(
-                          RouteName.categoriesView,
-                          arguments: 'meat',
-                        );
+                      ).onTap(() async {
+                        controller.navigation
+                            .navigateTo(RouteName.categoriesView);
+                        controller.getCategory('meat');
                       }),
                       categoriesItem(
                         border: const Color(0xffB7DFF5),
                         image: 'assets/images/categories/drinks.png',
                         background: const Color(0xffECF7FE),
                         title: 'Beverages',
-                      ),
+                      ).onTap(() async {
+                        controller.navigation
+                            .navigateTo(RouteName.categoriesView);
+                        controller.getCategory('drinks');
+                      }),
                       categoriesItem(
                         border: const Color(0xffF9BE7C),
                         image: 'assets/images/categories/oil.png',

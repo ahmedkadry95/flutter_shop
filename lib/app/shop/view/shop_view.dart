@@ -5,11 +5,13 @@ import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
 import 'package:flutter_shop/app/shop/widgets/banner_item.dart';
 import 'package:flutter_shop/app/shop/widgets/search_textfield.dart';
 import 'package:flutter_shop/base_view.dart';
+import 'package:flutter_shop/enums/screen_state.dart';
+import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
-import 'package:flutter_shop/widgets/app_indicator.dart';
 import 'package:flutter_shop/widgets/logo.dart';
 import 'package:flutter_shop/widgets/product_card/product_card.dart';
+import '../../../enums/screen_state.dart';
 
 class ShopView extends StatelessWidget {
   const ShopView({Key? key}) : super(key: key);
@@ -24,7 +26,14 @@ class ShopView extends StatelessWidget {
         await controller.getBestSelling();
       },
       builder: (context, controller, child) {
-        return SafeArea(
+        if (controller.bestSelling.isEmpty) {
+          return const CircularProgressIndicator(
+            color: mainColor,
+          );
+        }
+
+        return
+          SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: ListView(
@@ -56,57 +65,51 @@ class ShopView extends StatelessWidget {
                   TextInputType.text,
                 ),
                 heightSpace(20),
-                controller.bannerList.isEmpty
-                    ? appIndicator()
-                    : CarouselSlider(
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          aspectRatio: 3.0,
-                          enlargeCenterPage: true,
-                        ),
-                        items: <Widget>[
-                            ...controller.bannerList.map((item) {
-                              return bannerItem(item);
-                            }).toList(),
-                          ]),
+                CarouselSlider(
+                    options: CarouselOptions(
+                      autoPlay: true,
+                      aspectRatio: 3.0,
+                      enlargeCenterPage: true,
+                    ),
+                    items: <Widget>[
+                      ...controller.bannerList.map((item) {
+                        return bannerItem(item);
+                      }).toList(),
+                    ]),
                 heightSpace(30),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: blackTitle3('Exclusive Offer'),
                 ),
                 heightSpace(10),
-                controller.exclusiveOfferList.isEmpty
-                    ? appIndicator()
-                    : SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...controller.exclusiveOfferList.map(
-                              (item) {
-                                return ProductCard(item);
-                              },
-                            )
-                          ],
-                        ),
-                      ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...controller.exclusiveOfferList.map(
+                        (item) {
+                          return ProductCard(item);
+                        },
+                      )
+                    ],
+                  ),
+                ),
                 heightSpace(20),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: blackTitle3('Best Selling'),
                 ),
                 heightSpace(10),
-                controller.bestSelling.isEmpty
-                    ? appIndicator()
-                    : SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...controller.bestSelling.map((item) {
-                              return ProductCard(item);
-                            })
-                          ],
-                        ),
-                      ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...controller.bestSelling.map((item) {
+                        return ProductCard(item);
+                      })
+                    ],
+                  ),
+                ),
                 heightSpace(20),
               ],
             ),
