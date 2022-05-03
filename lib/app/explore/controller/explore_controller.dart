@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_shop/app/explore/view/category_view.dart';
 import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
@@ -26,5 +28,14 @@ class ExploreController extends BaseController {
       categoryList.add(ProductModel.fromJason(element.data()));
     }
     setState(ViewState.idel);
+  }
+
+  categoryNavigator(context, category) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CategoryView(category),
+      ),
+    );
   }
 }

@@ -43,46 +43,46 @@ class ExploreView extends StatelessWidget {
                         background: const Color(0xffF8E4E0),
                         title: 'Meat & Fish',
                       ).onTap(() {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CategoryView('meat'),
-                          ),
-                        );
+                        controller.categoryNavigator(context, 'meat');
                       }),
                       categoriesItem(
                         border: const Color(0xffB7DFF5),
                         image: 'assets/images/categories/drinks.png',
                         background: const Color(0xffECF7FE),
                         title: 'Beverages',
-                      ).onTap(() async {
-                        // controller.navigation
-                        //     .navigateTo(RouteName.categoriesView);
+                      ).onTap(() {
+                        controller.categoryNavigator(context, 'drinks');
                       }),
-                      categoriesItem(
-                        border: const Color(0xffF9BE7C),
-                        image: 'assets/images/categories/oil.png',
-                        background: const Color(0xffFFF6ED),
-                        title: 'Cooking Oil & Ghee',
-                      ),
+                      // categoriesItem(
+                      //   border: const Color(0xffF9BE7C),
+                      //   image: 'assets/images/categories/oil.png',
+                      //   background: const Color(0xffFFF6ED),
+                      //   title: 'Cooking Oil & Ghee',
+                      // ),
                       categoriesItem(
                         background: const Color(0xffEFF6F2),
                         image: 'assets/images/categories/fruit.png',
                         border: const Color(0xff79B991),
-                        title: 'Frash Fruits & Vegetable',
-                      ),
+                        title: 'Fresh Fruits & Vegetable',
+                      ).onTap(() {
+                        controller.categoryNavigator(context, 'fruit');
+                      }),
                       categoriesItem(
                         background: const Color(0xffFFF9E5),
                         image: 'assets/images/categories/milk.png',
                         border: const Color(0xffFDE499),
-                        title: 'Frash Fruits & Vegetable',
-                      ),
+                        title: 'Dairy & Eggs',
+                      ).onTap(() {
+                        controller.categoryNavigator(context, 'milk');
+                      }),
                       categoriesItem(
                         background: const Color(0xffF4EBF7),
-                        image: 'assets/images/categories/milk.png',
-                        border: const Color(0xffD3B0E0),
-                        title: 'Frash Fruits & Vegetable',
-                      ),
+                        image: 'assets/images/categories/bakery.png',
+                        border: const Color(0xffD9BCE5),
+                        title: 'Bakery & Snacks',
+                      ).onTap(() {
+                        controller.categoryNavigator(context, 'bakery');
+                      }),
                     ],
                   ),
                 ),
