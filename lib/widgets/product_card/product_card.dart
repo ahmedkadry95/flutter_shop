@@ -67,7 +67,7 @@ class ProductCard extends StatelessWidget {
                     width: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: mainColor,
+                      color: controller.isPressed == false ? mainColor : grey,
                     ),
                     child: const Icon(
                       Icons.add,
@@ -75,6 +75,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ).onTap(() async {
                     await controller.addProductToCart(_model);
+                    controller.isPressedSwitch();
                   }),
                 ],
               ),

@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/base_controller.dart';
+import 'package:flutter_shop/enums/screen_state.dart';
 
 class ProductCardController extends BaseController {
+  bool isPressed = false;
+
   var currentUser = FirebaseAuth.instance.currentUser;
-  CollectionReference cartRef =
-      FirebaseFirestore.instance.collection('users');
+  CollectionReference cartRef = FirebaseFirestore.instance.collection('users');
   String? userId;
   ProductModel productModel = ProductModel();
 
@@ -35,5 +37,10 @@ class ProductCardController extends BaseController {
         .then((value) {
       print('product add to cart ');
     });
+  }
+
+  isPressedSwitch() {
+    isPressed = true;
+    setState(ViewState.idel);
   }
 }
