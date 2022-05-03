@@ -14,15 +14,17 @@ class ExploreController extends BaseController {
   String category = '';
 
   getCategory(String category) async {
-    QuerySnapshot querySnapshot =
-        await productsRef.where('category', isEqualTo: category).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('products')
+        .where('category', isEqualTo: category)
+        .get();
+
     List<QueryDocumentSnapshot> data = querySnapshot.docs;
+    print(data.length);
     for (var element in data) {
       print(element.data());
       categoryList.add(ProductModel.fromJason(element.data()));
     }
-    print(categoryList);
-
     setState(ViewState.idel);
   }
 }

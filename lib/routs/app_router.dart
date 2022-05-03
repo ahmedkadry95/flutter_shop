@@ -37,13 +37,15 @@ class AppRouter {
         return _getPageRoute(const AddDeliveryAddressView(), settings);
       case RouteName.deliveryAddress:
         return _getPageRoute(const DeliveryAddressView(), settings);
-      case RouteName.categoriesView:
-        return _getPageRoute(const CategoryView(), settings);
+    // case RouteName.categoriesView:
+    //   return _getPageRoute(const CategoryView(), settings);
       default:
         return _getPageRoute(const SplashView(), settings);
     }
   }
 }
+
+
 
 PageRoute _getPageRoute(Widget child, RouteSettings settings) {
   return _FadeRoute(child: child, routeName: settings.name);
@@ -55,22 +57,18 @@ class _FadeRoute extends PageRouteBuilder {
 
   _FadeRoute({this.child, this.routeName})
       : super(
-          settings: RouteSettings(name: routeName),
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              child!,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
-        );
+    settings: RouteSettings(name: routeName),
+    pageBuilder: (BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,) =>
+    child!,
+    transitionsBuilder: (BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,) =>
+        FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+  );
 }

@@ -48,7 +48,6 @@ class ShopController extends BaseController {
         .get();
     List<QueryDocumentSnapshot> data = querySnapshot.docs;
     for (var element in data) {
-      print(element.data().runtimeType);
       bestSelling.add(ProductModel.fromJason(element.data()));
     }
     setState(ViewState.idel);
