@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
+import 'package:flutter_shop/app/cart/view/cart_item.dart';
 import 'package:flutter_shop/app/cart/widgets/cart_button.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/utils/colors.dart';
@@ -32,74 +33,10 @@ class CartView extends StatelessWidget {
                 child: ListView(
                   children: <Widget>[
                     ...controller.cartList.map((e) {
-                      return Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(color: dividerColor),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.network(
-                              e.image!,
-                              height: 90,
-                              width: 70,
-                            ),
-                            widthSpace(20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                blackTitle4(e.title!),
-                                heightSpace(4),
-                                smallGreyHint2(
-                                    '${e.quantity} ${e.measurementUnit} price'),
-                                heightSpace(15),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    calcButton(icon: Icons.remove, color: grey)
-                                        .onTap(() {
-                                      controller
-                                          .decCounter(e.quantity?.toInt());
-                                    }),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child:
-                                          blackTitle4('${e.quantity?.toInt()}'),
-                                    ),
-                                    calcButton(
-                                      icon: Icons.add,
-                                      color: mainColor,
-                                    ).onTap(() {}),
-                                  ],
-                                )
-                              ],
-                            ),
-                            const Spacer(),
-                            widthSpace(10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                const Icon(
-                                  Icons.clear,
-                                  color: grey,
-                                  size: 20,
-                                ).onTap(() async {
-                                  await controller.removeProduct(e.id!);
-                                  controller.updateState();
-                                }),
-                                heightSpace(40),
-                                Text(e.price!.toString()),
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
+                      return CartItem(e, () async {
+                        print('remove');
+                        controller.removeProduct(e.id!);
+                      });
                     }).toList()
                   ],
                 ),
@@ -108,7 +45,7 @@ class CartView extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 20.0, horizontal: 25),
                 child: CartButton(
-                  totlatPrice: 19.6,
+                  totlatPrice: controller.total,
                 ).onTap(() {}),
               )
             ],
@@ -117,20 +54,4 @@ class CartView extends StatelessWidget {
       },
     );
   }
-}
-
-Widget calcButton({required IconData icon, required Color color}) {
-  return Container(
-    padding: const EdgeInsets.all(6),
-    alignment: Alignment.center,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(13),
-      border: Border.all(color: dividerColor),
-    ),
-    child: Icon(
-      icon,
-      color: color,
-      size: 20,
-    ),
-  );
 }

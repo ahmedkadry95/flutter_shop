@@ -2,6 +2,7 @@ class ProductModel {
   String? id, title, description, image, category, measurementUnit;
   double? price, quantity;
   int? storage;
+  double? totalPrice = 1;
 
   ProductModel({
     this.id,

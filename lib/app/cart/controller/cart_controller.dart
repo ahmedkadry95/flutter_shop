@@ -8,6 +8,7 @@ class CartController extends BaseController {
   var currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference cartRef = FirebaseFirestore.instance.collection('users');
   List<ProductModel> cartList = [];
+  double total = 0.0;
 
   getCart() async {
     var response = await cartRef.doc(currentUser?.uid).collection('cart').get();
@@ -26,26 +27,24 @@ class CartController extends BaseController {
         .delete()
         .then((value) {
       print('product removed ');
+      setState(ViewState.idel);
+      cartList.removeWhere((element) => element.id == productId);
     });
-    cartList.removeWhere((element) => element.id == productId);
+  }
+
+  void updateState() {
     setState(ViewState.idel);
   }
 
-  updateState() {
+  double getTotalPrice() {
+    double total = 0.0;
+    for (var i in cartList) {
+      print(i.title);
+      print(i.price);
+      total = total + i.totalPrice!;
+    }
     setState(ViewState.idel);
-  }
 
-  incCounter(ProductModel model) {
-    cartRef
-        .doc(currentUser?.uid)
-        .collection('cart')
-        .doc(model.id)
-        .update({'quantity': (model.quantity! + 1)});
-    setState(ViewState.idel);
-  }
-
-  decCounter(x) {
-    x--;
-    setState(ViewState.idel);
+    return total;
   }
 }
