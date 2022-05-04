@@ -19,9 +19,7 @@ class CartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<CartController>(
-      onModelReady: (controller) {
-        controller.total = controller.getTotalPrice();
-      },
+      onModelReady: (controller) {},
       builder: (context, controller, child) {
         return Container(
           width: double.infinity,
@@ -56,6 +54,7 @@ class CartItem extends StatelessWidget {
                         if (count > 1) {
                           count--;
                           _model.totalPrice = (count * _model.price!);
+
                           controller.setState(ViewState.idel);
                         }
                       }),

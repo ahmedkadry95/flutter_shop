@@ -3,11 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
+import 'package:collection/collection.dart';
 
 class CartController extends BaseController {
   var currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference cartRef = FirebaseFirestore.instance.collection('users');
   List<ProductModel> cartList = [];
+  List<double> sumList = [];
   double total = 0.0;
 
   getCart() async {
@@ -30,6 +32,7 @@ class CartController extends BaseController {
       setState(ViewState.idel);
       cartList.removeWhere((element) => element.id == productId);
     });
+    getTotalPrice();
   }
 
   void updateState() {
@@ -37,14 +40,16 @@ class CartController extends BaseController {
   }
 
   double getTotalPrice() {
-    double total = 0.0;
     for (var i in cartList) {
-      print(i.title);
-      print(i.price);
-      total = total + i.totalPrice!;
+      if (i.totalPrice! == 1) {
+        sumList.add(i.price!);
+      } else {
+        sumList.add(i.totalPrice!);
+      }
     }
-    setState(ViewState.idel);
-
+    total = sumList.sum;
+    print(total);
+    sumList = [];
     return total;
   }
 }
