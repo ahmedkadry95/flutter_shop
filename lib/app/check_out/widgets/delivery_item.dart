@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/app/check_out/controller/check_out_controller.dart';
+import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/texts.dart';
 
-Container deliveryItem(CheckOutController controller) {
+Container deliveryItem(CartController controller) {
   return Container(
     margin: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
     decoration: BoxDecoration(

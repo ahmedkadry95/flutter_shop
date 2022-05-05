@@ -4,6 +4,7 @@ import 'package:flutter_shop/admin/view/admin_view.dart';
 import 'package:flutter_shop/app/add_delivery_address/view/add_delivery_address_view.dart';
 import 'package:flutter_shop/app/auth/log_in/view/log_in.dart';
 import 'package:flutter_shop/app/auth/register/view/register.dart';
+import 'package:flutter_shop/app/check_out/view/check_out.dart';
 import 'package:flutter_shop/app/delivery_address/view/delivery_address_view.dart';
 import 'package:flutter_shop/app/explore/view/category_view.dart';
 import 'package:flutter_shop/app/home/view/home.dart';
@@ -37,15 +38,13 @@ class AppRouter {
         return _getPageRoute(const AddDeliveryAddressView(), settings);
       case RouteName.deliveryAddress:
         return _getPageRoute(const DeliveryAddressView(), settings);
-    // case RouteName.categoriesView:
-    //   return _getPageRoute(const CategoryView(), settings);
+      // case RouteName.categoriesView:
+      //   return _getPageRoute(const CategoryView(), settings);
       default:
         return _getPageRoute(const SplashView(), settings);
     }
   }
 }
-
-
 
 PageRoute _getPageRoute(Widget child, RouteSettings settings) {
   return _FadeRoute(child: child, routeName: settings.name);
@@ -57,18 +56,22 @@ class _FadeRoute extends PageRouteBuilder {
 
   _FadeRoute({this.child, this.routeName})
       : super(
-    settings: RouteSettings(name: routeName),
-    pageBuilder: (BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,) =>
-    child!,
-    transitionsBuilder: (BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,) =>
-        FadeTransition(
-          opacity: animation,
-          child: child,
-        ),
-  );
+          settings: RouteSettings(name: routeName),
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              child!,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+        );
 }

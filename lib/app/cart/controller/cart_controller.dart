@@ -1,22 +1,43 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/models/product_model.dart';
+import 'package:flutter_shop/app/models/user_model.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_shop/locator.dart';
+import 'package:flutter_shop/routs/routs_names.dart';
+import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import '../../check_out/view/check_out.dart';
 
 class CartController extends BaseController {
   var currentUser = FirebaseAuth.instance.currentUser;
-  CollectionReference cartRef = FirebaseFirestore.instance.collection('users');
+  CollectionReference userRef = FirebaseFirestore.instance.collection('users');
   List<ProductModel> cartList = [];
   List<double> sumList = [];
-  double total = 0.0;
+  double? total;
+
+  var navigation = locator<NavigationService>();
+  UserModel? user;
+  bool isValid = false;
+  TextEditingController promoController = TextEditingController();
+  Map address = {
+    'building_number': '',
+    'street': '',
+    'city': '',
+  };
+
+  List promoCodesList = [
+    'discount10%',
+    'discount15%',
+    'discount20%',
+  ];
 
   getCart() async {
-    var response = await cartRef.doc(currentUser?.uid).collection('cart').get();
+    var response = await userRef.doc(currentUser?.uid).collection('cart').get();
     var data = response.docs;
     for (var item in data) {
       cartList.add(ProductModel.fromJason(item.data()));
@@ -25,7 +46,7 @@ class CartController extends BaseController {
   }
 
   removeProduct(String productId) {
-    cartRef
+    userRef
         .doc(currentUser?.uid)
         .collection('cart')
         .doc(productId)
@@ -42,7 +63,7 @@ class CartController extends BaseController {
     setState(ViewState.idel);
   }
 
-  double getTotalPrice() {
+  double? getTotalPrice() {
     for (var i in cartList) {
       if (i.totalPrice! == 1) {
         sumList.add(i.price!);
@@ -60,7 +81,7 @@ class CartController extends BaseController {
     content: Text('sorry no items in your cart to check out'),
     backgroundColor: errorColor,
     behavior: SnackBarBehavior.floating,
-    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   );
 
   checkOut(context) {
@@ -81,8 +102,35 @@ class CartController extends BaseController {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CheckOutView(total),
+        builder: (context) => CheckOutView(total!),
       ),
     );
   }
+  getUserData() async {
+    String? userId = currentUser?.uid;
+    DocumentSnapshot documentSnapshot = await userRef.doc(userId).get();
+    var data = documentSnapshot.data();
+    user = UserModel.fromJson(data);
+    address = user!.address!;
+    print(address);
+    setState(ViewState.idel);
+  }
+  void checkPromoCode(context) {
+    if (promoCodesList.contains(promoController.text)) {
+      isValid = true;
+      setState(ViewState.idel);
+    } else {
+      AwesomeDialog(
+          context: context,
+          dialogType: DialogType.ERROR,
+          animType: AnimType.SCALE,
+          title: 'Invalid',
+          desc: 'this promo code is not exist ',
+          btnCancelOnPress: () {
+            promoController.clear();
+            setState(ViewState.idel);
+          }).show();
+    }
+  }
+
 }

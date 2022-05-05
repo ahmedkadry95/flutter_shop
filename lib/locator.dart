@@ -3,7 +3,6 @@ import 'package:flutter_shop/app/add_delivery_address/controller/add_delivery_ad
 import 'package:flutter_shop/app/auth/log_in/controller/login_controller.dart';
 import 'package:flutter_shop/app/auth/register/controller/register_controller.dart';
 import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
-import 'package:flutter_shop/app/check_out/controller/check_out_controller.dart';
 import 'package:flutter_shop/app/delivery_address/controller/delivery_address_controller.dart';
 import 'package:flutter_shop/app/home/controller/home_controller.dart';
 import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
@@ -35,7 +34,6 @@ void setupLocator() {
   locator.registerFactory(() => CartController());
   locator.registerFactory(() => ProductCardController());
   locator.registerFactory(() => ExploreController());
-  locator.registerFactory(() => CheckOutController());
 }
 
 void initSingleton() {

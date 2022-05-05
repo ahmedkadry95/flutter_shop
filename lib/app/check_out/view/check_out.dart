@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/app/check_out/controller/check_out_controller.dart';
+import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
 import 'package:flutter_shop/app/check_out/widgets/delivery_item.dart';
 import 'package:flutter_shop/app/check_out/widgets/payment_item.dart';
 import 'package:flutter_shop/base_view.dart';
@@ -8,8 +8,6 @@ import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
 
-import '../../../widgets/main_button.dart';
-
 class CheckOutView extends StatelessWidget {
   double orderPrice;
 
@@ -17,9 +15,9 @@ class CheckOutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<CheckOutController>(
-      onModelReady: (controller) {
-        controller.getUserData();
+    return BaseView<CartController>(
+      onModelReady: (controller) async {
+        await controller.getUserData();
       },
       builder: (context, controller, child) {
         return SafeArea(
@@ -72,9 +70,7 @@ class CheckOutView extends StatelessWidget {
                                   cursorColor: blackColor,
                                   controller: controller.promoController,
                                   decoration: InputDecoration(
-                                    isDense: true,
-
-                                    // contentPadding: const EdgeInsets.only(top: 20),
+                                    // isDense: true,
                                     enabledBorder: const OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xffD5D7E0),
@@ -100,7 +96,16 @@ class CheckOutView extends StatelessWidget {
                               controller.checkPromoCode(context);
                             })
                           ],
-                        )
+                        ),
+                        heightSpace(25),
+                        Row(
+                          children: [
+                            blackTitle4('Total cost'),
+                            const Spacer(),
+                          ],
+                        ),
+                        heightSpace(10),
+
                       ],
                     ),
                   )
