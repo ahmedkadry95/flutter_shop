@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_shop/utils/colors.dart';
+import '../../check_out/view/check_out.dart';
 
 class CartController extends BaseController {
   var currentUser = FirebaseAuth.instance.currentUser;
@@ -51,5 +54,35 @@ class CartController extends BaseController {
     print(total);
     sumList = [];
     return total;
+  }
+
+  SnackBar checkOutSnackBar = const SnackBar(
+    content: Text('sorry no items in your cart to check out'),
+    backgroundColor: errorColor,
+    behavior: SnackBarBehavior.floating,
+    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  );
+
+  checkOut(context) {
+    // getTotalPrice();
+    // if (total == 0.0) {
+    //   ScaffoldMessenger.of(context).showSnackBar(checkOutSnackBar);
+    // } else {
+    //   for (var element in cartList) {
+    //     removeProduct(element.id!);
+    //   }
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => CheckOutView(total),
+    //     ),
+    //   );
+    // }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CheckOutView(total),
+      ),
+    );
   }
 }

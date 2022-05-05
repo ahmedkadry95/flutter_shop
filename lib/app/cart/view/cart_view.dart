@@ -48,7 +48,7 @@ class CartView extends StatelessWidget {
                 child: MainButton(
                   text: 'Go to checkout',
                 ).onTap(() {
-                  controller.getTotalPrice();
+                  controller.checkOut(context);
                 }),
               )
             ],
