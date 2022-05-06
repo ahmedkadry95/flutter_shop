@@ -91,3 +91,13 @@ Widget smallGreyHint2(String text) {
         const TextStyle(fontSize: 12, color: grey, fontWeight: FontWeight.w400),
   );
 }
+
+Widget billText(String text) {
+  return Text(
+    text,
+    style: const TextStyle(
+      fontWeight: FontWeight.w500,
+      height: 1.6,
+    ),
+  );
+}

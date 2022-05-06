@@ -8,10 +8,8 @@ import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_shop/locator.dart';
-import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/utils/colors.dart';
-import '../../check_out/view/check_out.dart';
 
 class CartController extends BaseController {
   var currentUser = FirebaseAuth.instance.currentUser;
@@ -19,6 +17,7 @@ class CartController extends BaseController {
   List<ProductModel> cartList = [];
   List<double> sumList = [];
   double? total;
+  double? totalAfterDiscount = 0.0;
 
   var navigation = locator<NavigationService>();
   UserModel? user;
@@ -72,9 +71,22 @@ class CartController extends BaseController {
       }
     }
     total = sumList.sum;
-    print(total);
     sumList = [];
     return total;
+  }
+
+  getTotalAfterDiscount() {
+    if (isValid) {
+      if (promoController.text == 'discount10%') {
+        totalAfterDiscount = total! - (total! * 0.10);
+      }
+      if (promoController.text == 'discount15%') {
+        totalAfterDiscount = total! - (total! * 0.15);
+      }
+      if (promoController.text == 'discount20%') {
+        totalAfterDiscount = total! - (total! * 0.20);
+      }
+    }
   }
 
   SnackBar checkOutSnackBar = const SnackBar(
@@ -84,28 +96,6 @@ class CartController extends BaseController {
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   );
 
-  checkOut(context) {
-    // getTotalPrice();
-    // if (total == 0.0) {
-    //   ScaffoldMessenger.of(context).showSnackBar(checkOutSnackBar);
-    // } else {
-    //   for (var element in cartList) {
-    //     removeProduct(element.id!);
-    //   }
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => CheckOutView(total),
-    //     ),
-    //   );
-    // }
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CheckOutView(total!),
-      ),
-    );
-  }
   getUserData() async {
     String? userId = currentUser?.uid;
     DocumentSnapshot documentSnapshot = await userRef.doc(userId).get();
@@ -115,9 +105,11 @@ class CartController extends BaseController {
     print(address);
     setState(ViewState.idel);
   }
+
   void checkPromoCode(context) {
     if (promoCodesList.contains(promoController.text)) {
       isValid = true;
+      getTotalAfterDiscount();
       setState(ViewState.idel);
     } else {
       AwesomeDialog(
@@ -132,5 +124,4 @@ class CartController extends BaseController {
           }).show();
     }
   }
-
 }
