@@ -147,14 +147,20 @@ class CartController extends BaseController {
     }
   }
 
-  placeOrder() {
+  placeOrder(context) {
     try {
       updateProductStorage();
       clearCart();
-      print('***************************');
       navigation.navigateToAndClearStack(RouteName.successOrder);
     } catch (e) {
-      print(e);
+      AwesomeDialog(
+              context: context,
+              dialogType: DialogType.ERROR,
+              animType: AnimType.SCALE,
+              title: 'Error',
+              desc: 'sorry your order does\'t complete',
+              btnCancelOnPress: () {})
+          .show();
     }
   }
 }
