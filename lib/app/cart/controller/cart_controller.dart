@@ -127,12 +127,12 @@ class CartController extends BaseController {
     }
   }
 
-  void clearCart() {
+  void clearCart() async {
     for (var product in cartList) {
       removeProduct(product.id!);
     }
     for (var product in cartList) {
-      productsRef.doc(product.id).update({
+      await productsRef.doc(product.id).update({
         'storage': (product.storage! - (product.totalPrice! / product.price!))
       });
     }
