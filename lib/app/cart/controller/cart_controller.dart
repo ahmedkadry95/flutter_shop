@@ -8,6 +8,7 @@ import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_shop/locator.dart';
+import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/utils/colors.dart';
 
@@ -146,4 +147,14 @@ class CartController extends BaseController {
     }
   }
 
+  placeOrder() {
+    try {
+      updateProductStorage();
+      clearCart();
+      print('***************************');
+      navigation.navigateToAndClearStack(RouteName.successOrder);
+    } catch (e) {
+      print(e);
+    }
+  }
 }

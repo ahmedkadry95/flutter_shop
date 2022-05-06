@@ -103,9 +103,7 @@ class CartView extends StatelessWidget {
                                   totalCost(controller),
                                   heightSpace(30),
                                   MainButton(text: 'Place order').onTap(() {
-                                    controller.clearCart();
-                                    controller.updateProductStorage();
-
+                                    controller.placeOrder();
                                   })
                                 ],
                               ),
@@ -121,6 +119,4 @@ class CartView extends StatelessWidget {
       },
     );
   }
-
-
 }

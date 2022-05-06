@@ -8,4 +8,5 @@ class RouteName {
   static const String deliveryAddress = 'delivery_address';
   static const String categoriesView = 'categories_view';
   static const String checkout = 'checkout';
+  static const String successOrder = 'success_order';
 }
