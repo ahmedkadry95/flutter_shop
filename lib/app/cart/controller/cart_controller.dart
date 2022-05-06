@@ -14,6 +14,8 @@ import 'package:flutter_shop/utils/colors.dart';
 class CartController extends BaseController {
   var currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference userRef = FirebaseFirestore.instance.collection('users');
+  CollectionReference productsRef =
+      FirebaseFirestore.instance.collection('products');
   List<ProductModel> cartList = [];
   List<double> sumList = [];
   double? total;
@@ -122,6 +124,17 @@ class CartController extends BaseController {
             promoController.clear();
             setState(ViewState.idel);
           }).show();
+    }
+  }
+
+  void clearCart() {
+    for (var product in cartList) {
+      removeProduct(product.id!);
+    }
+    for (var product in cartList) {
+      productsRef.doc(product.id).update({
+        'storage': (product.storage! - (product.totalPrice! / product.price!))
+      });
     }
   }
 }

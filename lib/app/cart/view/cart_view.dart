@@ -64,7 +64,25 @@ class CartView extends StatelessWidget {
                       builder: (BuildContext context) {
                         return ListView(
                           children: [
-                            heightSpace(40),
+                            heightSpace(45),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  blackTitle3('Check out'),
+                                  const Spacer(),
+                                  IconButton(
+                                    onPressed: () {
+                                      controller.navigation.goBack();
+                                    },
+                                    icon: const Icon(Icons.close),
+                                  )
+                                ],
+                              ),
+                            ),
+                            heightSpace(20),
                             deliveryItem(controller),
                             paymentItem(),
                             heightSpace(10),
@@ -80,7 +98,11 @@ class CartView extends StatelessWidget {
                                   heightSpace(25),
                                   blackTitle4('Total cost'),
                                   heightSpace(10),
-                                  totalCost(controller)
+                                  totalCost(controller),
+                                  heightSpace(30),
+                                  MainButton(text: 'Place order').onTap(() {
+                                    controller.clearCart();
+                                  })
                                 ],
                               ),
                             ),
