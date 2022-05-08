@@ -1,9 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/account/conttroler/account_conttroller.dart';
 import 'package:flutter_shop/app/account/widgets/account_screen_item.dart';
 import 'package:flutter_shop/app/account/widgets/log_out_button.dart';
 import 'package:flutter_shop/app/account/widgets/report_problem_bottom_sheet.dart';
 import 'package:flutter_shop/base_view.dart';
+import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
@@ -20,39 +22,51 @@ class AccountView extends StatelessWidget {
         controller.getUserData();
       },
       builder: (context, controller, child) {
-        return ListView(
-          children: [
-            heightSpace(40),
-            // const UserAvatar(),
-            // heightSpace(30),
-            userScreenItem(
-              icon: Icons.shopping_cart,
-              text: 'Orders',
-            ).onTap(() {}),
-            // userScreenItem(
-            //   image: 'assets/icons/payment.png',
-            //   text: 'Payment Method',
-            // ),
-            // userScreenItem(
-            //   image: 'assets/icons/notifications.png',
-            //   text: 'Notifications',
-            // ),
-            userScreenItem(
-              text: 'Help',
-              icon: Icons.help,
-            ).onTap(() {
-              reportProblemBottomSheetMenu(context);
-            }),
-            userScreenItem(
-              text: 'About',
-              icon: Icons.info,
-            ).onTap(() {}),
-            heightSpace(90),
-            logOutButton().onTap(() async {
-              await controller.signOut();
-            }),
-            heightSpace(30),
-          ],
+        return SafeArea(
+          child: Stack(
+            children: [
+              ListView(
+                children: [
+                  heightSpace(40),
+                  // const UserAvatar(),
+                  heightSpace(40),
+                  userScreenItem(
+                    icon: Icons.shopping_cart,
+                    text: 'Orders',
+                  ).onTap(() {}),
+                  userScreenItem(
+                    text: 'Help',
+                    icon: Icons.help,
+                  ).onTap(() {
+                    reportProblemBottomSheetMenu(context);
+                  }),
+                  userScreenItem(
+                    text: 'About',
+                    icon: Icons.info,
+                  ).onTap(() {
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.INFO,
+                      animType: AnimType.SCALE,
+                      title: 'About ',
+                      desc:
+                          'with more than 1000 product This app helping you to get all what you want from market like cheese ,milk , drinks , fresh fruit and vegetables ... all what you need is place your order and wait during 45 minutes your order will be delivered ',
+                      btnOkOnPress: () {},
+                    ).show();
+                  }),
+                  heightSpace(30),
+                ],
+              ),
+              Positioned(
+                bottom: 40,
+                left: 0,
+                right: 0,
+                child: logOutButton().onTap(() async {
+                  await controller.signOut();
+                }),
+              ),
+            ],
+          ),
         );
       },
     );
