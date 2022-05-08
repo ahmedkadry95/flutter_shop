@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
 import 'package:flutter_shop/app/models/product_model.dart';
@@ -72,6 +73,14 @@ class CartItem extends StatelessWidget {
                           _model.count = count;
                           _model.totalPrice = (count * _model.price!);
                           controller.setState(ViewState.idel);
+                        } else {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.ERROR,
+                            animType: AnimType.SCALE,
+                            desc: 'sorry no more ${_model.storage} in store',
+                            btnCancelOnPress: () {},
+                          ).show();
                         }
                       }),
                     ],
