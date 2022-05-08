@@ -107,6 +107,7 @@ class CartView extends StatelessWidget {
                                     totalCost(controller),
                                     heightSpace(30),
                                     MainButton(text: 'Place order').onTap(() {
+                                      controller.showIndicatorDialog(context);
                                       controller.placeOrder(context);
                                     })
                                   ],

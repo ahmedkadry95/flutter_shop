@@ -17,6 +17,8 @@ class CartController extends BaseController {
   CollectionReference userRef = FirebaseFirestore.instance.collection('users');
   CollectionReference productsRef =
       FirebaseFirestore.instance.collection('products');
+  CollectionReference ordersRef =
+      FirebaseFirestore.instance.collection('orders');
   List<ProductModel> cartList = [];
   List<double> sumList = [];
   double? total;
@@ -134,7 +136,7 @@ class CartController extends BaseController {
     }
   }
 
-  void updateProductStorage() async {
+  updateProductStorage() async {
     for (var product in cartList) {
       print('product.count!');
       print(product.count!);
@@ -152,7 +154,7 @@ class CartController extends BaseController {
     }
   }
 
-  void updateProductSoldTimes() async {
+  updateProductSoldTimes() async {
     for (var product in cartList) {
       await productsRef.doc(product.id).update({
         'sold_times': (product.soldTimes! + product.count!).toInt(),
@@ -160,10 +162,23 @@ class CartController extends BaseController {
     }
   }
 
-  placeOrder(context) {
+  List addToOrders() {
+    var list = [];
+    for (var i in cartList) {
+      var map = {};
+      map['title'] = i.title;
+      map['count'] = i.count;
+      list.add(map);
+    }
+    print(list);
+    return list;
+  }
+
+  placeOrder(context) async {
     try {
-      updateProductStorage();
-      updateProductSoldTimes();
+      ordersRef.add({'id': currentUser!.uid, 'order': addToOrders()});
+      await updateProductStorage();
+      await updateProductSoldTimes();
       clearCart();
       navigation.navigateToAndClearStack(RouteName.successOrder);
     } catch (e) {
@@ -176,5 +191,18 @@ class CartController extends BaseController {
               btnCancelOnPress: () {})
           .show();
     }
+  }
+
+  showIndicatorDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: mainColor,
+            ),
+          );
+        });
   }
 }
