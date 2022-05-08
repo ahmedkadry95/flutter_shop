@@ -53,6 +53,7 @@ class CartItem extends StatelessWidget {
                       calcButton(icon: Icons.remove, color: grey).onTap(() {
                         if (count > 1) {
                           count--;
+                          _model.count = count;
                           _model.totalPrice = (count * _model.price!);
 
                           controller.setState(ViewState.idel);
@@ -60,7 +61,7 @@ class CartItem extends StatelessWidget {
                       }),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 10),
-                        child: blackTitle4('$count'),
+                        child: blackTitle4('${_model.count}'),
                       ),
                       calcButton(
                         icon: Icons.add,
@@ -68,6 +69,7 @@ class CartItem extends StatelessWidget {
                       ).onTap(() {
                         if (count < _model.storage!) {
                           count++;
+                          _model.count = count;
                           _model.totalPrice = (count * _model.price!);
                           controller.setState(ViewState.idel);
                         }

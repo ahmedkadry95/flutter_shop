@@ -54,63 +54,68 @@ class CartView extends StatelessWidget {
                 child: MainButton(
                   text: 'Go to checkout',
                 ).onTap(() {
-                  showModalBottomSheet<void>(
-                      isScrollControlled: true,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
+                  if (controller.cartList.isEmpty) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(controller.checkOutSnackBar);
+                  } else {
+                    showModalBottomSheet<void>(
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
                         ),
-                      ),
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ListView(
-                          children: [
-                            heightSpace(45),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ListView(
+                            children: [
+                              heightSpace(45),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0,
+                                ),
+                                child: Row(
+                                  children: [
+                                    blackTitle3('Check Out'),
+                                    const Spacer(),
+                                    IconButton(
+                                      onPressed: () {
+                                        controller.navigation.goBack();
+                                      },
+                                      icon: const Icon(Icons.close),
+                                    )
+                                  ],
+                                ),
                               ),
-                              child: Row(
-                                children: [
-                                  blackTitle3('Check Out'),
-                                  const Spacer(),
-                                  IconButton(
-                                    onPressed: () {
-                                      controller.navigation.goBack();
-                                    },
-                                    icon: const Icon(Icons.close),
-                                  )
-                                ],
+                              heightSpace(20),
+                              deliveryItem(controller),
+                              paymentItem(),
+                              heightSpace(10),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    blackTitle4('Promo Code'),
+                                    heightSpace(10),
+                                    promoCode(controller, context),
+                                    heightSpace(25),
+                                    blackTitle4('Total cost'),
+                                    heightSpace(10),
+                                    totalCost(controller),
+                                    heightSpace(30),
+                                    MainButton(text: 'Place order').onTap(() {
+                                      controller.placeOrder(context);
+                                    })
+                                  ],
+                                ),
                               ),
-                            ),
-                            heightSpace(20),
-                            deliveryItem(controller),
-                            paymentItem(),
-                            heightSpace(10),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  blackTitle4('Promo Code'),
-                                  heightSpace(10),
-                                  promoCode(controller, context),
-                                  heightSpace(25),
-                                  blackTitle4('Total cost'),
-                                  heightSpace(10),
-                                  totalCost(controller),
-                                  heightSpace(30),
-                                  MainButton(text: 'Place order').onTap(() {
-                                    controller.placeOrder(context);
-                                  })
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      });
+                            ],
+                          );
+                        });
+                  }
                 }),
               )
             ],

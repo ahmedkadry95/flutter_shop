@@ -32,6 +32,8 @@ class ProductCardController extends BaseController {
             price: _model.price!,
             quantity: _model.quantity!,
             storage: _model.storage!,
+            count: _model.count!,
+            soldTimes: _model.soldTimes!,
           ),
         )
         .then((value) {

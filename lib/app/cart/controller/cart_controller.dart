@@ -132,17 +132,30 @@ class CartController extends BaseController {
     for (var product in cartList) {
       removeProduct(product.id!);
     }
-    for (var product in cartList) {
-      productsRef.doc(product.id).update({
-        'storage': (product.storage! - (product.totalPrice! / product.price!))
-      });
-    }
   }
 
   void updateProductStorage() async {
     for (var product in cartList) {
+      print('product.count!');
+      print(product.count!);
+      print(product.count!.runtimeType);
+      print('==============================');
+      print('product.storage!');
+      print(product.storage!);
+      print(product.storage!.runtimeType);
+      print('==============================');
+
+      print((product.storage! - product.count!).toInt());
       await productsRef.doc(product.id).update({
-        'storage': (product.storage! - (product.totalPrice! / product.price!))
+        'storage': (product.storage! - product.count!).toInt(),
+      });
+    }
+  }
+
+  void updateProductSoldTimes() async {
+    for (var product in cartList) {
+      await productsRef.doc(product.id).update({
+        'sold_times': (product.soldTimes! + product.count!).toInt(),
       });
     }
   }
@@ -150,6 +163,7 @@ class CartController extends BaseController {
   placeOrder(context) {
     try {
       updateProductStorage();
+      updateProductSoldTimes();
       clearCart();
       navigation.navigateToAndClearStack(RouteName.successOrder);
     } catch (e) {

@@ -6,11 +6,9 @@ import 'package:flutter_shop/app/account/widgets/report_problem_bottom_sheet.dar
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
+import 'package:flutter_shop/utils/texts.dart';
 import 'package:mailto/mailto.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../routs/routs_names.dart';
-import '../widgets/user_avatar.dart';
 
 class AccountView extends StatelessWidget {
   const AccountView({Key? key}) : super(key: key);
@@ -25,34 +23,30 @@ class AccountView extends StatelessWidget {
         return ListView(
           children: [
             heightSpace(40),
-            const UserAvatar(),
-            heightSpace(30),
+            // const UserAvatar(),
+            // heightSpace(30),
             userScreenItem(
-              image: 'assets/icons/location.png',
-              text: 'Delivery Address',
-            ).onTap(() {
-              controller.navigation.navigateTo(RouteName.deliveryAddress);
-            }),
+              icon: Icons.shopping_cart,
+              text: 'Orders',
+            ).onTap(() {}),
+            // userScreenItem(
+            //   image: 'assets/icons/payment.png',
+            //   text: 'Payment Method',
+            // ),
+            // userScreenItem(
+            //   image: 'assets/icons/notifications.png',
+            //   text: 'Notifications',
+            // ),
             userScreenItem(
-              image: 'assets/icons/payment.png',
-              text: 'Payment Method',
-            ),
-            userScreenItem(
-              image: 'assets/icons/notifications.png',
-              text: 'Notifications',
-            ),
-            userScreenItem(
-              image: 'assets/icons/help.png',
               text: 'Help',
+              icon: Icons.help,
             ).onTap(() {
               reportProblemBottomSheetMenu(context);
             }),
             userScreenItem(
-              image: 'assets/icons/about.png',
               text: 'About',
-            ).onTap(() {
-              // context: context, routeName: RouteName.ABOUT_APP);          NavigationServices.goTo(
-            }),
+              icon: Icons.info,
+            ).onTap(() {}),
             heightSpace(90),
             logOutButton().onTap(() async {
               await controller.signOut();
@@ -85,13 +79,13 @@ void reportProblemBottomSheetMenu(context) {
             children: [
               Row(
                 children: [
-                  Text(
+                  blackTitle4(
                     'Report for problem',
                   ),
                   const Spacer(),
                   IconButton(
                     onPressed: () {
-                      // NavigationServices.goBack(context: context);
+                      Navigator.of(context).pop();
                     },
                     icon: const Icon(Icons.close),
                   ),
@@ -123,7 +117,7 @@ void reportProblemBottomSheetMenu(context) {
                       flex: 1,
                       child: cancelButton().onTap(
                         () {
-                          // NavigationServices.goBack(context: context);
+                          Navigator.of(context).pop();
                         },
                       ),
                     ),

@@ -1,7 +1,8 @@
 class ProductModel {
   String? id, title, description, image, category, measurementUnit;
   double? price, quantity;
-  int? storage;
+  int? storage, count, soldTimes;
+
   double? totalPrice = 1;
 
   ProductModel({
@@ -14,6 +15,8 @@ class ProductModel {
     this.price,
     this.quantity,
     this.storage,
+    this.count,
+    this.soldTimes,
   });
 
   ProductModel.fromJason(json) {
@@ -26,6 +29,8 @@ class ProductModel {
     price = json['price'];
     quantity = json['quantity'];
     storage = json['storage'];
+    count = json['count'];
+    soldTimes = json['sold_times'];
   }
 
   Map<String, dynamic> productToJson({
@@ -38,6 +43,8 @@ class ProductModel {
     required double price,
     required double quantity,
     required int storage,
+    required int count,
+    required int soldTimes,
   }) {
     final Map<String, dynamic> data = {};
     data['id'] = id;
@@ -49,7 +56,8 @@ class ProductModel {
     data['price'] = price;
     data['quantity'] = quantity;
     data['storage'] = storage;
-    data['sold_times'] = 0;
+    data['count'] = count;
+    data['sold_times'] = soldTimes;
     return data;
   }
 }
