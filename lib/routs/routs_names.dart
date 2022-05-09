@@ -9,4 +9,5 @@ class RouteName {
   static const String categoriesView = 'categories_view';
   static const String checkout = 'checkout';
   static const String successOrder = 'success_order';
+  static const String lastOrders = 'last_orders';
 }

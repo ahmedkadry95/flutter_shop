@@ -33,7 +33,10 @@ class AccountView extends StatelessWidget {
                   userScreenItem(
                     icon: Icons.shopping_cart,
                     text: 'Orders',
-                  ).onTap(() {}),
+                  ).onTap(() {
+                    controller.navigation.navigateTo(RouteName.lastOrders);
+                    // print('aaa');
+                  }),
                   userScreenItem(
                     text: 'Help',
                     icon: Icons.help,

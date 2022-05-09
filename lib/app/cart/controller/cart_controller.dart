@@ -1,12 +1,12 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/app/models/user_model.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/navigation_service.dart';

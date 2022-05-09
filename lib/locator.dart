@@ -5,6 +5,7 @@ import 'package:flutter_shop/app/auth/register/controller/register_controller.da
 import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
 import 'package:flutter_shop/app/delivery_address/controller/delivery_address_controller.dart';
 import 'package:flutter_shop/app/home/controller/home_controller.dart';
+import 'package:flutter_shop/app/last_orders/controller/last_orders_controller.dart';
 import 'package:flutter_shop/app/placed_orders/controller/placed_order_controller.dart';
 import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
 import 'package:flutter_shop/app/splash/controller/splash_controller.dart';
@@ -36,6 +37,7 @@ void setupLocator() {
   locator.registerFactory(() => ProductCardController());
   locator.registerFactory(() => ExploreController());
   locator.registerFactory(() => PlacedOrders());
+  locator.registerFactory(() => LastOrdersController());
 }
 
 void initSingleton() {
