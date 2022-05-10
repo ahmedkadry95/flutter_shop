@@ -5,13 +5,11 @@ import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
 import 'package:flutter_shop/app/shop/widgets/banner_item.dart';
 import 'package:flutter_shop/app/shop/widgets/search_textfield.dart';
 import 'package:flutter_shop/base_view.dart';
-import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
 import 'package:flutter_shop/widgets/logo.dart';
 import 'package:flutter_shop/widgets/product_card/product_card.dart';
-import '../../../enums/screen_state.dart';
 
 class ShopView extends StatelessWidget {
   const ShopView({Key? key}) : super(key: key);
@@ -22,7 +20,7 @@ class ShopView extends StatelessWidget {
       onModelReady: (controller) async {
         await controller.getLocation();
         await controller.getBanner();
-        await controller.getExclusiveOffer();
+        await controller.getAllProduct();
         await controller.getBestSelling();
       },
       builder: (context, controller, child) {
@@ -32,8 +30,7 @@ class ShopView extends StatelessWidget {
           );
         }
 
-        return
-          SafeArea(
+        return SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: ListView(

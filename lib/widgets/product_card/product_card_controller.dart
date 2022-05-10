@@ -10,7 +10,7 @@ class ProductCardController extends BaseController {
   var currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference cartRef = FirebaseFirestore.instance.collection('users');
   String? userId;
-  ProductModel productModel = ProductModel();
+  late ProductModel productModel ;
 
   getUserId() {
     userId = currentUser?.uid;

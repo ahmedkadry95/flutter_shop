@@ -1,11 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/base_controller.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/services/shared_pref_services.dart';
+import 'package:geocoding/geocoding.dart';
+
 import '../../../utils/strings.dart';
 
 class ShopController extends BaseController {
@@ -18,8 +19,10 @@ class ShopController extends BaseController {
       FirebaseFirestore.instance.collection('products');
 
   List<String> bannerList = [];
-  List<ProductModel> exclusiveOfferList = [];
   List<ProductModel> bestSelling = [];
+  List<ProductModel> bestSellingList = [];
+  List<ProductModel> allProductList = [];
+  List<ProductModel> exclusiveOfferList = [];
 
   String city = '';
   String street = '';
@@ -32,13 +35,18 @@ class ShopController extends BaseController {
     }
   }
 
-  getExclusiveOffer() async {
-    QuerySnapshot querySnapshot = await exclusiveOfferRef.get();
+  getAllProduct() async {
+    QuerySnapshot querySnapshot = await productsRef.get();
     List<QueryDocumentSnapshot> data = querySnapshot.docs;
     for (var element in data) {
-      print(element.data().runtimeType);
-      exclusiveOfferList.add(ProductModel.fromJason(element.data()));
+      allProductList.add(ProductModel.fromJason(element.data()));
     }
+    getExclusiveOfferList();
+  }
+
+  getExclusiveOfferList() {
+    exclusiveOfferList = allProductList.where((isExclusive) => true).toList();
+    print(exclusiveOfferList);
   }
 
   getBestSelling() async {
