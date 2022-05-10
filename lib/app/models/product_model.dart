@@ -35,7 +35,7 @@ class ProductModel {
     );
   }
 
-  Map<String, dynamic> productToJson({
+  static Map<String, dynamic> productToJson({
     required String? id,
     required String title,
     required String description,
