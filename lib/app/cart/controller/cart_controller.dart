@@ -178,10 +178,14 @@ class CartController extends BaseController {
   placeOrder(context) async {
     List<OrderProducts> orderProducts = [];
     for (var i in cartList) {
-      OrderProducts orderProduct = OrderProducts(i.title, i.count);
+      OrderProducts orderProduct = OrderProducts(
+        count: i.count,
+        title: i.title,
+      );
       orderProducts.add(orderProduct);
     }
-    UserOrders userOrders = UserOrders(currentUser!.uid, orderProducts);
+    UserOrders userOrders =
+        UserOrders(userId: currentUser!.uid, products: orderProducts);
 
     try {
       await ordersRef.add(userOrders.toJson());

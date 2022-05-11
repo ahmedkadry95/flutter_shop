@@ -5,8 +5,10 @@ import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/routs/app_router.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
+import 'package:flutter_shop/utils/colors.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -27,6 +29,8 @@ class App extends StatelessWidget {
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: AppRouter.generateRoute,
       debugShowCheckedModeBanner: false,
+      color: backgroundColor,
+
     );
   }
 }

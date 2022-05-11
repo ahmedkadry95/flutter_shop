@@ -1,17 +1,18 @@
-
-
-
 class UserOrders {
   String? userId;
   List<OrderProducts>? products;
 
-  UserOrders(this.userId, this.products);
+  UserOrders({required this.userId, required this.products});
 
-  factory UserOrders.fromJson(json) {
-    return UserOrders(
-      json['userId'],
-      json['products'],
-    );
+  UserOrders.fromJson(json) {
+    List<OrderProducts> productsFromJson = [];
+    userId = json['userId'];
+    if (json['products'] != null) {
+      json['products'].forEach((product) {
+        productsFromJson.add(OrderProducts.fromJson(product));
+      });
+    }
+    products = productsFromJson;
   }
 
   toJson() {
@@ -26,7 +27,12 @@ class OrderProducts {
   String? title;
   int? count;
 
-  OrderProducts(this.title, this.count);
+  OrderProducts({required this.title, required this.count});
+
+  OrderProducts.fromJson(Map json) {
+    title = json['title'];
+    count = json['count'];
+  }
 
   toJson() {
     final Map<String, dynamic> data = {};

@@ -17,31 +17,39 @@ class CategoryView extends StatelessWidget {
         controller.getCategory(category);
       },
       builder: (context, controller, child) {
-        return SafeArea(
-          child: Scaffold(
-            backgroundColor: backgroundColor,
-            appBar: AppBar(
-              elevation: 0,
+        return Container(
+          color: backgroundColor,
+          child: SafeArea(
+            left: false,
+            right: false,
+            bottom: false,
+            child: Scaffold(
               backgroundColor: backgroundColor,
-              leading: IconButton(
-                onPressed: () {
-                  controller.navigation.goBack();
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: backgroundColor,
+                leading: IconButton(
+                  onPressed: () {
+                    controller.navigation.goBack();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
+                  ),
+                ),
+                centerTitle: true,
+                title: blackTitle2(category),
+              ),
+              body: GridView.builder(
+                itemCount: controller.categoryList.length,
+                itemBuilder: (context, index) {
+                  return ProductCard(controller.categoryList[index]);
                 },
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.8,
                 ),
               ),
-              centerTitle: true,
-              title: blackTitle2(category),
-            ),
-            body: GridView.builder(
-              itemCount: controller.categoryList.length,
-              itemBuilder: (context, index) {
-                return ProductCard(controller.categoryList[index]);
-              },
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, childAspectRatio: 0.8),
             ),
           ),
         );

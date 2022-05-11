@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_shop/app/models/user_orders.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:flutter_shop/locator.dart';
@@ -11,15 +12,16 @@ class LastOrdersController extends BaseController {
       FirebaseFirestore.instance.collection('orders');
   var currentUser = FirebaseAuth.instance.currentUser;
 
-  List lastOrdersList = [];
+  List<UserOrders> lastOrdersList = [];
 
   getLastOrders() async {
     QuerySnapshot querySnapshot =
-        await ordersRef.where('id', isEqualTo: currentUser!.uid).get();
+        await ordersRef.where('userId', isEqualTo: currentUser!.uid).get();
     List<QueryDocumentSnapshot> data = querySnapshot.docs;
     for (var element in data) {
-      lastOrdersList.add(element.data());
+      lastOrdersList.add(UserOrders.fromJson(element.data()));
     }
+
     setState(ViewState.idel);
   }
 }
