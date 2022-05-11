@@ -81,7 +81,7 @@ class ExploreView extends StatelessWidget {
                         border: const Color(0xffD9BCE5),
                         title: 'Bakery & Snacks',
                       ).onTap(() {
-                        controller.categoryNavigator(context, 'bakery');
+                        controller.categoryNavigator(context, 'bekary');
                       }),
                     ],
                   ),

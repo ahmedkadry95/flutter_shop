@@ -13,13 +13,10 @@ class ShopController extends BaseController {
   final storageRef = FirebaseStorage.instance.ref();
   var pref = locator<SharedPrefServices>();
 
-  CollectionReference exclusiveOfferRef =
-      FirebaseFirestore.instance.collection('exclusive_offer');
   CollectionReference productsRef =
       FirebaseFirestore.instance.collection('products');
 
   List<String> bannerList = [];
-  List<ProductModel> bestSelling = [];
   List<ProductModel> bestSellingList = [];
   List<ProductModel> allProductList = [];
   List<ProductModel> exclusiveOfferList = [];
@@ -41,13 +38,6 @@ class ShopController extends BaseController {
     for (var element in data) {
       allProductList.add(ProductModel.fromJason(element.data()));
     }
-    allProductList.sort((a, b) => a.soldTimes!.compareTo(b.soldTimes!));
-    allProductList.reversed;
-    for (var i in allProductList) {
-      print(i.soldTimes);
-      print(i.title);
-    }
-
     getExclusiveOfferList();
   }
 
@@ -55,30 +45,17 @@ class ShopController extends BaseController {
     exclusiveOfferList = allProductList.where((isExclusive) => true).toList();
   }
 
-  // getBestSelling() async {
-  //   allProductList.reversed;
-  //   var i = 0;
-  //   do {
-  //     bestSellingList.add(allProductList[i]);
-  //     i++;
-  //   } while (bestSellingList.length < 20);
-  //
-  //   print('bestSellingList');
-  //   print(bestSellingList);
-  //   print('///////////////////////////////////');
-  //   setState(ViewState.idel);
-  //
-  //   //
-  //   // QuerySnapshot querySnapshot = await productsRef
-  //   //     .orderBy('sold_times', descending: true)
-  //   //     .limit(12)
-  //   //     .get();
-  //   // List<QueryDocumentSnapshot> data = querySnapshot.docs;
-  //   // for (var element in data) {
-  //   //   bestSelling.add(ProductModel.fromJason(element.data()));
-  //   // }
-  //   // setState(ViewState.idel);
-  // }
+  getBestSelling() async {
+    QuerySnapshot querySnapshot = await productsRef
+        .orderBy('sold_times', descending: true)
+        .limit(12)
+        .get();
+    List<QueryDocumentSnapshot> data = querySnapshot.docs;
+    for (var element in data) {
+      bestSellingList.add(ProductModel.fromJason(element.data()));
+    }
+    setState(ViewState.idel);
+  }
 
   getLocation() async {
     double lat = await pref.getDouble(latitude);

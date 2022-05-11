@@ -21,7 +21,7 @@ class ShopView extends StatelessWidget {
         await controller.getLocation();
         await controller.getBanner();
         await controller.getAllProduct();
-        // await controller.getBestSelling();
+        await controller.getBestSelling();
       },
       builder: (context, controller, child) {
         if (controller.bestSellingList.isEmpty) {
