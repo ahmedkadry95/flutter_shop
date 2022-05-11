@@ -15,24 +15,24 @@ class ProductCardController extends BaseController {
     userId = currentUser?.uid;
   }
 
-  addProductToCart(ProductModel _model) async {
+  addProductToCart(ProductModel model) async {
     cartRef
         .doc(currentUser?.uid)
         .collection('cart')
-        .doc(_model.id)
+        .doc(model.id)
         .set(
       ProductModel.productToJson(
-            id: _model.id,
-            title: _model.title!,
-            description: _model.description!,
-            image: _model.image!,
-            category: _model.category!,
-            measurementUnit: _model.measurementUnit!,
-            price: _model.price!,
-            quantity: _model.quantity!,
-            storage: _model.storage!,
-            count: _model.count!,
-            soldTimes: _model.soldTimes!,
+            id: model.id,
+            title: model.title!,
+            description: model.description!,
+            image: model.image!,
+            category: model.category!,
+            measurementUnit: model.measurementUnit!,
+            price: model.price!,
+            quantity: model.quantity!,
+            storage: model.storage!,
+            count: model.count!,
+            soldTimes: model.soldTimes!,
           ),
         )
         .then((value) {

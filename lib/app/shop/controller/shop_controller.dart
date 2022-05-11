@@ -41,25 +41,44 @@ class ShopController extends BaseController {
     for (var element in data) {
       allProductList.add(ProductModel.fromJason(element.data()));
     }
+    allProductList.sort((a, b) => a.soldTimes!.compareTo(b.soldTimes!));
+    allProductList.reversed;
+    for (var i in allProductList) {
+      print(i.soldTimes);
+      print(i.title);
+    }
+
     getExclusiveOfferList();
   }
 
   getExclusiveOfferList() {
     exclusiveOfferList = allProductList.where((isExclusive) => true).toList();
-    print(exclusiveOfferList);
   }
 
-  getBestSelling() async {
-    QuerySnapshot querySnapshot = await productsRef
-        .orderBy('sold_times', descending: true)
-        .limit(12)
-        .get();
-    List<QueryDocumentSnapshot> data = querySnapshot.docs;
-    for (var element in data) {
-      bestSelling.add(ProductModel.fromJason(element.data()));
-    }
-    setState(ViewState.idel);
-  }
+  // getBestSelling() async {
+  //   allProductList.reversed;
+  //   var i = 0;
+  //   do {
+  //     bestSellingList.add(allProductList[i]);
+  //     i++;
+  //   } while (bestSellingList.length < 20);
+  //
+  //   print('bestSellingList');
+  //   print(bestSellingList);
+  //   print('///////////////////////////////////');
+  //   setState(ViewState.idel);
+  //
+  //   //
+  //   // QuerySnapshot querySnapshot = await productsRef
+  //   //     .orderBy('sold_times', descending: true)
+  //   //     .limit(12)
+  //   //     .get();
+  //   // List<QueryDocumentSnapshot> data = querySnapshot.docs;
+  //   // for (var element in data) {
+  //   //   bestSelling.add(ProductModel.fromJason(element.data()));
+  //   // }
+  //   // setState(ViewState.idel);
+  // }
 
   getLocation() async {
     double lat = await pref.getDouble(latitude);

@@ -21,10 +21,10 @@ class ShopView extends StatelessWidget {
         await controller.getLocation();
         await controller.getBanner();
         await controller.getAllProduct();
-        await controller.getBestSelling();
+        // await controller.getBestSelling();
       },
       builder: (context, controller, child) {
-        if (controller.bestSelling.isEmpty) {
+        if (controller.bestSellingList.isEmpty) {
           return const CircularProgressIndicator(
             color: mainColor,
           );
@@ -101,7 +101,7 @@ class ShopView extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      ...controller.bestSelling.map((item) {
+                      ...controller.bestSellingList.map((item) {
                         return ProductCard(item);
                       })
                     ],

@@ -62,21 +62,29 @@ class ProductCard extends StatelessWidget {
                   blackTitle4(
                     capitalize('${_model.price} \$'),
                   ),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: controller.isPressed == false ? mainColor : grey,
-                    ),
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                  ).onTap(() async {
-                    await controller.addProductToCart(_model);
-                    controller.isPressedSwitch();
-                  }),
+                  _model.storage == 0
+                      ? const Text(
+                          'Out of stock',
+                          style: TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.w600),
+                        )
+                      : Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: controller.isPressed == false
+                                ? mainColor
+                                : grey,
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                        ).onTap(() async {
+                          await controller.addProductToCart(_model);
+                          controller.isPressedSwitch();
+                        }),
                 ],
               ),
             ],
