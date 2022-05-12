@@ -4,6 +4,7 @@ import 'package:flutter_shop/app/account/conttroler/account_conttroller.dart';
 import 'package:flutter_shop/app/account/widgets/account_screen_item.dart';
 import 'package:flutter_shop/app/account/widgets/log_out_button.dart';
 import 'package:flutter_shop/app/account/widgets/report_problem_bottom_sheet.dart';
+import 'package:flutter_shop/app/account/widgets/user_avatar.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/utils/extensions.dart';
@@ -28,14 +29,14 @@ class AccountView extends StatelessWidget {
               ListView(
                 children: [
                   heightSpace(40),
-                  // const UserAvatar(),
+                  const UserAvatar(),
                   heightSpace(40),
+                  
                   userScreenItem(
                     icon: Icons.shopping_cart,
                     text: 'Orders',
                   ).onTap(() {
                     controller.navigation.navigateTo(RouteName.lastOrders);
-                    // print('aaa');
                   }),
                   userScreenItem(
                     text: 'Help',
