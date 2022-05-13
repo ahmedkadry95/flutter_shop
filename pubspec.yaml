@@ -64,7 +64,7 @@ flutter_icons:
   image_path: 'assets/images/logo.png'
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
-  adaptive_icon_background: "#ffffff"
+  adaptive_icon_background: 'assets/images/white.jpg'
 
 
 

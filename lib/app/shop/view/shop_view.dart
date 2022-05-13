@@ -61,9 +61,9 @@ class ShopView extends StatelessWidget {
               SearchTextField(
                 TextInputType.text,
               ),
-              // Icon(Icons.search).onTap(() {
-              //   showSearch(context: context, delegate: Search());
-              // }),
+              Icon(Icons.search).onTap(() {
+                showSearch(context: context, delegate: Search());
+              }),
               heightSpace(20),
               CarouselSlider(
                   options: CarouselOptions(
@@ -87,7 +87,7 @@ class ShopView extends StatelessWidget {
                 child: Row(
                   children: [
                     ...controller.exclusiveOfferList.map(
-                          (item) {
+                      (item) {
                         return ProductCard(item);
                       },
                     )
@@ -104,9 +104,11 @@ class ShopView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    ...controller.bestSellingList.map((item) {
-                      return ProductCard(item);
-                    })
+                    ...controller.bestSellingList.map(
+                      (item) {
+                        return ProductCard(item);
+                      },
+                    )
                   ],
                 ),
               ),
@@ -119,49 +121,54 @@ class ShopView extends StatelessWidget {
   }
 }
 
-// class Search extends SearchDelegate {
+class Search extends SearchDelegate {
+  List names = ['ahmed', 'ali ', 'asma', ' mahmoud'];
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.close),
+      ),
+    ];
+  }
 
-//   @override
-//   List<Widget>? buildActions(BuildContext context) {
-//     return [
-//       IconButton(
-//         onPressed: () {
-//           query = '';
-//         },
-//         icon: const Icon(Icons.close),
-//       ),
-//     ];
-//   }
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(Icons.arrow_back_ios),
+    );
+  }
 
-//   @override
-//   Widget? buildLeading(BuildContext context) {
-//     return IconButton(
-//       onPressed: () {
-//         close(context, null);
-//       },
-//       icon: const Icon(Icons.arrow_back_ios),
-//     );
-//   }
+  @override
+  Widget buildResults(BuildContext context) {
+    return IconButton(
+      onPressed: () {},
+      icon: const Icon(Icons.arrow_back_ios),
+    );
+  }
 
-//   @override
-//   Widget buildResults(BuildContext context) {
-//     return IconButton(
-//       onPressed: () {},
-//       icon: const Icon(Icons.arrow_back_ios),
-//     );
-//   }
-
-//   @override
-//   Widget buildSuggestions(BuildContext context) {
-//     List filter = shopController.allProductList
-//         .where((element) => element.title!.startsWith(query))
-//         .toList();
-//     return ListView.builder(
-//       itemCount: shopController.allProductList.length,
-//       itemBuilder: (context, index) {
-//         return Container(
-//           child: Text(shopController.allProductList[index].title!),
-//         );
-//       },
-//     );
-//   }
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List filter = names.where((element) => element.contains(query)).toList();
+    return ListView.builder(
+        itemCount: query == '' ? names.length : filter.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: query == ''
+                ? Text(
+                    '${names[index]}',
+                  )
+                : Text(
+                    '${filter[index]}',
+                  ),
+          );
+        });
+  }
+}
