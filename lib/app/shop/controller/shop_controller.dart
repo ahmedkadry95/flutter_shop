@@ -38,8 +38,11 @@ class ShopController extends BaseController {
     for (var element in data) {
       allProductList.add(ProductModel.fromJason(element.data()));
     }
+    setState(ViewState.idel);
     getExclusiveOfferList();
   }
+
+
 
   getExclusiveOfferList() {
     exclusiveOfferList = allProductList.where((isExclusive) => true).toList();

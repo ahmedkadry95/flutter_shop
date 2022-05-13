@@ -8,7 +8,6 @@ import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/utils/colors.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -30,7 +29,6 @@ class App extends StatelessWidget {
       onGenerateRoute: AppRouter.generateRoute,
       debugShowCheckedModeBanner: false,
       color: backgroundColor,
-
     );
   }
 }
