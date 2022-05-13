@@ -1,108 +1,109 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/utils/spaces.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_shop/app/models/product_model.dart';
+import 'package:flutter_shop/app/shop/widgets/search_item.dart';
+import 'package:flutter_shop/base_controller.dart';
+import 'package:flutter_shop/enums/screen_state.dart';
 
-class SearchTextField extends StatelessWidget {
-  SearchTextField(
-    this.textInputType,
-  );
 
-  TextInputType textInputType;
 
-  int? max;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-      child: TextField(
-          onTap: () {
-            showSearch(context: context, delegate: SearchD());
-          },
-          keyboardType: textInputType,
-          style: const TextStyle(
-              color: Colors.black, fontSize: 16.5, fontWeight: FontWeight.w600),
-          decoration: const InputDecoration(
-            filled: true,
-            fillColor: Color(0xffF2F3F2),
-            hintText: 'Search Store',
-            hintStyle: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                color: Color(0xff7C7C7C)),
-            isDense: false,
-            prefixIconConstraints:
-                BoxConstraints(maxHeight: 19.9, minHeight: 19.9),
-            prefixIcon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Icon(Icons.search),
-            ),
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-          )),
-    );
-  }
-}
-
-class SearchD extends SearchDelegate {
-  @override
-  ThemeData appBarTheme(BuildContext context) {
-    assert(context != null);
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    assert(theme != null);
-    return theme.copyWith(
-      appBarTheme: AppBarTheme(
-        elevation: 0,
-        backgroundColor: colorScheme.brightness == Brightness.dark
-            ? Colors.grey[900]
-            : Colors.white,
-        iconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),
-      ),
-      inputDecorationTheme: searchFieldDecorationTheme ??
-          InputDecorationTheme(
-            hintStyle: searchFieldStyle ?? theme.inputDecorationTheme.hintStyle,
-            border: InputBorder.none,
+Container serchField() {
+  return Container(
+    width: double.infinity,
+    height: 50,
+    decoration: BoxDecoration(
+        color: const Color(0xffF2F3F2),
+        borderRadius: BorderRadius.circular(20)),
+    child: Row(
+      children: [
+        widthSpace(10),
+        const Icon(
+          Icons.search,
+          color: Color(0xff7C7C7C),
+        ),
+        widthSpace(10),
+        const Text(
+          'Search',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            color: Color(0xff7C7C7C),
           ),
-    );
-  }
+        )
+      ],
+    ),
+  );
+}
+class Search extends SearchDelegate {
+  ProductSearch productSearch = ProductSearch();
 
   @override
-  List<Widget> buildActions(BuildContext context) {
+  List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-          onPressed: () {},
-          icon: Image.asset(
-            'assets/images/filter.png',
-            height: 20,
-          ))
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.close),
+      ),
     ];
   }
 
   @override
-  Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
+  Widget? buildLeading(BuildContext context) {
     return IconButton(
       onPressed: () {
-        Navigator.pop(context);
+        close(context, null);
       },
-      icon: Image.asset(
-        'assets/images/arrow_back.png',
-        height: 20,
-      ),
+      icon: const Icon(Icons.arrow_back_ios),
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
+    return IconButton(
+      onPressed: () {},
+      icon: const Icon(Icons.arrow_back_ios),
+    );
   }
 
   @override
-  Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    return Container(
-      color: Colors.white,
+  buildSuggestions(BuildContext context) {
+    productSearch.getSearchList();
+    List<ProductModel> filter = productSearch.searchList
+        .where((element) => element.title!.startsWith(query))
+        .toList();
+
+    return query == ''
+        ? Container()
+        : SingleChildScrollView(
+      child: Column(
+        children: <Widget>[...filter.map((e) => SearchItem(e)).toList()],
+      ),
     );
+  }
+}
+
+class ProductSearch extends BaseController {
+  bool isPressed = false;
+
+  final List<ProductModel> searchList = [];
+
+  getSearchList() async {
+    if (searchList.isEmpty) {
+      QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('products').get();
+      List<QueryDocumentSnapshot> data = querySnapshot.docs;
+      for (var element in data) {
+        searchList.add(ProductModel.fromJason(element.data()));
+      }
+      setState(ViewState.idel);
+    }
+  }
+
+  isPressedSwitch() {
+    isPressed = true;
+    setState(ViewState.idel);
   }
 }

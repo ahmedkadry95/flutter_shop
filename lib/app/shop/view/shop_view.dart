@@ -1,24 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
 import 'package:flutter_shop/app/shop/widgets/banner_item.dart';
-import 'package:flutter_shop/app/shop/widgets/search_item.dart';
 import 'package:flutter_shop/app/shop/widgets/search_textfield.dart';
-import 'package:flutter_shop/app/shop/widgets/shearch.dart';
-import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/base_view.dart';
-import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
 import 'package:flutter_shop/widgets/logo.dart';
 import 'package:flutter_shop/widgets/product_card/product_card.dart';
-
-import '../../../widgets/product_card/product_card_controller.dart';
 
 class ShopView extends StatelessWidget {
   const ShopView({Key? key}) : super(key: key);
@@ -66,10 +58,7 @@ class ShopView extends StatelessWidget {
                 ],
               ),
               heightSpace(20),
-              SearchTextField(
-                TextInputType.text,
-              ),
-              const Icon(Icons.search).onTap(() {
+              serchField().onTap(() {
                 showSearch(context: context, delegate: Search());
               }),
               heightSpace(20),
@@ -128,4 +117,3 @@ class ShopView extends StatelessWidget {
     );
   }
 }
-
