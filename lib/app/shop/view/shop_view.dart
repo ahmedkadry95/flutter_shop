@@ -61,9 +61,9 @@ class ShopView extends StatelessWidget {
               SearchTextField(
                 TextInputType.text,
               ),
-              Icon(Icons.search).onTap(() {
-                showSearch(context: context, delegate: Search());
-              }),
+              // Icon(Icons.search).onTap(() {
+              //   showSearch(context: context, delegate: Search());
+              // }),
               heightSpace(20),
               CarouselSlider(
                   options: CarouselOptions(
@@ -119,50 +119,49 @@ class ShopView extends StatelessWidget {
   }
 }
 
-class Search extends SearchDelegate {
-  ShopController shopController = ShopController();
+// class Search extends SearchDelegate {
 
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      IconButton(
-        onPressed: () {
-          query = '';
-        },
-        icon: const Icon(Icons.close),
-      ),
-    ];
-  }
+//   @override
+//   List<Widget>? buildActions(BuildContext context) {
+//     return [
+//       IconButton(
+//         onPressed: () {
+//           query = '';
+//         },
+//         icon: const Icon(Icons.close),
+//       ),
+//     ];
+//   }
 
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        close(context, null);
-      },
-      icon: const Icon(Icons.arrow_back_ios),
-    );
-  }
+//   @override
+//   Widget? buildLeading(BuildContext context) {
+//     return IconButton(
+//       onPressed: () {
+//         close(context, null);
+//       },
+//       icon: const Icon(Icons.arrow_back_ios),
+//     );
+//   }
 
-  @override
-  Widget buildResults(BuildContext context) {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(Icons.arrow_back_ios),
-    );
-  }
+//   @override
+//   Widget buildResults(BuildContext context) {
+//     return IconButton(
+//       onPressed: () {},
+//       icon: const Icon(Icons.arrow_back_ios),
+//     );
+//   }
 
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List filter = shopController.allProductList
-        .where((element) => element.title!.startsWith(query))
-        .toList();
-    return ListView.builder(
-      itemCount: shopController.allProductList.length,
-      itemBuilder: (context, index) {
-        return Container(
-          child: Text(shopController.allProductList[index].title!),
-        );
-      },
-    );
-  }
+//   @override
+//   Widget buildSuggestions(BuildContext context) {
+//     List filter = shopController.allProductList
+//         .where((element) => element.title!.startsWith(query))
+//         .toList();
+//     return ListView.builder(
+//       itemCount: shopController.allProductList.length,
+//       itemBuilder: (context, index) {
+//         return Container(
+//           child: Text(shopController.allProductList[index].title!),
+//         );
+//       },
+//     );
+//   }
