@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
 import 'package:flutter_shop/app/shop/widgets/banner_item.dart';
+import 'package:flutter_shop/app/shop/widgets/search_item.dart';
 import 'package:flutter_shop/app/shop/widgets/search_textfield.dart';
+import 'package:flutter_shop/app/shop/widgets/shearch.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
@@ -16,6 +18,8 @@ import 'package:flutter_shop/utils/texts.dart';
 import 'package:flutter_shop/widgets/logo.dart';
 import 'package:flutter_shop/widgets/product_card/product_card.dart';
 
+import '../../../widgets/product_card/product_card_controller.dart';
+
 class ShopView extends StatelessWidget {
   const ShopView({Key? key}) : super(key: key);
 
@@ -23,7 +27,7 @@ class ShopView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<ShopController>(
       onModelReady: (controller) async {
-        await controller.getLocation();
+        // await controller.getLocation();
         await controller.getBanner();
         await controller.getAllProduct();
         await controller.getBestSelling();
@@ -65,7 +69,7 @@ class ShopView extends StatelessWidget {
               SearchTextField(
                 TextInputType.text,
               ),
-              Icon(Icons.search).onTap(() {
+              const Icon(Icons.search).onTap(() {
                 showSearch(context: context, delegate: Search());
               }),
               heightSpace(20),
@@ -125,78 +129,3 @@ class ShopView extends StatelessWidget {
   }
 }
 
-class Search extends SearchDelegate {
-  ProductSearch productSearch = ProductSearch._();
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      IconButton(
-        onPressed: () {
-          query = '';
-        },
-        icon: const Icon(Icons.close),
-      ),
-    ];
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        close(context, null);
-      },
-      icon: const Icon(Icons.arrow_back_ios),
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(Icons.arrow_back_ios),
-    );
-  }
-
-  @override
-  buildSuggestions(BuildContext context) {
-    productSearch.getSearchList();
-    List<ProductModel> filter = productSearch.searchList
-        .where((element) => element.title!.contains(query))
-        .toList();
-
-    return ListView.builder(
-        itemCount:
-            query == '' ? productSearch.searchList.length : filter.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: query == ''
-                ? Text(
-                    '${productSearch.searchList[index].title}',
-                  )
-                : Text(
-                    '${filter[index].title}',
-                  ),
-          );
-        });
-  }
-}
-
-class ProductSearch extends BaseController {
-  ProductSearch._();
-
-  final List<ProductModel> searchList = [];
-
-  getSearchList() async {
-    if (searchList.isEmpty) {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('products').get();
-      List<QueryDocumentSnapshot> data = querySnapshot.docs;
-      for (var element in data) {
-        searchList.add(ProductModel.fromJason(element.data()));
-      }
-      setState(ViewState.idel);
-    }
-  }
-}
