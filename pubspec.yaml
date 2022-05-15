@@ -39,7 +39,7 @@ dependencies:
   firebase_auth: ^3.3.13
   get_it: ^7.2.0
   provider: ^6.0.2
-  cloud_firestore: ^3.1.11
+  cloud_firestore: ^3.1.15
   shared_preferences: ^2.0.13
   mailto: ^2.0.0
   url: ^2.0.0

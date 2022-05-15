@@ -24,7 +24,7 @@ class _BaseScreenState<T extends BaseController> extends State<BaseView<T>>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.onModelReady?.call(model);
     });
     widget.initController?.call(model, newController, _controllers);
