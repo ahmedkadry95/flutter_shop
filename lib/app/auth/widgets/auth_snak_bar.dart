@@ -85,3 +85,27 @@ final buildingNumberSnackBar = SnackBar(
   backgroundColor: errorColor,
   behavior: SnackBarBehavior.floating,
 );
+
+final successfulRegisterSnackBar = SnackBar(
+  content: const Text('your account created successfully'),
+  action: SnackBarAction(
+    label: '',
+    textColor: whiteColor,
+    onPressed: () {},
+  ),
+  duration: Duration(milliseconds: 5),
+  backgroundColor: Colors.green,
+  behavior: SnackBarBehavior.floating,
+);
+
+final existSnackBar = SnackBar(
+  content: const Text('this email is already exist'),
+  action: SnackBarAction(
+    label: '',
+    textColor: whiteColor,
+    onPressed: () {},
+  ),
+  duration: Duration(seconds: 5),
+  backgroundColor: errorColor,
+  behavior: SnackBarBehavior.floating,
+);

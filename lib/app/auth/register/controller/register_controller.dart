@@ -1,14 +1,12 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/app/auth/widgets/auth_snak_bar.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/api_services.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
-
-import '../../../../utils/colors.dart';
 
 class RegisterController extends BaseController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -21,61 +19,6 @@ class RegisterController extends BaseController {
   TextEditingController mobile = TextEditingController();
 
   final registerFormKey = GlobalKey<FormState>();
-
-  // register(BuildContext context) async {
-  //   String registerResult = await apiServices.registerUser(
-  //     email: email.text,
-  //     password: password.text,
-  //     mobile: mobile.text,
-  //     userName: userName.text,
-  //     context: context,
-  //   );
-  //
-  //   if (registerResult == 'user add successfully') {
-  //     showDialog(
-  //       context,
-  //       dialogType: DialogType.SUCCES,
-  //       desc: 'your account created successfully',
-  //       title: 'Success',
-  //       ok: () {},
-  //     );
-  //   } else if (registerResult == 'this password is too weak') {
-  //     showDialog(
-  //       context,
-  //       dialogType: DialogType.WARNING,
-  //       desc: 'password is to weak',
-  //       title: 'Warning',
-  //       ok: () {},
-  //     );
-  //   } else if (registerResult == 'this email is already exist') {
-  //     showDialog(
-  //       context,
-  //       dialogType: DialogType.ERROR,
-  //       desc: 'this email is already exist',
-  //       title: 'Error',
-  //       ok: () {},
-  //     );
-  //   }
-  // }
-
-  void showDialog(
-    context, {
-    required DialogType dialogType,
-    required String title,
-    required String desc,
-    required Function ok,
-  }) {
-    AwesomeDialog(
-      context: context,
-      dialogType: dialogType,
-      animType: AnimType.TOPSLIDE,
-      title: title,
-      desc: desc,
-      btnOkOnPress: () {
-        ok();
-      },
-    ).show();
-  }
 
   toLogin() {
     navigation.navigateTo(RouteName.logIn);
@@ -172,38 +115,3 @@ class RegisterController extends BaseController {
     }
   }
 }
-
-final failsAuthSnackBar = SnackBar(
-  content: const Text('sorry : your email or password is wrong '),
-  action: SnackBarAction(
-    label: 'Try again',
-    textColor: whiteColor,
-    onPressed: () {},
-  ),
-  backgroundColor: errorColor,
-  behavior: SnackBarBehavior.floating,
-);
-
-final successfulRegisterSnackBar = SnackBar(
-  content: const Text('your account created successfully'),
-  action: SnackBarAction(
-    label: '',
-    textColor: whiteColor,
-    onPressed: () {},
-  ),
-  duration: Duration(milliseconds: 5),
-  backgroundColor: Colors.green,
-  behavior: SnackBarBehavior.floating,
-);
-
-final existSnackBar = SnackBar(
-  content: const Text('this email is already exist'),
-  action: SnackBarAction(
-    label: '',
-    textColor: whiteColor,
-    onPressed: () {},
-  ),
-  duration: Duration(seconds: 5),
-  backgroundColor: errorColor,
-  behavior: SnackBarBehavior.floating,
-);
