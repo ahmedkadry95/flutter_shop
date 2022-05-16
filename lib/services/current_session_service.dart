@@ -40,6 +40,38 @@ class CurrentSessionService extends BaseController {
       print(locationData);
       print(locationData!.latitude);
       print(locationData!.longitude);
+    } else {
+      print(_serviceEnabled);
+      _permissionGranted = await location.hasPermission();
+      print(_permissionGranted);
+
+      _permissionGranted = await location.hasPermission();
+      if (_permissionGranted == PermissionStatus.denied) {
+        _permissionGranted = await location.requestPermission();
+        print('222222222222222222222222');
+        print('222223432r34tr4e5g2222222222222222222');
+        print('222222222222222222222222');
+        print('222222sdfdvfdgerdgdfrg222222222222222222');
+        print('222222222222222222222222');
+        print('22222222222sgdrfgtjhhyrj2222222222222');
+        print('22222222222jtyukuo;hgf2222222222222');
+        if (_permissionGranted != PermissionStatus.granted) {
+          print('*****************************************************');
+          print('------------------------------------------------------');
+          print('++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+
+        }
+      }
+
+      // if (_permissionGranted == PermissionStatus.denied) {
+      //   print('222222222222222222222222');
+      //   print('222223432r34tr4e5g2222222222222222222');
+      //   print('222222222222222222222222');
+      //   print('222222sdfdvfdgerdgdfrg222222222222222222');
+      //   print('222222222222222222222222');
+      //   print('22222222222sgdrfgtjhhyrj2222222222222');
+      //   print('22222222222jtyukuo;hgf2222222222222');
+      // }
     }
     setState(ViewState.idel);
   }
