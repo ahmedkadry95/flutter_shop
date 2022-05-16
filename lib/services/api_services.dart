@@ -69,7 +69,7 @@ class ApiServices {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<String> login({
+  Future<String> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
