@@ -4,6 +4,7 @@ import 'package:flutter_shop/app/models/product_model.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:flutter_shop/locator.dart';
+import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/services/shared_pref_services.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -60,6 +61,7 @@ class ShopController extends BaseController {
     setState(ViewState.idel);
   }
 
+
   getLocation() async {
     double lat = await pref.getDouble(latitude);
     double long = await pref.getDouble(longitude);
@@ -71,4 +73,9 @@ class ShopController extends BaseController {
   updateState() {
     setState(ViewState.idel);
   }
+
+
+  CurrentSessionService currentSessionService = CurrentSessionService();
+
+
 }

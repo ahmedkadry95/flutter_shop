@@ -7,3 +7,4 @@ const grey = Color(0xff7C7C7C);
 const errorColor = Color(0xffCF342B);
 const Color blackColor = Colors.black;
 const Color whiteColor = Colors.white;
+const Color warningColor = Color(0xffF0C103);

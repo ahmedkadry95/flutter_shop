@@ -10,6 +10,7 @@ import 'package:flutter_shop/app/placed_orders/controller/placed_order_controlle
 import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
 import 'package:flutter_shop/app/splash/controller/splash_controller.dart';
 import 'package:flutter_shop/services/api_services.dart';
+import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/services/shared_pref_services.dart';
 import 'package:get_it/get_it.dart';
@@ -23,6 +24,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => ApiServices());
   locator.registerLazySingleton(() => SharedPrefServices());
   locator.registerLazySingleton(() => NavigationService());
+  locator.registerLazySingleton(() => CurrentSessionService());
 
   initSingleton();
   locator.registerFactory(() => LogInController());
@@ -44,4 +46,5 @@ void initSingleton() {
   locator<ApiServices>();
   locator<SharedPrefServices>();
   locator<NavigationService>();
+  locator<CurrentSessionService>();
 }
