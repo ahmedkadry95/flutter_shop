@@ -102,15 +102,6 @@ class CartController extends BaseController {
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   );
 
-  getUserData() async {
-    String? userId = currentUser?.uid;
-    DocumentSnapshot documentSnapshot = await userRef.doc(userId).get();
-    var data = documentSnapshot.data();
-    user = UserModel.fromJson(data);
-    address = user!.address!;
-    print(address);
-    setState(ViewState.idel);
-  }
 
   void checkPromoCode(context) {
     if (promoCodesList.contains(promoController.text)) {

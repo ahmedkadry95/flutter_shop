@@ -1,6 +1,5 @@
 class UserModel {
   String? email, id, mobile, userName, imageUrl;
-  Map? address;
 
   UserModel({
     required this.email,
@@ -8,7 +7,6 @@ class UserModel {
     required this.mobile,
     required this.userName,
     required this.imageUrl,
-    required this.address,
   });
 
   UserModel.fromJson(json) {
@@ -17,7 +15,6 @@ class UserModel {
     mobile = json['mobile'];
     userName = json['user_name'];
     imageUrl = json['image_url'];
-    address = json['address'];
   }
 
   userModelToJson() {
@@ -27,7 +24,6 @@ class UserModel {
     data['mobile'] = mobile;
     data['user_name'] = userName;
     data['image_url'] = imageUrl;
-    data['address'] = address;
     return data;
   }
 }

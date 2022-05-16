@@ -21,7 +21,6 @@ class CartView extends StatelessWidget {
     return BaseView<CartController>(
       onModelReady: (controller) async {
         await controller.getCart();
-        await controller.getUserData();
         controller.getTotalPrice();
       },
       builder: (context, controller, child) {

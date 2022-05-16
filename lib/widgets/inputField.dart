@@ -8,6 +8,7 @@ class InputField extends StatefulWidget {
   TextInputType inputType;
   bool isPassword;
   TextEditingController controller;
+  final validator;
 
   InputField({
     required this.label,
@@ -15,6 +16,7 @@ class InputField extends StatefulWidget {
     required this.inputType,
     required this.controller,
     this.isPassword = false,
+    required this.validator,
   });
 
   @override
@@ -33,6 +35,7 @@ class _InputFieldState extends State<InputField> {
           widget.label,
         ),
         TextFormField(
+          validator: widget.validator,
           controller: widget.controller,
           style: const TextStyle(color: Colors.black, fontSize: 17),
           obscureText: isHidden && widget.isPassword,

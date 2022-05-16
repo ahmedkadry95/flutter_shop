@@ -14,7 +14,6 @@ class ChooseLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

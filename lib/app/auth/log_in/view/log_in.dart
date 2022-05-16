@@ -8,7 +8,6 @@ import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
 import 'package:flutter_shop/widgets/background_mask.dart';
-import 'package:flutter_shop/widgets/inputField.dart';
 import 'package:flutter_shop/widgets/logo.dart';
 import 'package:flutter_shop/widgets/main_button.dart';
 
@@ -40,20 +39,20 @@ class LogIn extends StatelessWidget {
                         heightSpace(15),
                         smallGreyHint1("Enter your email and password"),
                         heightSpace(40),
-                        InputField(
-                          label: "Email",
-                          hint: "Enter your email address",
-                          inputType: TextInputType.emailAddress,
-                          controller: controller.email,
-                        ),
-                        heightSpace(20),
-                        InputField(
-                          label: "Password",
-                          hint: "Enter your password",
-                          isPassword: true,
-                          controller: controller.password,
-                          inputType: TextInputType.emailAddress,
-                        ),
+                        // InputField(
+                        //   label: "Email",
+                        //   hint: "Enter your email address",
+                        //   inputType: TextInputType.emailAddress,
+                        //   controller: controller.email,
+                        // ),
+                        // heightSpace(20),
+                        // InputField(
+                        //   label: "Password",
+                        //   hint: "Enter your password",
+                        //   isPassword: true,
+                        //   controller: controller.password,
+                        //   inputType: TextInputType.emailAddress,
+                        // ),
                         heightSpace(20),
                         const Align(
                           child: Text(
