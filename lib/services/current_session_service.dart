@@ -40,11 +40,12 @@ class CurrentSessionService extends BaseController {
         }
       }
     }
+
     locationData = await location.getLocation();
   }
 
   getLocationDetails() async {
-    if (permissionGranted == PermissionStatus.granted) {
+    if (locationData != null) {
       List<geocoding.Placemark> placeMarks =
           await geocoding.placemarkFromCoordinates(
         locationData!.latitude!,

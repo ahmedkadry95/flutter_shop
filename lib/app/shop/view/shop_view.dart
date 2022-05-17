@@ -20,6 +20,7 @@ class ShopView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<ShopController>(
       onModelReady: (controller) async {
+        await controller.currentSessionService.getLocationDetails();
         await controller.getBanner();
         await controller.getAllProduct();
         await controller.getBestSelling();
@@ -51,19 +52,18 @@ class ShopView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4)),
                           width: double.infinity,
                           height: 40,
-                          child: Wrap(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Please active location services '),
-                              Text(
-                                'From Here',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ).onTap(() async {
-                                print('xxxxxxxxxxxx');
-                                await controller.currentSessionService
-                                    .checkLocationServiceAndRequest();
-                              }),
+                              Image.asset(
+                                'assets/images/warning.png',
+                                height: 25,
+                                width: 25,
+                              ),
+                              widthSpace(10),
+                              blackDescriptionTextSmall(
+                                  'Please active location services '),
                             ],
                           ),
                         )
@@ -144,7 +144,6 @@ class ShopView extends StatelessWidget {
             ),
           ),
         );
-        return Container();
       },
     );
   }
