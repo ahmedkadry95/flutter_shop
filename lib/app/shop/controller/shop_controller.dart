@@ -58,4 +58,5 @@ class ShopController extends BaseController {
   updateState() {
     setState(ViewState.idel);
   }
+
 }

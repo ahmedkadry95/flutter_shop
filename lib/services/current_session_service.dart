@@ -33,13 +33,15 @@ class CurrentSessionService extends BaseController {
     if (permissionGranted == PermissionStatus.denied) {
       permissionGranted = await location.requestPermission();
       if (permissionGranted != PermissionStatus.granted) {
-        return;
+        try {
+          permissionGranted = await location.requestPermission();
+        } catch (e) {
+          print('erroe is : $e');
+        }
       }
     }
     locationData = await location.getLocation();
   }
-
-
 
   getLocationDetails() async {
     if (permissionGranted == PermissionStatus.granted) {

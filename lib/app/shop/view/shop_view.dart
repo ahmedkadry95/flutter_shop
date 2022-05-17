@@ -59,9 +59,10 @@ class ShopView extends StatelessWidget {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
-                              ).onTap(() {
-                                // controller.currentSessionService
-                                //     .checkLocationServiceAndRequest();
+                              ).onTap(() async {
+                                print('xxxxxxxxxxxx');
+                                await controller.currentSessionService
+                                    .checkLocationServiceAndRequest();
                               }),
                             ],
                           ),
