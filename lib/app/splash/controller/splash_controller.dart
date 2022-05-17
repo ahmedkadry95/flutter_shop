@@ -29,19 +29,12 @@ class SplashController extends BaseController {
     );
   }
 
-  getUserLocationFromPref() async {
-    // try {
-    //   var currentLatitude = await pref.getDouble(latitude);
-    //   if (currentLatitude == 0.0) {
-    //     await checkLocationServiceAndRequest();
-    //     splashNavigation();
-    //   } else {
-    //     splashNavigation();
-    //   }
-    // } catch (e) {
-    //   print(e);
-    //   splashNavigation();
-    // }
-    currentSessionService.checkLocationServiceAndRequest();
+  getUserLocation() async {
+    try {
+      await currentSessionService.checkLocationServiceAndRequest();
+
+    } catch (e) {
+      print(e);
+    }
   }
 }

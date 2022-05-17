@@ -6,9 +6,6 @@ import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/services/shared_pref_services.dart';
-import 'package:geocoding/geocoding.dart';
-
-import '../../../utils/strings.dart';
 
 class ShopController extends BaseController {
   final storageRef = FirebaseStorage.instance.ref();
@@ -17,13 +14,12 @@ class ShopController extends BaseController {
   CollectionReference productsRef =
       FirebaseFirestore.instance.collection('products');
 
+  CurrentSessionService currentSessionService = CurrentSessionService();
   List<String> bannerList = [];
   List<ProductModel> bestSellingList = [];
   List<ProductModel> allProductList = [];
   List<ProductModel> exclusiveOfferList = [];
 
-  String city = '';
-  String street = '';
 
   getBanner() async {
     var ref = await FirebaseStorage.instance.ref('banner/').list();
@@ -43,8 +39,6 @@ class ShopController extends BaseController {
     getExclusiveOfferList();
   }
 
-
-
   getExclusiveOfferList() {
     exclusiveOfferList = allProductList.where((isExclusive) => true).toList();
   }
@@ -61,21 +55,7 @@ class ShopController extends BaseController {
     setState(ViewState.idel);
   }
 
-
-  getLocation() async {
-    double lat = await pref.getDouble(latitude);
-    double long = await pref.getDouble(longitude);
-    List<Placemark> placeMarks = await placemarkFromCoordinates(lat, long);
-    city = placeMarks[0].name!;
-    street = placeMarks[0].street!;
-  }
-
   updateState() {
     setState(ViewState.idel);
   }
-
-
-  CurrentSessionService currentSessionService = CurrentSessionService();
-
-
 }

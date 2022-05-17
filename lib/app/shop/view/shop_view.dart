@@ -20,7 +20,6 @@ class ShopView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<ShopController>(
       onModelReady: (controller) async {
-        // await controller.getLocation();
         await controller.getBanner();
         await controller.getAllProduct();
         await controller.getBestSelling();
@@ -61,10 +60,8 @@ class ShopView extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ).onTap(() {
-                                print('xxxxxxxxxxxxxxxxx');
-
-                                controller.currentSessionService
-                                    .checkLocationServiceAndRequest();
+                                // controller.currentSessionService
+                                //     .checkLocationServiceAndRequest();
                               }),
                             ],
                           ),
@@ -78,7 +75,7 @@ class ShopView extends StatelessWidget {
                               size: 22,
                             ),
                             AutoSizeText(
-                              controller.street,
+                              controller.currentSessionService.street,
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w500),
                               minFontSize: 12,

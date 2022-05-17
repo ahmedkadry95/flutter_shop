@@ -10,7 +10,8 @@ class SplashView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<SplashController>(
       onModelReady: (controller) async {
-        await  controller.getUserLocationFromPref();
+        await controller.getUserLocation();
+        controller.splashNavigation ();
       },
       builder: (context, controller, child) {
         return Scaffold(

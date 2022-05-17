@@ -1,7 +1,7 @@
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/locator.dart';
-import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
+import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:location/location.dart';
 
 class CurrentSessionService extends BaseController {
@@ -13,10 +13,12 @@ class CurrentSessionService extends BaseController {
 
   var navigation = locator<NavigationService>();
 
-  Location location = new Location();
+  Location location = Location();
+  String city = '';
+  String street = '';
 
   bool? _serviceEnabled;
-  PermissionStatus? _permissionGranted;
+  PermissionStatus? permissionGranted;
   LocationData? locationData;
 
   Future<void> checkLocationServiceAndRequest() async {
@@ -24,18 +26,34 @@ class CurrentSessionService extends BaseController {
     if (!_serviceEnabled!) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled!) {
-        navigation.navigateToAndClearStack(RouteName.home);
+        return;
       }
     }
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        navigation.navigateToAndClearStack(RouteName.home);
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return;
       }
     }
-
     locationData = await location.getLocation();
-    navigation.navigateToAndClearStack(RouteName.home);
+  }
+
+
+
+  getLocationDetails() async {
+    if (permissionGranted == PermissionStatus.granted) {
+      List<geocoding.Placemark> placeMarks =
+          await geocoding.placemarkFromCoordinates(
+        locationData!.latitude!,
+        locationData!.longitude!,
+      );
+      city = placeMarks[0].name!;
+      street = placeMarks[0].street!;
+      print(placeMarks[0].country);
+      print(placeMarks[0].street);
+      print(placeMarks[0].name);
+      print(placeMarks[0].administrativeArea);
+    }
   }
 }
