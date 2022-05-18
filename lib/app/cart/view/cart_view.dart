@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/cart/controller/cart_controller.dart';
 import 'package:flutter_shop/app/cart/view/cart_item.dart';
-import 'package:flutter_shop/app/cart/widgets/delivery_item.dart';
 import 'package:flutter_shop/app/cart/widgets/payment_item.dart';
 import 'package:flutter_shop/app/cart/widgets/promo_code.dart';
 import 'package:flutter_shop/app/cart/widgets/total_cost.dart';

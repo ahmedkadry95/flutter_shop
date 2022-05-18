@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_shop/app/models/user_model.dart';
 import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
+import 'package:http/http.dart' as http;
 
 import 'shared_pref_services.dart';
 
@@ -88,4 +92,32 @@ class ApiServices {
     }
     return 'false ';
   }
+
+  // Future<void> sendPushMessage() async {
+  //   try {
+  //     await http.post(
+  //       Uri.parse('https://api.rnfirebase.io/messaging/send'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //       body: constructFCMPayload(_token),
+  //     );
+  //     print('FCM request for device sent!');
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+}
+
+String constructFCMPayload(String? token) {
+  return jsonEncode({
+    'token': token,
+    'data': {
+      'via': 'FlutterFire Cloud Messaging!!!',
+    },
+    'notification': {
+      'title': 'Hello FlutterFire!',
+      'body': 'This notification  was created via FCM!',
+    },
+  });
 }

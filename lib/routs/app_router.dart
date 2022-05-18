@@ -4,11 +4,11 @@ import 'package:flutter_shop/admin/view/admin_view.dart';
 import 'package:flutter_shop/app/add_delivery_address/view/add_delivery_address_view.dart';
 import 'package:flutter_shop/app/auth/log_in/view/log_in.dart';
 import 'package:flutter_shop/app/auth/register/view/register.dart';
-import 'package:flutter_shop/app/delivery_address/view/delivery_address_view.dart';
 import 'package:flutter_shop/app/home/view/home.dart';
 import 'package:flutter_shop/app/last_orders/view/last_orders_view.dart';
 import 'package:flutter_shop/app/placed_orders/view/success_order.dart';
 import 'package:flutter_shop/app/splash/view/splash_view.dart';
+import 'package:flutter_shop/app/track_order/view/track_order_view.dart';
 import 'package:flutter_shop/routs/routing_data.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
 
@@ -36,11 +36,11 @@ class AppRouter {
         return _getPageRoute(const AdminView(), settings);
       case RouteName.addDeliveryAddress:
         return _getPageRoute(const AddDeliveryAddressView(), settings);
-      case RouteName.deliveryAddress:
-        return _getPageRoute(const DeliveryAddressView(), settings);
+      case RouteName.trackOrder:
+        return _getPageRoute(TrackOrderView(), settings);
       case RouteName.successOrder:
         return _getPageRoute(const SuccessOrder(), settings);
-     case RouteName.lastOrders:
+      case RouteName.lastOrders:
         return _getPageRoute(const LastOrders(), settings);
 
       default:
