@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
@@ -16,6 +17,7 @@ class CurrentSessionService extends BaseController {
   Location location = Location();
   String city = '';
   String street = '';
+  String userToken = '';
 
   bool? _serviceEnabled;
   PermissionStatus? permissionGranted;
@@ -58,5 +60,13 @@ class CurrentSessionService extends BaseController {
       print(placeMarks[0].name);
       print(placeMarks[0].administrativeArea);
     }
+  }
+
+  getToken() async {
+    var firebaseMessaging = await FirebaseMessaging.instance;
+    firebaseMessaging.getToken().then((token) {
+      print('token is : $token');
+      userToken = token!;
+    });
   }
 }

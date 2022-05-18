@@ -88,7 +88,7 @@ class CartView extends StatelessWidget {
                                 ),
                               ),
                               heightSpace(20),
-                              deliveryItem(controller),
+                              // deliveryItem(controller),
                               paymentItem(),
                               heightSpace(10),
                               Padding(

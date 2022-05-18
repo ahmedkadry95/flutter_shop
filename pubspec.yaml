@@ -53,6 +53,7 @@ dependencies:
   location: ^4.3.0
   geocoding: ^2.0.4
   auto_size_text: ^3.0.0
+  firebase_messaging: ^11.4.0
 
 
 dev_dependencies:
