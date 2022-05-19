@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/placed_orders/controller/placed_order_controller.dart';
 import 'package:flutter_shop/base_view.dart';
+import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/utils/colors.dart';
+import 'package:flutter_shop/utils/extensions.dart';
 import 'package:flutter_shop/utils/spaces.dart';
+import 'package:flutter_shop/widgets/main_button.dart';
 
 class SuccessOrder extends StatelessWidget {
   const SuccessOrder({Key? key}) : super(key: key);
@@ -11,7 +14,7 @@ class SuccessOrder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<PlacedOrders>(
       onModelReady: (controller) {
-        controller.navigationToHome();
+        // controller.navigationToHome();
       },
       builder: (context, controller, child) {
         return Scaffold(
@@ -38,6 +41,15 @@ class SuccessOrder extends StatelessWidget {
                     textAlign: TextAlign.center,
                   )
                 ],
+              ),
+              Positioned(
+                bottom: 80,
+                right: 20,
+                left: 20,
+                child: MainButton(text: 'Track your oder').onTap(() {
+                  controller.navigation
+                      .navigateToAndClearStack(RouteName.trackOrder);
+                }),
               )
             ],
           ),
