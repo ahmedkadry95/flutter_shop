@@ -182,8 +182,6 @@ class CartController extends BaseController {
       clearCart();
       navigation.navigateToAndClearStack(RouteName.successOrder);
     } catch (e) {
-      print('xxxxxxxxx');
-      print(e);
       // AwesomeDialog(
       //         context: context,
       //         dialogType: DialogType.ERROR,
