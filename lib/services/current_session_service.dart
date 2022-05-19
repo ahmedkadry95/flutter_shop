@@ -23,6 +23,8 @@ class CurrentSessionService extends BaseController {
   PermissionStatus? permissionGranted;
   LocationData? locationData;
 
+  String currentOrderId = '';
+
   Future<void> checkLocationServiceAndRequest() async {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled!) {

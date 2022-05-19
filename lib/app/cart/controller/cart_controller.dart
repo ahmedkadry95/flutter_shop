@@ -10,8 +10,10 @@ import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
+import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/utils/colors.dart';
+import 'package:uuid/uuid.dart';
 
 class CartController extends BaseController {
   var currentUser = FirebaseAuth.instance.currentUser;
@@ -29,17 +31,15 @@ class CartController extends BaseController {
   UserModel? user;
   bool isValid = false;
   TextEditingController promoController = TextEditingController();
-  Map address = {
-    'building_number': '',
-    'street': '',
-    'city': '',
-  };
+  CurrentSessionService currentSessionService = CurrentSessionService();
 
   List promoCodesList = [
     'discount10%',
     'discount15%',
     'discount20%',
   ];
+  var uuid = Uuid();
+  var OrderId = '';
 
   getCart() async {
     var response = await userRef.doc(currentUser?.uid).collection('cart').get();
@@ -102,7 +102,6 @@ class CartController extends BaseController {
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   );
 
-
   void checkPromoCode(context) {
     if (promoCodesList.contains(promoController.text)) {
       isValid = true;
@@ -130,16 +129,6 @@ class CartController extends BaseController {
 
   updateProductStorage() async {
     for (var product in cartList) {
-      print('product.count!');
-      print(product.count!);
-      print(product.count!.runtimeType);
-      print('==============================');
-      print('product.storage!');
-      print(product.storage!);
-      print(product.storage!.runtimeType);
-      print('==============================');
-
-      print((product.storage! - product.count!).toInt());
       await productsRef.doc(product.id).update({
         'storage': (product.storage! - product.count!).toInt(),
       });
@@ -175,8 +164,16 @@ class CartController extends BaseController {
       );
       orderProducts.add(orderProduct);
     }
-    UserOrders userOrders =
-        UserOrders(userId: currentUser!.uid, products: orderProducts);
+
+    currentSessionService.currentOrderId = uuid.v4();
+    UserOrders userOrders = UserOrders(
+      userId: currentUser!.uid,
+      products: orderProducts,
+      orderId: currentSessionService.currentOrderId,
+      orderState: 'sent',
+      lat: currentSessionService.locationData?.latitude,
+      long: currentSessionService.locationData?.longitude,
+    );
 
     try {
       await ordersRef.add(userOrders.toJson());
@@ -185,14 +182,16 @@ class CartController extends BaseController {
       clearCart();
       navigation.navigateToAndClearStack(RouteName.successOrder);
     } catch (e) {
-      AwesomeDialog(
-              context: context,
-              dialogType: DialogType.ERROR,
-              animType: AnimType.SCALE,
-              title: 'Error',
-              desc: 'sorry your order does\'t complete',
-              btnCancelOnPress: () {})
-          .show();
+      print('xxxxxxxxx');
+      print(e);
+      // AwesomeDialog(
+      //         context: context,
+      //         dialogType: DialogType.ERROR,
+      //         animType: AnimType.SCALE,
+      //         title: 'Error',
+      //         desc: 'sorry your order does\'t complete',
+      //         btnCancelOnPress: () {})
+      //     .show();
     }
   }
 

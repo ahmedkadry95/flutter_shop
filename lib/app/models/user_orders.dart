@@ -1,25 +1,46 @@
 class UserOrders {
   String? userId;
+  String? orderId;
   List<OrderProducts>? products;
+  String? orderState;
+  double? lat, long;
 
-
-  UserOrders({required this.userId, required this.products});
+  UserOrders({
+    required this.userId,
+    required this.products,
+    required this.orderId,
+    required this.orderState,
+    required this.lat,
+    required this.long,
+  });
 
   UserOrders.fromJson(json) {
     List<OrderProducts> productsFromJson = [];
     userId = json['userId'];
-    if (json['products'] != null) {
-      json['products'].forEach((product) {
-        productsFromJson.add(OrderProducts.fromJson(product));
-      });
-    }
+    // if (json['products'] != null) {
+    //   json['products'].forEach((product) {
+    //     productsFromJson.add(OrderProducts.fromJson(product));
+    //   });
+    // }
+    products = json['products'] != null
+        ? json['products'].forEach((product) {
+            productsFromJson.add(OrderProducts.fromJson(product));
+          })
+        : [];
     products = productsFromJson;
+    orderState = json['order_state'];
+    lat = json['lat'];
+    long = json['long'];
   }
 
   toJson() {
     final Map<String, dynamic> data = {};
-    data['userId'] = userId;
+    data['user_id'] = userId;
     data['products'] = products?.map((v) => v.toJson()).toList();
+    data['order_id'] = orderId;
+    data['order_state'] = orderState;
+    data['lat'] = lat;
+    data['long'] = long;
     return data;
   }
 }
