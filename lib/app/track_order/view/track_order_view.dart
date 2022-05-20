@@ -1,8 +1,55 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/track_order/controller/track_order_controller.dart';
 import 'package:flutter_shop/base_view.dart';
+import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/texts.dart';
+CurrentSessionService currentSessionService = CurrentSessionService();
+
+class Test extends StatefulWidget {
+  @override
+  _TestState createState() => _TestState();
+}
+
+class _TestState extends State<Test> {
+  // final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('orders').snapshots();
+
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('orders').snapshots();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<QuerySnapshot>(
+        stream: _usersStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("Loading");
+          }
+
+          return ListView(
+            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map data = document.data()! as Map;
+              return ListTile(
+                title: Text(data['order_state']),
+                subtitle: Text(data['user_id']),
+              );
+            }).toList(),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+
+
+
 
 class TrackOrderView extends StatefulWidget {
   @override
@@ -36,24 +83,7 @@ class _TrackOrderViewState extends State<TrackOrderView> {
                 ),
                 title: blackTitle3('Track your order'),
               ),
-              body: StreamBuilder(
-                stream: controller.getCurrentOrder(),
-                builder: (context, snapShot) {
-                  if (snapShot.hasError) {
-                    return Container(
-                      height: 100,
-                      width: 100,
-                      color: Colors.amber,
-                    );
-                  }
-                  if (snapShot.hasData) {
-                    Column(
-                      children: [],
-                    );
-                  }
-                  return Text('loding......');
-                },
-              ),
+              body: Test()
             ),
           ),
         );

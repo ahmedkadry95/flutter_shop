@@ -176,7 +176,10 @@ class CartController extends BaseController {
     );
 
     try {
-      await ordersRef.add(userOrders.toJson());
+      await ordersRef
+          .doc(currentSessionService.currentOrderId)
+          .set(userOrders.toJson());
+      // await ordersRef.add(userOrders.toJson());
       await updateProductStorage();
       await updateProductSoldTimes();
       clearCart();

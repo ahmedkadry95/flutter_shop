@@ -7,11 +7,11 @@ class TrackOrderController extends BaseController {
   CollectionReference orderRef =
       FirebaseFirestore.instance.collection('orders');
 
-  Future<Stream<Object?>?> getCurrentOrder() async {
-    QuerySnapshot querySnapshot = await orderRef
-        .where('order_id', isEqualTo: currentSessionService.currentOrderId)
-        .get();
-    List<QueryDocumentSnapshot> data = querySnapshot.docs;
-    return
-  }
+  // Future<Stream<Object?>?> getCurrentOrder() async {
+  //   QuerySnapshot querySnapshot = await orderRef
+  //       .where('order_id', isEqualTo: currentSessionService.currentOrderId)
+  //       .get();
+  //   List<QueryDocumentSnapshot> data = querySnapshot.docs;
+  //   return
+  // }
 }
