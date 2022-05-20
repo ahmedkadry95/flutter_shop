@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/app/models/user_orders.dart';
 import 'package:flutter_shop/app/track_order/controller/track_order_controller.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
@@ -34,9 +35,38 @@ class _TestState extends State<Test> {
             return Text("Loading");
           }
 
+          List x = snapshot.data!.docs;
+          UserOrders y;
+          for (var i in x) {
+            Map data = i.data()! as Map;
+
+            print('data');
+            print(data);
+            print('currentSessionService.currentOrderId');
+            print(currentSessionService.currentOrderId);
+            if (data['order_id'] == currentSessionService.currentOrderId) {
+              y = (UserOrders.fromJson(data));
+              print(' found');
+              print(
+                  '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+              print(
+                  '-------------------------------------------------------------------');
+              print(y);
+              print(y.orderState);
+              print(y);
+              print(
+                  '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+              print(
+                  '-------------------------------------------------------------------');
+            } else {
+              print('not found');
+            }
+          }
+
           return ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map data = document.data()! as Map;
+
               return ListTile(
                 title: Text(data['order_state']),
                 subtitle: Text(data['user_id']),
@@ -49,12 +79,7 @@ class _TestState extends State<Test> {
   }
 }
 
-class TrackOrderView extends StatefulWidget {
-  @override
-  State<TrackOrderView> createState() => _TrackOrderViewState();
-}
-
-class _TrackOrderViewState extends State<TrackOrderView> {
+class TrackOrderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<TrackOrderController>(
@@ -67,24 +92,25 @@ class _TrackOrderViewState extends State<TrackOrderView> {
             right: false,
             left: false,
             child: Scaffold(
+              backgroundColor: backgroundColor,
+              appBar: AppBar(
+                centerTitle: true,
+                elevation: 0,
                 backgroundColor: backgroundColor,
-                appBar: AppBar(
-                  centerTitle: true,
-                  elevation: 0,
-                  backgroundColor: backgroundColor,
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.close,
-                      color: blackColor,
-                    ),
-                    onPressed: () {
-                      controller.navigation
-                          .navigateToAndClearStack(RouteName.home);
-                    },
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: blackColor,
                   ),
-                  title: blackTitle3('Track your order'),
+                  onPressed: () {
+                    controller.navigation
+                        .navigateToAndClearStack(RouteName.home);
+                  },
                 ),
-                body: Test()),
+                title: blackTitle3('Track your order'),
+              ),
+              body: Test(),
+            ),
           ),
         );
       },

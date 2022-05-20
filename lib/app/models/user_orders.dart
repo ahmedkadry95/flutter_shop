@@ -1,6 +1,7 @@
 class UserOrders {
   String? userId;
   String? orderId;
+  String? userToken;
   List<OrderProducts>? products;
   String? orderState;
   double? lat, long;
@@ -9,6 +10,7 @@ class UserOrders {
     required this.userId,
     required this.products,
     required this.orderId,
+    required this.userToken,
     required this.orderState,
     required this.lat,
     required this.long,
@@ -31,6 +33,7 @@ class UserOrders {
     orderState = json['order_state'];
     lat = json['lat'];
     long = json['long'];
+    userToken = json['user_token'];
   }
 
   toJson() {
@@ -38,6 +41,7 @@ class UserOrders {
     data['user_id'] = userId;
     data['products'] = products?.map((v) => v.toJson()).toList();
     data['order_id'] = orderId;
+    data['user_token'] = userToken;
     data['order_state'] = orderState;
     data['lat'] = lat;
     data['long'] = long;

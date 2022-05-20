@@ -166,6 +166,9 @@ class CartController extends BaseController {
     }
 
     currentSessionService.currentOrderId = uuid.v4();
+    currentSessionService.getToken();
+
+    print(currentSessionService.userToken);
     UserOrders userOrders = UserOrders(
       userId: currentUser!.uid,
       products: orderProducts,
@@ -173,6 +176,7 @@ class CartController extends BaseController {
       orderState: 'sent',
       lat: currentSessionService.locationData?.latitude,
       long: currentSessionService.locationData?.longitude,
+      userToken: currentSessionService.userToken,
     );
 
     try {
