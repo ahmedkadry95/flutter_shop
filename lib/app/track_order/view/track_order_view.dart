@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/app/track_order/controller/track_order_controller.dart';
 import 'package:flutter_shop/base_view.dart';
+import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/texts.dart';
+
 CurrentSessionService currentSessionService = CurrentSessionService();
 
 class Test extends StatefulWidget {
@@ -15,7 +17,8 @@ class Test extends StatefulWidget {
 class _TestState extends State<Test> {
   // final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('orders').snapshots();
 
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('orders').snapshots();
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('orders').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +49,6 @@ class _TestState extends State<Test> {
   }
 }
 
-
-
-
-
-
 class TrackOrderView extends StatefulWidget {
   @override
   State<TrackOrderView> createState() => _TrackOrderViewState();
@@ -69,22 +67,24 @@ class _TrackOrderViewState extends State<TrackOrderView> {
             right: false,
             left: false,
             child: Scaffold(
-              backgroundColor: backgroundColor,
-              appBar: AppBar(
-                centerTitle: true,
-                elevation: 0,
                 backgroundColor: backgroundColor,
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: blackColor,
+                appBar: AppBar(
+                  centerTitle: true,
+                  elevation: 0,
+                  backgroundColor: backgroundColor,
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.close,
+                      color: blackColor,
+                    ),
+                    onPressed: () {
+                      controller.navigation
+                          .navigateToAndClearStack(RouteName.home);
+                    },
                   ),
-                  onPressed: () {},
+                  title: blackTitle3('Track your order'),
                 ),
-                title: blackTitle3('Track your order'),
-              ),
-              body: Test()
-            ),
+                body: Test()),
           ),
         );
       },
