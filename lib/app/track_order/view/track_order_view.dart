@@ -6,6 +6,7 @@ import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/utils/colors.dart';
+import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
 
 CurrentSessionService currentSessionService = CurrentSessionService();
@@ -16,8 +17,6 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
-  // final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('orders').snapshots();
-
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('orders').snapshots();
 
@@ -32,55 +31,181 @@ class _TestState extends State<Test> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return Center(
+              child: CircularProgressIndicator(
+                color: mainColor,
+              ),
+            );
           }
-
-          List x = snapshot.data!.docs;
-          UserOrders y;
-          for (var i in x) {
+          List data = snapshot.data!.docs;
+          UserOrders? currentOrder;
+          for (var i in data) {
             Map data = i.data()! as Map;
-
-            print('data');
-            print(data);
-            print('currentSessionService.currentOrderId');
-            print(currentSessionService.currentOrderId);
             if (data['order_id'] == currentSessionService.currentOrderId) {
-              y = (UserOrders.fromJson(data));
-              print(' found');
-              print(
-                  '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-              print(
-                  '-------------------------------------------------------------------');
-              print(y);
-
-              print(y.orderState);
-              print(y);
-
-              print(
-
-                  '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-              );
-              print(
-                  '-------------------------------------------------------------------');
-            } else {
-              print('not found');
+              currentOrder = (UserOrders.fromJson(data));
             }
           }
-
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map data = document.data()! as Map;
-
-              return ListTile(
-                title: Text(data['order_state']),
-                subtitle: Text(data['user_id']),
-              );
-            }).toList(),
+          // access_time_filled_rounded
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.check_circle,
+                      color: mainColor,
+                    ),
+                    widthSpace(20),
+                    Text(
+                      'We received your order',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: mainColor,
+                      ),
+                    )
+                  ],
+                ),
+                heightSpace(30),
+                preparationItem(currentOrder: currentOrder),
+                heightSpace(30),
+                deliveryItem(currentOrder: currentOrder),
+                heightSpace(30),
+                completeItem(currentOrder: currentOrder),
+              ],
+            ),
           );
         },
       ),
     );
   }
+}
+
+Widget preparationItem({
+  UserOrders? currentOrder,
+}) {
+  if (currentOrder?.orderState == 'preparation' ||
+      currentOrder?.orderState == 'delivery' ||
+      currentOrder?.orderState == 'complete') {
+    return Row(
+      children: [
+        Icon(
+          Icons.access_time_filled_rounded,
+          color: mainColor,
+        ),
+        widthSpace(20),
+        Text(
+          'We received your order',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: mainColor,
+          ),
+        )
+      ],
+    );
+  }
+  return Row(
+    children: [
+      Icon(
+        Icons.access_time_filled_rounded,
+        color: blackColor,
+      ),
+      widthSpace(20),
+      Text(
+        'We received your order',
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: blackColor,
+        ),
+      )
+    ],
+  );
+}
+
+Widget deliveryItem({
+  UserOrders? currentOrder,
+}) {
+  if (currentOrder?.orderState == 'delivery' ||
+      currentOrder?.orderState == 'complete') {
+    return Row(
+      children: [
+        Icon(
+          Icons.delivery_dining_rounded,
+          color: mainColor,
+        ),
+        widthSpace(20),
+        Text(
+          'your ',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: mainColor,
+          ),
+        )
+      ],
+    );
+  }
+  return Row(
+    children: [
+      Icon(
+        Icons.access_time_filled_rounded,
+        color: blackColor,
+      ),
+      widthSpace(20),
+      Text(
+        'We received your order',
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: blackColor,
+        ),
+      )
+    ],
+  );
+}
+
+Widget completeItem({
+  UserOrders? currentOrder,
+}) {
+  if (currentOrder?.orderState == 'complete') {
+    return Row(
+      children: [
+        Icon(
+          Icons.access_time_filled_rounded,
+          color: mainColor,
+        ),
+        widthSpace(20),
+        Text(
+          'We received your order',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: mainColor,
+          ),
+        )
+      ],
+    );
+  }
+  return Row(
+    children: [
+      Icon(
+        Icons.access_time_filled_rounded,
+        color: blackColor,
+      ),
+      widthSpace(20),
+      Text(
+        'We received your order',
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: blackColor,
+        ),
+      )
+    ],
+  );
 }
 
 class TrackOrderView extends StatelessWidget {
@@ -121,136 +246,3 @@ class TrackOrderView extends StatelessWidget {
     );
   }
 }
-//
-// void main() => runApp(const MyApp());
-//
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-//
-//   static const String _title = 'Flutter Code Sample';
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp(
-//       title: _title,
-//       home: MyStatefulWidget(),
-//     );
-//   }
-// }
-//
-// class MyStatefulWidget extends StatefulWidget {
-//   const MyStatefulWidget({Key? key}) : super(key: key);
-//
-//   @override
-//   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-// }
-//
-// class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-//   final Stream<int> _bids = (() {
-//     late final StreamController<int> controller;
-//     controller = StreamController<int>(
-//       onListen: () async {
-//         await Future<void>.delayed(const Duration(seconds: 1));
-//         controller.add(1);
-//         await Future<void>.delayed(const Duration(seconds: 1));
-//         await controller.close();
-//       },
-//     );
-//     return controller.stream;
-//   })();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return DefaultTextStyle(
-//       style: Theme.of(context).textTheme.headline2!,
-//       textAlign: TextAlign.center,
-//       child: Container(
-//         alignment: FractionalOffset.center,
-//         color: Colors.white,
-//         child: StreamBuilder<int>(
-//           stream: _bids,
-//           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-//             List<Widget> children;
-//             if (snapshot.hasError) {
-//               children = <Widget>[
-//                 const Icon(
-//                   Icons.error_outline,
-//                   color: Colors.red,
-//                   size: 60,
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(top: 16),
-//                   child: Text('Error: ${snapshot.error}'),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(top: 8),
-//                   child: Text('Stack trace: ${snapshot.stackTrace}'),
-//                 ),
-//               ];
-//             } else {
-//               switch (snapshot.connectionState) {
-//                 case ConnectionState.none:
-//                   children = const <Widget>[
-//                     Icon(
-//                       Icons.info,
-//                       color: Colors.blue,
-//                       size: 60,
-//                     ),
-//                     Padding(
-//                       padding: EdgeInsets.only(top: 16),
-//                       child: Text('Select a lot'),
-//                     )
-//                   ];
-//                   break;
-//                 case ConnectionState.waiting:
-//                   children = const <Widget>[
-//                     SizedBox(
-//                       width: 60,
-//                       height: 60,
-//                       child: CircularProgressIndicator(),
-//                     ),
-//                     Padding(
-//                       padding: EdgeInsets.only(top: 16),
-//                       child: Text('Awaiting bids...'),
-//                     )
-//                   ];
-//                   break;
-//                 case ConnectionState.active:
-//                   children = <Widget>[
-//                     const Icon(
-//                       Icons.check_circle_outline,
-//                       color: Colors.green,
-//                       size: 60,
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.only(top: 16),
-//                       child: Text('\$${snapshot.data}'),
-//                     )
-//                   ];
-//                   break;
-//                 case ConnectionState.done:
-//                   children = <Widget>[
-//                     const Icon(
-//                       Icons.info,
-//                       color: Colors.blue,
-//                       size: 60,
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.only(top: 16),
-//                       child: Text('\$${snapshot.data} (closed)'),
-//                     )
-//                   ];
-//                   break;
-//               }
-//             }
-//
-//             return Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: children,
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
