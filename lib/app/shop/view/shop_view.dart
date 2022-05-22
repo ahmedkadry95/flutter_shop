@@ -24,6 +24,8 @@ class ShopView extends StatelessWidget {
         await controller.getBanner();
         await controller.getAllProduct();
         await controller.getBestSelling();
+        print('=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>');
+        print(controller.currentSessionService.currentOrderId);
       },
       builder: (context, controller, child) {
         if (controller.bestSellingList.isEmpty) {
@@ -38,111 +40,115 @@ class ShopView extends StatelessWidget {
             right: false,
             left: false,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: ListView(
-                children: [
-                  heightSpace(20),
-                  centerLogo(),
-                  heightSpace(20),
-                  controller.currentSessionService.locationData == null
-                      ? Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              // color: warningColor,
-                              borderRadius: BorderRadius.circular(4)),
-                          width: double.infinity,
-                          height: 40,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'assets/images/warning.png',
-                                height: 25,
-                                width: 25,
-                              ),
-                              widthSpace(10),
-                              blackDescriptionTextSmall(
-                                  'Please active location services '),
-                            ],
-                          ),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.location_on,
-                              color: Colors.black,
-                              size: 22,
-                            ),
-                            AutoSizeText(
-                              controller.currentSessionService.street,
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                              minFontSize: 12,
-                              maxFontSize: 16,
-                              maxLines: 1,
-                              overflow: TextOverflow.fade,
-                            ),
-                          ],
-                        ),
-                  heightSpace(20),
-                  serchField().onTap(() {
-                    showSearch(context: context, delegate: Search());
-                  }),
-                  heightSpace(20),
-                  CarouselSlider(
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        aspectRatio: 3.0,
-                        enlargeCenterPage: true,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: ListView(
+                    children: [
+                    heightSpace(20),
+                centerLogo(),
+                heightSpace(20),
+                controller.currentSessionService.locationData == null
+                    ? Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    // color: warningColor,
+                      borderRadius: BorderRadius.circular(4)),
+                  width: double.infinity,
+                  height: 40,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/warning.png',
+                        height: 25,
+                        width: 25,
                       ),
-                      items: <Widget>[
-                        ...controller.bannerList.map((item) {
-                          return bannerItem(item);
-                        }).toList(),
-                      ]),
-                  heightSpace(30),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: blackTitle3('Exclusive Offer'),
+                      widthSpace(10),
+                      blackDescriptionTextSmall(
+                          'Please active location services '),
+                    ],
                   ),
-                  heightSpace(10),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ...controller.exclusiveOfferList.map(
-                          (item) {
-                            return ProductCard(item);
-                          },
-                        )
-                      ],
+                )
+                    : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: Colors.black,
+                      size: 22,
                     ),
-                  ),
-                  heightSpace(20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: blackTitle3('Best Selling'),
-                  ),
-                  heightSpace(10),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ...controller.bestSellingList.map(
-                          (item) {
-                            return ProductCard(item);
-                          },
-                        )
-                      ],
+                    AutoSizeText(
+                      controller.currentSessionService.street,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
+                      minFontSize: 12,
+                      maxFontSize: 16,
+                      maxLines: 1,
+                      overflow: TextOverflow.fade,
                     ),
-                  ),
-                  heightSpace(20),
+                  ],
+                ),
+                heightSpace(20),
+                controller.currentSessionService.currentOrderId == ''
+                    ? Container()
+                    :
+                Text('track your order'),
+                serchField().onTap(() {
+              showSearch(context: context, delegate: Search());
+            }),
+            heightSpace(20),
+            CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  aspectRatio: 3.0,
+                  enlargeCenterPage: true,
+                ),
+                items: <Widget>[
+                  ...controller.bannerList.map((item) {
+                    return bannerItem(item);
+                  }).toList(),
+                ]),
+            heightSpace(30),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: blackTitle3('Exclusive Offer'),
+            ),
+            heightSpace(10),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ...controller.exclusiveOfferList.map(
+                        (item) {
+                      return ProductCard(item);
+                    },
+                  )
                 ],
               ),
             ),
+            heightSpace(20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: blackTitle3('Best Selling'),
+            ),
+            heightSpace(10),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ...controller.bestSellingList.map(
+                        (item) {
+                      return ProductCard(item);
+                    },
+                  )
+                ],
+              ),
+            ),
+            heightSpace(20),
+            ],
           ),
+        ),)
+        ,
         );
       },
     );
