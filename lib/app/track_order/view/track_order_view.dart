@@ -46,6 +46,10 @@ class _TestState extends State<Test> {
               currentOrder = (UserOrders.fromJson(data));
             }
           }
+          // TODO reset  currentSessionService.currentOrderId
+          // if (currentOrder?.orderState == 'complete') {
+          //   currentSessionService.currentOrderId = '';
+          // }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child: Column(
