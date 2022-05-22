@@ -50,28 +50,39 @@ class _TestState extends State<Test> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child: Column(
               children: [
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.check_circle,
-                      color: mainColor,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle,
+                          color: mainColor,
+                        ),
+                        widthSpace(20),
+                        Text(
+                          'Your order received',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: mainColor,
+                          ),
+                        )
+                      ],
                     ),
-                    widthSpace(20),
-                    Text(
-                      'We received your order',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 4),
+                      child: Container(
+                        width: 3,
+                        height: 40,
                         color: mainColor,
                       ),
                     )
                   ],
                 ),
-                heightSpace(30),
                 preparationItem(currentOrder: currentOrder),
-                heightSpace(30),
                 deliveryItem(currentOrder: currentOrder),
-                heightSpace(30),
                 completeItem(currentOrder: currentOrder),
               ],
             ),
