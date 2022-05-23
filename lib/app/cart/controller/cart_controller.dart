@@ -12,6 +12,7 @@ import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
 import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
+import 'package:flutter_shop/services/shared_pref_services.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:uuid/uuid.dart';
 
@@ -28,6 +29,7 @@ class CartController extends BaseController {
   double? totalAfterDiscount = 0.0;
 
   var navigation = locator<NavigationService>();
+  var pref = locator<SharedPrefServices>();
   UserModel? user;
   bool isValid = false;
   TextEditingController promoController = TextEditingController();
@@ -166,7 +168,10 @@ class CartController extends BaseController {
     }
 
     currentSessionService.currentOrderId = uuid.v4();
+
     currentSessionService.getToken();
+
+    pref.saveString('currentOrderId', currentSessionService.currentOrderId);
 
     print(currentSessionService.userToken);
     UserOrders userOrders = UserOrders(

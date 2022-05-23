@@ -9,6 +9,9 @@ import 'package:flutter_shop/app/placed_orders/controller/placed_order_controlle
 import 'package:flutter_shop/app/shop/controller/shop_controller.dart';
 import 'package:flutter_shop/app/splash/controller/splash_controller.dart';
 import 'package:flutter_shop/app/track_order/controller/track_order_controller.dart';
+import 'package:flutter_shop/app/track_order/view/track_order_view.dart';
+import 'package:flutter_shop/base_controller.dart';
+import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/services/api_services.dart';
 import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
@@ -40,6 +43,9 @@ void setupLocator() {
   locator.registerFactory(() => PlacedOrders());
   locator.registerFactory(() => LastOrdersController());
   locator.registerFactory(() => TrackOrderController());
+  locator.registerFactory(() => TrackOrderView());
+  locator.registerFactory(() => BaseController());
+  locator.registerFactory(() => BaseView());
 }
 
 void initSingleton() {

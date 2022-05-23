@@ -5,97 +5,9 @@ import 'package:flutter_shop/app/track_order/controller/track_order_controller.d
 import 'package:flutter_shop/app/track_order/widgets/track_order_item.dart';
 import 'package:flutter_shop/base_view.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
-import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/utils/colors.dart';
 import 'package:flutter_shop/utils/spaces.dart';
 import 'package:flutter_shop/utils/texts.dart';
-
-CurrentSessionService currentSessionService = CurrentSessionService();
-
-class Test extends StatefulWidget {
-  @override
-  _TestState createState() => _TestState();
-}
-
-class _TestState extends State<Test> {
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('orders').snapshots();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
-        stream: _usersStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Something went wrong');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(
-                color: mainColor,
-              ),
-            );
-          }
-          List data = snapshot.data!.docs;
-          UserOrders? currentOrder;
-          for (var i in data) {
-            Map data = i.data()! as Map;
-            if (data['order_id'] == currentSessionService.currentOrderId) {
-              currentOrder = (UserOrders.fromJson(data));
-            }
-          }
-          // TODO reset  currentSessionService.currentOrderId
-          // if (currentOrder?.orderState == 'complete') {
-          //   currentSessionService.currentOrderId = '';
-          // }
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-            child: Column(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.check_circle,
-                          color: mainColor,
-                        ),
-                        widthSpace(20),
-                        Text(
-                          'Your order received',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: mainColor,
-                          ),
-                        )
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 4),
-                      child: Container(
-                        width: 3,
-                        height: 40,
-                        color: mainColor,
-                      ),
-                    )
-                  ],
-                ),
-                preparationItem(currentOrder: currentOrder),
-                deliveryItem(currentOrder: currentOrder),
-                completeItem(currentOrder: currentOrder),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
 
 class TrackOrderView extends StatelessWidget {
   @override
@@ -127,7 +39,76 @@ class TrackOrderView extends StatelessWidget {
                 ),
                 title: blackTitle3('Track your order'),
               ),
-              body: Test(),
+              body: StreamBuilder<QuerySnapshot>(
+                stream: controller.usersStream,
+                builder:
+                    (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: mainColor,
+                      ),
+                    );
+                  }
+                  List data = snapshot.data!.docs;
+                  UserOrders? currentOrder;
+                  for (var i in data) {
+                    Map data = i.data()! as Map;
+                    if (data['order_id'] == controller.currentSessionService.currentOrderId) {
+                      currentOrder = (UserOrders.fromJson(data));
+                    }
+                  }
+                  if (currentOrder?.orderState == 'complete') {
+                    controller.updateState();
+                  }
+                  return Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                    child: Column(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.check_circle,
+                                  color: mainColor,
+                                ),
+                                widthSpace(20),
+                                Text(
+                                  'Your order received',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: mainColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 4),
+                              child: Container(
+                                width: 3,
+                                height: 40,
+                                color: mainColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        preparationItem(currentOrder: currentOrder),
+                        deliveryItem(currentOrder: currentOrder),
+                        completeItem(currentOrder: currentOrder),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         );
@@ -135,3 +116,4 @@ class TrackOrderView extends StatelessWidget {
     );
   }
 }
+
