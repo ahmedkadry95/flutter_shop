@@ -95,34 +95,34 @@ class ShopView extends StatelessWidget {
                   serchField().onTap(() {
                     showSearch(context: context, delegate: Search());
                   }),
-                  // BaseView<TrackOrderController>(
-                  //   onModelReady: (controller) async {},
-                  //   builder: (context, controller, child) {
-                  //     return controller.currentSessionService.currentOrderId ==
-                  //             ''
-                  //         ? Container()
-                  //         : Container(
-                  //             decoration: BoxDecoration(
-                  //               color: orangeColor,
-                  //               borderRadius: BorderRadius.circular(15),
-                  //             ),
-                  //             height: 120,
-                  //             padding: const EdgeInsets.symmetric(horizontal: 15),
-                  //             child: Center(
-                  //               child: Row(
-                  //                 children: [
-                  //                   Text('track your order'),
-                  //                   const Spacer(),
-                  //                   Icon(Icons.arrow_forward_ios)
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ).onTap(() {
-                  //             controller.navigation
-                  //                 .navigateTo(RouteName.trackOrder);
-                  //           });
-                  //   },
-                  // ),
+                  BaseView<TrackOrderController>(
+                    onModelReady: (controller) async {},
+                    builder: (context, controller, child) {
+                      return controller.currentSessionService.currentOrderId ==
+                              ''
+                          ? Container()
+                          : Container(
+                              decoration: BoxDecoration(
+                                color: orangeColor,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              height: 120,
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Center(
+                                child: Row(
+                                  children: [
+                                    Text('track your order'),
+                                    const Spacer(),
+                                    Icon(Icons.arrow_forward_ios)
+                                  ],
+                                ),
+                              ),
+                            ).onTap(() {
+                              controller.navigation
+                                  .navigateTo(RouteName.trackOrder);
+                            });
+                    },
+                  ),
                   heightSpace(20),
                   CarouselSlider(
                       options: CarouselOptions(
