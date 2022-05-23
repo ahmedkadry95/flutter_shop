@@ -59,7 +59,7 @@ class ShopController extends BaseController {
     setState(ViewState.idel);
   }
 
-  getBestOrderIdFromPref() async{
+  getOrderIdFromPref() async{
       currentSessionService.currentOrderId = await pref.getString('currentOrderId');
       if(currentSessionService.currentOrderId == '' ){
         print('currentSessionService.currentOrderId ${currentSessionService.currentOrderId}');
