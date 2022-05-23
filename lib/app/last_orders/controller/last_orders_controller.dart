@@ -16,12 +16,14 @@ class LastOrdersController extends BaseController {
 
   getLastOrders() async {
     QuerySnapshot querySnapshot =
-        await ordersRef.where('userId', isEqualTo: currentUser!.uid).get();
+        await ordersRef.where('user_id', isEqualTo: currentUser!.uid).get();
     List<QueryDocumentSnapshot> data = querySnapshot.docs;
+    var x = 0;
     for (var element in data) {
       lastOrdersList.add(UserOrders.fromJson(element.data()));
+      print(x++);
     }
-
+    print('last Orders');
     setState(ViewState.idel);
   }
 }
