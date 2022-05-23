@@ -102,18 +102,29 @@ class ShopView extends StatelessWidget {
                               ''
                           ? Container()
                           : Container(
+                              margin: const EdgeInsets.symmetric(vertical: 20),
                               decoration: BoxDecoration(
                                 color: orangeColor,
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               height: 120,
-                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
                               child: Center(
                                 child: Row(
                                   children: [
-                                    Text('track your order'),
+                                    Text(
+                                      'Track your order',
+                                      style: TextStyle(
+                                          color: backgroundColor,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                     const Spacer(),
-                                    Icon(Icons.arrow_forward_ios)
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: backgroundColor,
+                                    )
                                   ],
                                 ),
                               ),
@@ -123,7 +134,6 @@ class ShopView extends StatelessWidget {
                             });
                     },
                   ),
-                  heightSpace(20),
                   CarouselSlider(
                       options: CarouselOptions(
                         autoPlay: true,
