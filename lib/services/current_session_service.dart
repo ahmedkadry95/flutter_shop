@@ -16,6 +16,7 @@ class CurrentSessionService extends BaseController {
 
   Location location = Location();
   String city = '';
+  String area = '';
   String street = '';
   String userToken = '';
 
@@ -56,11 +57,8 @@ class CurrentSessionService extends BaseController {
         locationData!.longitude!,
       );
       city = placeMarks[0].name!;
+      area = placeMarks[0].name!;
       street = placeMarks[0].street!;
-      print(placeMarks[0].country);
-      print(placeMarks[0].street);
-      print(placeMarks[0].name);
-      print(placeMarks[0].administrativeArea);
     }
   }
 
