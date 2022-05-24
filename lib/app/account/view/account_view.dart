@@ -31,7 +31,6 @@ class AccountView extends StatelessWidget {
                   heightSpace(40),
                   const UserAvatar(),
                   heightSpace(40),
-                  
                   userScreenItem(
                     icon: Icons.shopping_cart,
                     text: 'Orders',
@@ -66,6 +65,7 @@ class AccountView extends StatelessWidget {
                 left: 0,
                 right: 0,
                 child: logOutButton().onTap(() async {
+                  await controller.updateOrderState();
                   await controller.signOut();
                 }),
               ),

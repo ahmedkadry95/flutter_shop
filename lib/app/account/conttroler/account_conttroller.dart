@@ -9,6 +9,7 @@ import 'package:flutter_shop/base_controller.dart';
 import 'package:flutter_shop/enums/screen_state.dart';
 import 'package:flutter_shop/locator.dart';
 import 'package:flutter_shop/routs/routs_names.dart';
+import 'package:flutter_shop/services/current_session_service.dart';
 import 'package:flutter_shop/services/navigation_service.dart';
 import 'package:flutter_shop/services/shared_pref_services.dart';
 import 'package:flutter_shop/utils/colors.dart';
@@ -20,7 +21,7 @@ class AccountController extends BaseController {
   var pref = locator<SharedPrefServices>();
   CollectionReference userRef = FirebaseFirestore.instance.collection('users');
   var currentUser = FirebaseAuth.instance.currentUser;
-
+  CurrentSessionService currentSessionService = CurrentSessionService();
   final storageRef = FirebaseStorage.instance.ref();
 
   List userImageList = [];
@@ -34,6 +35,12 @@ class AccountController extends BaseController {
   String? imageUrl;
   File? _photo;
   final ImagePicker _picker = ImagePicker();
+
+  updateOrderState() async {
+    currentSessionService.currentOrderId = '';
+    await pref.saveString('currentOrderId', '');
+    print('currentOrderId rested success');
+  }
 
   signOut() async {
     try {
