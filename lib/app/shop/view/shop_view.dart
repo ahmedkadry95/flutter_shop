@@ -34,12 +34,9 @@ class ShopView extends StatelessWidget {
           );
         }
         return Container(
-          color: backgroundColor,
-          child: SafeArea(
-            bottom: false,
-            right: false,
-            left: false,
-            child: Padding(
+          child: Scaffold(
+            backgroundColor: backgroundColor,
+            body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: ListView(
                 children: [

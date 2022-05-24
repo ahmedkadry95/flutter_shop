@@ -53,5 +53,11 @@
     <string>Can I haz location always?</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>for update user image</string>
+    <key>NSCameraUsageDescription</key>
+    <string>for update user image</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>for update user image</string>
 </dict>
 </plist>
