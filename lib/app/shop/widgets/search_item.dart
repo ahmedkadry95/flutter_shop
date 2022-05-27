@@ -22,7 +22,7 @@ class SearchItem extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 15),
           padding: const EdgeInsets.symmetric(vertical: 15),
           decoration: const BoxDecoration(
-            border:  Border(
+            border: Border(
               bottom: BorderSide(
                 color: dividerColor,
               ),
@@ -31,6 +31,13 @@ class SearchItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Image.network(
+                _model.image!,
+                height: 30,
+                width: 30,
+                fit: BoxFit.contain,
+              ),
+              widthSpace(15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -44,21 +51,27 @@ class SearchItem extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              Container(
-                height: 25,
-                width: 25,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: controller.isPressed == false ? mainColor : grey,
-                ),
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-              ).onTap(() async {
-                await controller.addProductToCart(_model);
-                controller.isPressedSwitch();
-              }),
+              _model.storage == 0
+                  ? const Text(
+                      'Out of stock',
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.w400),
+                    )
+                  : Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: controller.isPressed == false ? mainColor : grey,
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ).onTap(() async {
+                      await controller.addProductToCart(_model);
+                      controller.isPressedSwitch();
+                    }),
             ],
           ),
         );
