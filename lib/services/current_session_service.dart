@@ -66,7 +66,8 @@ class CurrentSessionService extends BaseController {
     var firebaseMessaging = await FirebaseMessaging.instance;
     firebaseMessaging.getToken().then((token) {
       print('token is : $token');
-      userToken = token!;
+      userToken = token.toString()!;
+      print('userToken is : $userToken');
     });
   }
 }

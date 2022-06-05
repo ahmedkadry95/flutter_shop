@@ -169,9 +169,9 @@ class CartController extends BaseController {
 
     currentSessionService.currentOrderId = uuid.v4();
 
-    currentSessionService.getToken();
+    await currentSessionService.getToken();
 
-    pref.saveString('currentOrderId', currentSessionService.currentOrderId);
+    await pref.saveString('currentOrderId', currentSessionService.currentOrderId);
 
     print(currentSessionService.userToken);
     UserOrders userOrders = UserOrders(
